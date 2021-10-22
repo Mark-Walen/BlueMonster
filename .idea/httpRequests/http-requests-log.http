@@ -1,0 +1,124 @@
+POST http://localhost:19101/brand/findList
+Content-Type: application/json
+
+{
+  "letter": "A"
+}
+
+<> 2021-10-21T141727.200.json
+
+###
+
+POST http://localhost:19101/brand/findList
+Content-Type: application/json
+
+{
+  "name": "华为",
+  "letter": "A"
+}
+
+<> 2021-10-21T141716.200.json
+
+###
+
+POST http://localhost:19101/brand/findList
+Content-Type: application/json
+
+{
+  "name": "华为"
+}
+
+<> 2021-10-21T141630.200.json
+
+###
+
+GET http://localhost:19101/brand/findPage?page=1&size=10
+
+<> 2021-10-21T133726.200.json
+
+###
+
+GET http://localhost:19101/brand/findAll
+
+<> 2021-10-20T234938.200.json
+
+###
+
+GET http://localhost:19101/brand/findAll
+
+<> 2021-10-20T215228.500.html
+
+###
+
+GET http://localhost:19101/brand/findAll
+
+<> 2021-10-20T212502.500.html
+
+###
+
+GET http://localhost:19101/brand/findAll
+
+<> 2021-10-20T211340.500.html
+
+###
+
+GET http://localhost:19101/brand/findAll
+
+<> 2021-10-20T210710.404.html
+
+###
+
+GET http://localhost:19101/brand/findAll
+
+<> 2021-10-20T205314.500.html
+
+###
+
+GET http://localhost:19101/brand/findAll
+
+<> 2021-10-20T200113.500.html
+
+###
+
+GET http://localhost:19101/brand/findAll
+
+<> 2021-10-20T195836.500.html
+
+###
+
+GET http://localhost:19101/brand/findAll
+
+<> 2021-10-20T195011.500.html
+
+###
+
+GET http://localhost:19101/brand/findAll
+
+<> 2021-10-20T194849.500.html
+
+###
+
+GET http://localhost:19101/brand/findAll
+
+<> 2021-10-20T184027.200.txt
+
+###
+
+GET http://localhost:19101/brand/findAll
+
+<> 2021-10-20T183525.500.html
+
+###
+
+GET http://localhost:19101/brand/findAll
+
+<> 2021-10-20T182524.500.html
+
+###
+
+GET http://localhost:19101/brand/findAll
+
+<> 2021-10-20T181941.500.html
+
+###
+

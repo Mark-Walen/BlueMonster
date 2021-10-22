@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>品牌管理</title>
+    <link rel="stylesheet" href="/static/css/elementui.css">
+</head>
+<body>
+    <div id="app">
+        <el-form :inline="true">
+            <el-form-item lable="品牌名称">
+                <el-input v-model="searchMap.name" placeholder="品牌名称"></el-input>
+            </el-form-item>
+            <el-form-item lable="品牌的首字母">
+                <el-input v-model="searchMap.letter" placeholder="品牌的首字母"></el-input>
+            </el-form-item>
+            <el-button type="primary" @click="_getSearchBrandList">查询</el-button>
+            <el-button type="primary" @click="showDialogForm">添加品牌</el-button>
+        </el-form>
+        <el-table
+                :data="brandList"
+                border
+                style="width: 100%">
+            <el-table-column
+                    prop="id"
+                    label="ID"
+                    width="180">
+            </el-table-column>
+            <el-table-column
+                    prop="name"
+                    label="名称"
+                    width="180">
+            </el-table-column>
+            <el-table-column
+                    prop="letter"
+                    label="首字母">
+            </el-table-column>
+            <el-table-column
+                    label="图片"
+                    width="180">
+                <template slot-scope="scope">
+                    <img :src="scope.row.image" alt="">
+                </template>
+            </el-table-column>
+            <el-table-column
+                    label="操作"
+                    width="180">
+                <template slot-scope="scope">
+                    <el-tooltip class="item" effect="dark" content="修改品牌" placement="top">
+                        <el-button type="waring" icon="el-icon-edit" @click="editBrand(scope.row.id)" circle></el-button>
+                    </el-tooltip>
+                    <el-tooltip class="item" effect="dark" content="删除品牌" placement="top">
+                        <el-button type="danger" icon="el-icon-delete" @click="deleteBrand(scope.row.id)" circle></el-button>
+                    </el-tooltip>
+                </template>
+            </el-table-column>
+        </el-table>
+        <el-pagination
+                background
+                @size-change="_rowsChange"
+                @current-change="_pageChange"
+                :current-page.sync="currentPage"
+                :page-sizes="[10, 20, 30, 40]"
+                :page-size="size"
+                layout="total, sizes, prev, pager, next, jumper"
+                :total="total">
+        </el-pagination>
+        <el-dialog title="品牌信息" :visible.sync="dialogFormVisible">
+            <el-form :model="pojo">
+                <el-form-item label="品牌名称" :label-width="formLabelWidth">
+                    <el-input v-model="pojo.name" autocomplete="off" placeholder="品牌名称"></el-input>
+                </el-form-item>
+                <el-form-item label="品牌的首字母" :label-width="formLabelWidth">
+                    <el-input v-model="pojo.letter" autocomplete="off" placeholder="品牌的首字母"></el-input>
+                </el-form-item>
+                <el-form-item label="品牌图片" :label-width="formLabelWidth">
+                    <el-input v-model="pojo.image" autocomplete="off" placeholder="品牌图片"></el-input>
+                </el-form-item>
+                <el-form-item label="排序" :label-width="formLabelWidth">
+                    <el-input v-model="pojo.seq" autocomplete="off" placeholder="排序"></el-input>
+                </el-form-item>
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+                <el-button @click="showDialogForm">取 消</el-button>
+                <el-button type="primary" @click="addAndUpdateBrand">确 定</el-button>
+            </div>
+        </el-dialog>
+
+    </div>
+</body>
+<script src="/static/js/vue.js"></script>
+<script src="/static/js/elementui.js"></script>
+<script src="/static/js/axios.js"></script>
+<script>
+    let Main = {
+        data () {
+            return {
+                brandList: [],
+                currentPage: 1,
+                total: 10,
+                size: 10,
+                searchMap: {},
+                dialogFormVisible: false,
+                formLabelWidth: '120px',
+                pojo: {}
+            }
+        },
+        created () {
+            this._getSearchBrandList()
+        },
+        methods: {
+            _getBrandList () {
+                axios.get('/brand/findPage', {
+                    params: {
+                        page: this.currentPage,
+                        size: this.size
+                    }
+                }).then(res => {
+                    this.brandList = res.data.rows
+                    this.total = res.data.total
+                })
+            },
+            _getSearchBrandList () {
+                axios.post(`/brand/findPage?page=${this.currentPage}&size=${this.size}`, this.searchMap).then(res => {
+                    this.brandList = res.data.rows
+                    this.total = res.data.total
+                })
+            },
+            addAndUpdateBrand () {
+                let url = this.pojo.id ? 'update' : 'add'
+                axios.post(`/brand/${url}`, this.pojo).then(res => {
+                    this.myMessage(res, true, this.dialogFormVisible)
+                })
+            },
+            editBrand (id) {
+                this.showDialogForm();
+                axios.get(`/brand/findById`, {
+                    params: {
+                        id
+                    }
+                }).then(res => {
+                    if (typeof res.data === "object") this.pojo = res.data
+                })
+            },
+            deleteBrand (id) {
+                this.$confirm('确定要删除此记录吗？', '提示', {
+                    cancelButtonText: '取消',
+                    confirmButtonText: '确认',
+                    type: 'warning'
+                }).then(() => {
+                    axios.get('/brand/delete', {
+                        params: {
+                            id
+                        }
+                    }).then(res => {
+                        this.myMessage(res, true, this.dialogFormVisible)
+                    })
+                })
+            },
+            myMessage(res, needRefresh, needClose) {
+                if (res.data.code !== 200) {
+                    this.$message({
+                        message: res.data.message,
+                        type: 'error'
+                    })
+                    return
+                }
+                this.$message({
+                    message: res.data.message,
+                    type: 'success'
+                })
+                if (needRefresh) this._getSearchBrandList()
+                if (needClose) this.showDialogForm();
+            },
+            _rowsChange(val) {
+                this.size = val
+                this._getSearchBrandList()
+            },
+            _pageChange(val) {
+                this.currentPage = val
+                this._getSearchBrandList()
+            },
+            showDialogForm() {
+                this.dialogFormVisible = !this.dialogFormVisible
+            }
+        }
+    }
+    let Ctor = Vue.extend(Main)
+    new Ctor().$mount('#app')
+</script>
+</html>
