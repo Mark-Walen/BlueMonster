@@ -35,8 +35,6 @@ public class BrandController {
 
     @PostMapping("/findPage")
     public PageResult<Brand> findPage(@RequestBody Map<String, Object> searchMap, Integer page, Integer size) {
-        System.out.println("page:" + page);
-        System.out.println("size:" + size);
         return brandService.findPage(searchMap, page, size);
     }
 

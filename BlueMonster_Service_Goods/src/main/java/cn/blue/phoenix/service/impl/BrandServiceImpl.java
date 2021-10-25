@@ -4,6 +4,7 @@ import cn.blue.phoenix.dao.BrandMapper;
 import cn.blue.phoenix.entity.PageResult;
 import cn.blue.phoenix.pojo.goods.Brand;
 import cn.blue.phoenix.service.goods.BrandService;
+import cn.blue.phoenix.utils.PageHelperUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.apache.dubbo.config.annotation.DubboService;
@@ -17,6 +18,8 @@ import java.util.Map;
 public class BrandServiceImpl implements BrandService {
     @Autowired
     private BrandMapper brandMapper;
+
+    private final PageHelperUtils<Brand> pageHelperUtils = new PageHelperUtils<>();
 
     @Override
     public List<Brand> findAll() {
@@ -40,15 +43,14 @@ public class BrandServiceImpl implements BrandService {
 
     @Override
     public List<Brand> findList(Map<String, Object> searchMap) {
-        Example example = createExample(searchMap);
+        Example example = pageHelperUtils.createExample(searchMap);
         return brandMapper.selectByExample(example);
     }
 
     @Override
     public PageResult<Brand> findPage(Map<String, Object> searchMap, Integer page, Integer size) {
         PageHelper.startPage(page, size);
-        Example example = createExample(searchMap);
-
+        Example example = pageHelperUtils.createExample(searchMap);
         List<Brand> list = brandMapper.selectByExample(example);
 
         PageInfo<Brand> pageInfo = new PageInfo<>(list);
@@ -75,20 +77,5 @@ public class BrandServiceImpl implements BrandService {
     @Override
     public void delete(Integer id) {
         brandMapper.deleteByPrimaryKey(id);
-    }
-
-    private Example createExample(Map<String, Object> searchMap) {
-        Example example = new Example(Brand.class);
-        Example.Criteria criteria = example.createCriteria();
-
-        if (searchMap != null) {
-            if (searchMap.get("name") != null && !"".equals(searchMap.get("name"))) {
-                criteria.andLike("name", "%" + (String) searchMap.get("name")+"%");
-            }
-            if (searchMap.get("letter") != null && !"".equals(searchMap.get("letter"))) {
-                criteria.andEqualTo("letter", (String) searchMap.get("letter"));
-            }
-        }
-        return example;
     }
 }

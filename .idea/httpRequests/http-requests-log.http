@@ -1,3 +1,15 @@
+GET http://localhost:19101/template/findPage?page=1&size=10
+
+<> 2021-10-25T160742.200.json
+
+###
+
+GET http://localhost:19101/template/findAll
+
+<> 2021-10-25T160705.200.json
+
+###
+
 POST http://localhost:19101/brand/findList
 Content-Type: application/json
 
