@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @RequestMapping("/goods")
-public class PageController {
+public class GoodsPageController {
 
     @GetMapping("/brand")
     public String getBrand() {
@@ -19,5 +19,15 @@ public class PageController {
     @GetMapping("/template")
     public String getTemplate() {
         return "goods/template";
+    }
+
+    @GetMapping("/spec")
+    public String getSpec() {
+        return "goods/spec";
+    }
+
+    @GetMapping("/param")
+    public String getParam() {
+        return "goods/param";
     }
 }

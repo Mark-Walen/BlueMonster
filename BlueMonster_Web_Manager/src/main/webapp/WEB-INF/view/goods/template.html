@@ -2,8 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>模板管理</title>
+    <title>规格参数</title>
     <link rel="stylesheet" href="/static/css/elementui.css">
+    <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
 <div id="app">
@@ -15,7 +16,6 @@
             <el-breadcrumb-item>模板管理</el-breadcrumb-item>
         </el-breadcrumb>
     </div>
-
     <div class="app-container">
         <div class="box">
             <div class="filter-container">
@@ -23,14 +23,8 @@
                     <el-form-item label="模板名称">
                         <el-input v-model="searchMap.name" placeholder="模板名称" class="filter-item" ></el-input>
                     </el-form-item>
-                    <el-form-item label="规格数量">
-                        <el-input v-model="searchMap.specNum" placeholder="规格数量" class="filter-item" ></el-input>
-                    </el-form-item>
-                    <el-form-item label="参数数量">
-                        <el-input v-model="searchMap.paraNum" placeholder="参数数量" class="filter-item" ></el-input>
-                    </el-form-item>
                     <el-button type="primary" @click="_getSearchTemplateList">查询</el-button>
-                    <el-button type="primary" @click="showTemplateDialogForm">添加品牌</el-button>
+                    <el-button type="primary" @click="showTemplateDialogForm">添加模板</el-button>
                 </el-form>
             </div>
             <el-table
@@ -56,6 +50,14 @@
                         prop="paraNum"
                         label="参数数量"
                         width="180">
+                </el-table-column>
+                <el-table-column
+                        label="设置"
+                        width="400">
+                    <template slot-scope="scope">
+                        <el-button type="primary" @click="goSpec(scope.row.id)">规格列表</el-button>
+                        <el-button type="primary" @click="goParam(scope.row.id)">参数列表</el-button>
+                    </template>
                 </el-table-column>
                 <el-table-column
                         label="操作"
@@ -85,12 +87,6 @@
                     <el-form-item label="模板名称" :label-width="formLabelWidth">
                         <el-input v-model="pojo.name" autocomplete="off" placeholder="模板名称"></el-input>
                     </el-form-item>
-                    <el-form-item label="规格数量" :label-width="formLabelWidth">
-                        <el-input v-model="pojo.specNum" autocomplete="off" placeholder="规格数量"></el-input>
-                    </el-form-item>
-                    <el-form-item label="参数数量">
-                        <el-input v-model="pojo.paraNum" autocomplete="off" placeholder="参数数量"></el-input>
-                    </el-form-item>
                 </el-form>
                 <div slot="footer" class="dialog-footer">
                     <el-button @click="showTemplateDialogForm">取 消</el-button>
@@ -115,8 +111,7 @@
                 searchMap: {},
                 dialogFormVisible: false,
                 formLabelWidth: '120px',
-                pojo: {},
-                imageUrl: ''
+                pojo: {}
             }
         },
         created () {
@@ -130,7 +125,6 @@
                 })
             },
             addAndUpdateTemplate () {
-                this.pojo.image = this.imageUrl;
                 let url = this.pojo.id ? 'update' : 'add'
                 axios.post(`/template/${url}`, this.pojo).then(res => {
                     this.myMessage(res, true, this.dialogFormVisible)
@@ -145,7 +139,6 @@
                 }).then(res => {
                     if (typeof res.data === "object") {
                         this.pojo = res.data
-                        this.imageUrl = this.pojo.image
                     }
                 })
             },
@@ -188,8 +181,15 @@
                 this._getSearchTemplateList()
             },
             showTemplateDialogForm() {
+                this.pojo = {}
                 this.dialogFormVisible = !this.dialogFormVisible
             },
+            goSpec (id) {
+                location.href = '/goods/spec?templateId=' + id
+            },
+            goParam (id) {
+                location.href = '/goods/param?templateId=' + id
+            }
         }
     }
     let vm = Vue.extend(Main)

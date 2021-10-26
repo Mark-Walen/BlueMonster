@@ -2,12 +2,12 @@ package cn.blue.phoenix.service.impl;
 
 import cn.blue.phoenix.dao.TemplateMapper;
 import cn.blue.phoenix.entity.PageResult;
-import cn.blue.phoenix.pojo.goods.Brand;
 import cn.blue.phoenix.pojo.goods.Template;
 import cn.blue.phoenix.service.goods.TemplateService;
 import cn.blue.phoenix.utils.PageHelperUtils;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
 import java.util.List;
@@ -24,6 +24,7 @@ public class TemplateServiceImpl implements TemplateService {
     /**
      * @return 返回全部记录
      */
+    @Override
     public List<Template> findAll() {
         return templateMapper.selectAll();
     }
@@ -36,13 +37,13 @@ public class TemplateServiceImpl implements TemplateService {
 
     @Override
     public List<Template> findList(Map<String, Object> searchMap) {
-        Example example = pageHelperUtils.createExample(searchMap);
+        Example example = pageHelperUtils.createExample(searchMap, Template.class);
         return templateMapper.selectByExample(example);
     }
 
     @Override
     public PageResult<Template> findPage(Map<String, Object> searchMap, Integer page, Integer size) {
-        Example example = pageHelperUtils.createExample(searchMap);
+        Example example = pageHelperUtils.createExample(searchMap, Template.class);
         List<Template> list = templateMapper.selectByExample(example);
         return pageHelperUtils.pageHelperUtils(list, page, size);
     }
@@ -52,8 +53,11 @@ public class TemplateServiceImpl implements TemplateService {
         return templateMapper.selectByPrimaryKey(id);
     }
 
+    @Transactional
     @Override
     public void add(Template template) {
+        template.setSpecNum(0);
+        template.setParaNum(0);
         templateMapper.insert(template);
     }
 
@@ -62,6 +66,7 @@ public class TemplateServiceImpl implements TemplateService {
         templateMapper.updateByPrimaryKeySelective(template);
     }
 
+    @Transactional
     @Override
     public void delete(Integer id) {
         templateMapper.deleteByPrimaryKey(id);

@@ -26,8 +26,8 @@ public class PageHelperUtils<T> {
         return new PageResult<>(total, tList);
     }
 
-    public Example createExample(Map<String, Object> searchMap) {
-        Example example = new Example(Brand.class);
+    public Example createExample(Map<String, Object> searchMap, java.lang.Class<?> entityClass) {
+        Example example = new Example(entityClass);
         Example.Criteria criteria = example.createCriteria();
 
         // 遍历搜索列表

@@ -9,6 +9,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
 import java.util.List;
@@ -43,14 +44,14 @@ public class BrandServiceImpl implements BrandService {
 
     @Override
     public List<Brand> findList(Map<String, Object> searchMap) {
-        Example example = pageHelperUtils.createExample(searchMap);
+        Example example = pageHelperUtils.createExample(searchMap, Brand.class);
         return brandMapper.selectByExample(example);
     }
 
     @Override
     public PageResult<Brand> findPage(Map<String, Object> searchMap, Integer page, Integer size) {
         PageHelper.startPage(page, size);
-        Example example = pageHelperUtils.createExample(searchMap);
+        Example example = pageHelperUtils.createExample(searchMap, Brand.class);
         List<Brand> list = brandMapper.selectByExample(example);
 
         PageInfo<Brand> pageInfo = new PageInfo<>(list);
@@ -64,6 +65,7 @@ public class BrandServiceImpl implements BrandService {
         return brandMapper.selectByPrimaryKey(id);
     }
 
+    @Transactional
     @Override
     public void add(Brand brand) {
         brandMapper.insert(brand);
@@ -74,6 +76,7 @@ public class BrandServiceImpl implements BrandService {
         brandMapper.updateByPrimaryKeySelective(brand);
     }
 
+    @Transactional
     @Override
     public void delete(Integer id) {
         brandMapper.deleteByPrimaryKey(id);
