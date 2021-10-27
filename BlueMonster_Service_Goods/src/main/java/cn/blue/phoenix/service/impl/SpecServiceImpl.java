@@ -24,7 +24,7 @@ public class SpecServiceImpl implements SpecService {
     @Autowired
     private TemplateMapper templateMapper;
 
-    private final PageHelperUtils<Spec> pageHelperUtils = new PageHelperUtils<>();
+    private final PageHelperUtils<Spec> pageUtils = new PageHelperUtils<>();
 
     @Override
     public List<Spec> findAll() {
@@ -34,20 +34,20 @@ public class SpecServiceImpl implements SpecService {
     @Override
     public PageResult<Spec> findPage(Integer page, Integer size) {
         List<Spec> list = specMapper.selectAll();
-        return new PageHelperUtils<Spec>().pageHelperUtils(list, page, size);
+        return pageUtils.pageHelperUtils(list, page, size);
     }
 
     @Override
     public List<Spec> findList(Map<String, Object> searchMap) {
-        Example example = pageHelperUtils.createExample(searchMap, Spec.class);
+        Example example = pageUtils.createExample(searchMap, Spec.class);
         return specMapper.selectByExample(example);
     }
 
     @Override
     public PageResult<Spec> findPage(Map<String, Object> searchMap, Integer page, Integer size) {
-        Example example = pageHelperUtils.createExample(searchMap, Spec.class);
+        Example example = pageUtils.createExample(searchMap, Spec.class);
         List<Spec> list = specMapper.selectByExample(example);
-        return pageHelperUtils.pageHelperUtils(list, page, size);
+        return pageUtils.pageHelperUtils(list, page, size);
     }
 
     @Override

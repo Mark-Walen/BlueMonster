@@ -19,7 +19,7 @@ public class TemplateServiceImpl implements TemplateService {
     @Autowired
     private TemplateMapper templateMapper;
 
-    private final PageHelperUtils<Template> pageHelperUtils = new PageHelperUtils<>();
+    private final PageHelperUtils<Template> pageUtils = new PageHelperUtils<>();
 
     /**
      * @return 返回全部记录
@@ -32,20 +32,20 @@ public class TemplateServiceImpl implements TemplateService {
     @Override
     public PageResult<Template> findPage(Integer page, Integer size) {
         List<Template> list = templateMapper.selectAll();
-        return new PageHelperUtils<Template>().pageHelperUtils(list, page, size);
+        return pageUtils.pageHelperUtils(list, page, size);
     }
 
     @Override
     public List<Template> findList(Map<String, Object> searchMap) {
-        Example example = pageHelperUtils.createExample(searchMap, Template.class);
+        Example example = pageUtils.createExample(searchMap, Template.class);
         return templateMapper.selectByExample(example);
     }
 
     @Override
     public PageResult<Template> findPage(Map<String, Object> searchMap, Integer page, Integer size) {
-        Example example = pageHelperUtils.createExample(searchMap, Template.class);
+        Example example = pageUtils.createExample(searchMap, Template.class);
         List<Template> list = templateMapper.selectByExample(example);
-        return pageHelperUtils.pageHelperUtils(list, page, size);
+        return pageUtils.pageHelperUtils(list, page, size);
     }
 
     @Override

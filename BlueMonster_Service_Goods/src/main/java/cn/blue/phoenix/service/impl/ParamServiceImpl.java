@@ -24,7 +24,7 @@ public class ParamServiceImpl implements ParamService {
     @Autowired
     private TemplateMapper templateMapper;
 
-    private final PageHelperUtils<Param> pageHelperUtils = new PageHelperUtils<>();
+    private final PageHelperUtils<Param> pageUtils = new PageHelperUtils<>();
 
     @Override
     public List<Param> findAll() {
@@ -34,20 +34,20 @@ public class ParamServiceImpl implements ParamService {
     @Override
     public PageResult<Param> findPage(Integer page, Integer size) {
         List<Param> list = paramMapper.selectAll();
-        return new PageHelperUtils<Param>().pageHelperUtils(list, page, size);
+        return pageUtils.pageHelperUtils(list, page, size);
     }
 
     @Override
     public List<Param> findList(Map<String, Object> searchMap) {
-        Example example = pageHelperUtils.createExample(searchMap, Param.class);
+        Example example = pageUtils.createExample(searchMap, Param.class);
         return paramMapper.selectByExample(example);
     }
 
     @Override
     public PageResult<Param> findPage(Map<String, Object> searchMap, Integer page, Integer size) {
-        Example example = pageHelperUtils.createExample(searchMap, Param.class);
+        Example example = pageUtils.createExample(searchMap, Param.class);
         List<Param> list = paramMapper.selectByExample(example);
-        return pageHelperUtils.pageHelperUtils(list, page, size);
+        return pageUtils.pageHelperUtils(list, page, size);
     }
 
     @Override

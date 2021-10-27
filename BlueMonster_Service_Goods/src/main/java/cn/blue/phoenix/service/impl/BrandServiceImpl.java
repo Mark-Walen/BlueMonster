@@ -20,7 +20,7 @@ public class BrandServiceImpl implements BrandService {
     @Autowired
     private BrandMapper brandMapper;
 
-    private final PageHelperUtils<Brand> pageHelperUtils = new PageHelperUtils<>();
+    private final PageHelperUtils<Brand> pageUtils = new PageHelperUtils<>();
 
     @Override
     public List<Brand> findAll() {
@@ -44,14 +44,14 @@ public class BrandServiceImpl implements BrandService {
 
     @Override
     public List<Brand> findList(Map<String, Object> searchMap) {
-        Example example = pageHelperUtils.createExample(searchMap, Brand.class);
+        Example example = pageUtils.createExample(searchMap, Brand.class);
         return brandMapper.selectByExample(example);
     }
 
     @Override
     public PageResult<Brand> findPage(Map<String, Object> searchMap, Integer page, Integer size) {
         PageHelper.startPage(page, size);
-        Example example = pageHelperUtils.createExample(searchMap, Brand.class);
+        Example example = pageUtils.createExample(searchMap, Brand.class);
         List<Brand> list = brandMapper.selectByExample(example);
 
         PageInfo<Brand> pageInfo = new PageInfo<>(list);
