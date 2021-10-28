@@ -183,11 +183,13 @@
                         }
                     }).then(res => {
                         this.myMessage(res, true, this.dialogFormVisible)
+                    }).catch(error => {
+                        this.myMessage(error, false, this.dialogFormVisible)
                     })
                 })
             },
             myMessage(res, needRefresh, needClose) {
-                if (res.data.code !== 200) {
+                if (res.code !== 200) {
                     this.$message({
                         message: res.data.message,
                         type: 'error'
