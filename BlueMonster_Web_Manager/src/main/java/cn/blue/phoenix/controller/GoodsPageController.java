@@ -30,4 +30,9 @@ public class GoodsPageController {
     public String getParam() {
         return "goods/param";
     }
+
+    @GetMapping("/category")
+    public String getCategory() {
+        return "goods/category";
+    }
 }

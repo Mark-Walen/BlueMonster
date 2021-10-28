@@ -5,18 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="51a32e33-f434-475e-9303-03ce2a65a4d5" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/BlueMonster_Interface/src/main/java/cn/blue/phoenix/service/goods/CategoryService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlueMonster_Pojo/src/main/java/cn/blue/phoenix/pojo/goods/Category.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlueMonster_Service_Goods/src/main/java/cn/blue/phoenix/dao/CategoryMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlueMonster_Service_Goods/src/main/java/cn/blue/phoenix/service/impl/CategoryServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlueMonster_Web_Manager/src/main/webapp/WEB-INF/view/goods/category.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/9a481df0-c228-4109-9890-de286a02b59d.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/9a481df0-c228-4109-9890-de286a02b59d.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BlueMonster_Web_Manager/src/main/java/cn/blue/phoenix/controller/CategoryController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/webContexts.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/webContexts.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlueMonster_Service_Goods/src/main/java/cn/blue/phoenix/service/impl/BrandServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/BlueMonster_Service_Goods/src/main/java/cn/blue/phoenix/service/impl/BrandServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlueMonster_Service_Goods/src/main/java/cn/blue/phoenix/service/impl/ParamServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/BlueMonster_Service_Goods/src/main/java/cn/blue/phoenix/service/impl/ParamServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlueMonster_Service_Goods/src/main/java/cn/blue/phoenix/service/impl/SpecServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/BlueMonster_Service_Goods/src/main/java/cn/blue/phoenix/service/impl/SpecServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlueMonster_Service_Goods/src/main/java/cn/blue/phoenix/service/impl/TemplateServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/BlueMonster_Service_Goods/src/main/java/cn/blue/phoenix/service/impl/TemplateServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlueMonster_Service_Goods/src/main/java/cn/blue/phoenix/utils/PageHelperUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/BlueMonster_Service_Goods/src/main/java/cn/blue/phoenix/utils/PageHelperUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlueMonster_Service_Goods/src/main/java/cn/blue/phoenix/service/impl/CategoryServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/BlueMonster_Service_Goods/src/main/java/cn/blue/phoenix/service/impl/CategoryServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlueMonster_Web_Manager/src/main/java/cn/blue/phoenix/controller/GoodsPageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/BlueMonster_Web_Manager/src/main/java/cn/blue/phoenix/controller/GoodsPageController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlueMonster_Web_Manager/src/main/webapp/WEB-INF/view/goods/brand.html" beforeDir="false" afterPath="$PROJECT_DIR$/BlueMonster_Web_Manager/src/main/webapp/WEB-INF/view/goods/brand.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlueMonster_Web_Manager/src/main/webapp/WEB-INF/view/goods/category.html" beforeDir="false" afterPath="$PROJECT_DIR$/BlueMonster_Web_Manager/src/main/webapp/WEB-INF/view/goods/category.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlueMonster_Web_Manager/src/main/webapp/WEB-INF/view/goods/template.html" beforeDir="false" afterPath="$PROJECT_DIR$/BlueMonster_Web_Manager/src/main/webapp/WEB-INF/view/goods/template.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -133,7 +129,9 @@
       <workItem from="1635147416958" duration="7519000" />
       <workItem from="1635222491461" duration="14347000" />
       <workItem from="1635239455395" duration="6292000" />
-      <workItem from="1635295096278" duration="8244000" />
+      <workItem from="1635295096278" duration="9013000" />
+      <workItem from="1635321973569" duration="985000" />
+      <workItem from="1635381435604" duration="7192000" />
     </task>
     <servers />
   </component>

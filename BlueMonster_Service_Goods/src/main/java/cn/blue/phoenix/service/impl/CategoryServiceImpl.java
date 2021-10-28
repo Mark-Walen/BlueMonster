@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -69,6 +70,15 @@ public class CategoryServiceImpl implements CategoryService {
     @Transactional
     @Override
     public void delete(Integer id) {
+        // 判断是否存在下级分类
+        Example example = new Example(Category.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("parentId", id);
+        int count = categoryMapper.selectCountByExample(example);
+
+        if (count > 0) {
+            throw new RuntimeException("存在下级分类不能删除");
+        }
         categoryMapper.deleteByPrimaryKey(id);
     }
 }
