@@ -33,7 +33,7 @@ public class UploadController {
         if (!desFile.getParentFile().exists()) {
             boolean mkdirs = desFile.mkdirs();
             if (!mkdirs) {
-                return new ResponseEntity<>(new Result(503, "文件上传失败，请稍后再试！"), HttpStatus.SERVICE_UNAVAILABLE);
+                throw new RuntimeException("文件上传失败，请稍后再试！");
             }
         }
         try {
