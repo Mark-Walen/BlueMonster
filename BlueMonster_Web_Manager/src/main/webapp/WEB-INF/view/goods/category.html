@@ -5,6 +5,16 @@
     <title>商品分类管理</title>
     <link rel="stylesheet" href="/static/css/elementui.css">
     <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="icon" href="/static/ico/favicon.ico">
+    <style>
+        .el-dialog {
+            min-width: 600px;
+            max-width: 800px;
+        }
+        th > .cell {
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
     <div id="app">
@@ -53,7 +63,7 @@
                     </el-table-column>
                     <el-table-column prop="seq" label="排序" width="80"></el-table-column>
                     <el-table-column prop="parentId" label="上级ID" width="80"></el-table-column>
-                    <el-table-column label="模板ID" width="80">
+                    <el-table-column label="模板ID" width="140" min-width="120px">
                         <template slot-scope="scope">
                             <el-select v-model="scope.row.templateId" filterable placeholder="请选择">
                                 <el-option
@@ -66,13 +76,13 @@
                         </template>
                     </el-table-column>
                     <el-table-column
-                            label="设置"  >
+                            label="设置">
                         <template slot-scope="scope">
                             <el-button v-if="showNext" @click="queryByParentId(scope.row.id)" size="mini" type="primary" size="small">查看下级</el-button>
                         </template>
                     </el-table-column>
                     <el-table-column
-                            label="操作"  >
+                            label="操作" min-width="150">
                         <template slot-scope="scope">
                             <el-button @click="editCategory(scope.row.id)" size="mini" type="primary" size="small">修改</el-button>
                             <el-button @click="deleteCategory(scope.row.id)" size="mini" type="danger" size="small">删除</el-button>

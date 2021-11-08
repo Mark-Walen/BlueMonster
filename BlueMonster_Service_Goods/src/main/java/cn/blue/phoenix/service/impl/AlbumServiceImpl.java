@@ -19,7 +19,7 @@ public class AlbumServiceImpl implements AlbumService {
     @Autowired
     private AlbumMapper albumMapper;
 
-    private final PageHelperUtils<Album> pageUtils = new PageHelperUtils<>("name", "isShow", "isMenu");
+    private final PageHelperUtils<Album> pageUtils = new PageHelperUtils<>();
 
     @Override
     public List<Album> findAll() {
@@ -55,13 +55,13 @@ public class AlbumServiceImpl implements AlbumService {
 
     @Transactional
     @Override
-    public void add(Album category) {
-        albumMapper.insert(category);
+    public void add(Album album) {
+        albumMapper.insert(album);
     }
 
     @Override
-    public void update(Album category) {
-        albumMapper.updateByPrimaryKeySelective(category);
+    public void update(Album album) {
+        albumMapper.updateByPrimaryKeySelective(album);
     }
 
     @Transactional

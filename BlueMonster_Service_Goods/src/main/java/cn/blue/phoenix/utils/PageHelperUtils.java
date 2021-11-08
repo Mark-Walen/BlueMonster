@@ -28,10 +28,13 @@ public class PageHelperUtils<T> {
      *
      * <p><b>可以传入 String 类型数组</b>，{@code Stream.of(T... values)}
      * 底层会使用 {@code Arrays.stream(values)} 将 数组转化为 {@code Stream} 对象</p>
+     * <p>如果实体类不包含 name 这个属性，可以传入空字符串，打开 {@code this.likeSet.remove("");} 注释。</p>
+     * <p>当然也可以直接调用无参构造，因为在进行查询会判断 searchMap 是否有 name 这个属性</p>
      * @param values 模糊查询数据列表
      */
     public PageHelperUtils(String... values) {
         this.likeSet = Stream.of(values).collect(Collectors.toCollection(HashSet::new));
+        // this.likeSet.remove("");
     }
 
     /**

@@ -5,6 +5,17 @@
     <title>规格参数</title>
     <link rel="stylesheet" href="/static/css/elementui.css">
     <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="icon" href="/static/ico/favicon.ico">
+    <style>
+        .el-dialog {
+            min-width: 600px;
+            max-width: 800px;
+        }
+
+        th > .cell {
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
 <div id="app">
@@ -64,7 +75,7 @@
                         width="180">
                     <template slot-scope="scope">
                         <el-tooltip class="item" effect="dark" content="修改模板" placement="top">
-                            <el-button type="waring" icon="el-icon-edit" @click="editTemplate(scope.row.id)" circle></el-button>
+                            <el-button type="warning" icon="el-icon-edit" @click="editTemplate(scope.row.id)" circle></el-button>
                         </el-tooltip>
                         <el-tooltip class="item" effect="dark" content="删除模板" placement="top">
                             <el-button type="danger" icon="el-icon-delete" @click="deleteTemplate(scope.row.id)" circle></el-button>

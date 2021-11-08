@@ -35,4 +35,14 @@ public class GoodsPageController {
     public String getCategory() {
         return "goods/category";
     }
+
+    @GetMapping("/album")
+    public String getAlbum() {
+        return "goods/album";
+    }
+
+    @GetMapping("/album-list")
+    public String getAlbumList() {
+        return "goods/album-list";
+    }
 }

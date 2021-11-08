@@ -5,6 +5,7 @@
     <title>品牌管理</title>
     <link rel="stylesheet" href="/static/css/elementui.css">
     <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="icon" href="/static/ico/favicon.ico">
     <!-- 上传图片框样式，不使用上传组件可以删除此样式 -->
     <style>
         .avatar-uploader .el-upload {
@@ -23,7 +24,7 @@
             font-size: 28px;
             color: #8c939d;
             width: 150px;
-            height: 70px;
+            height: 100%;
             line-height: 150px;
             text-align: center;
         }
@@ -32,6 +33,15 @@
             width: 150px;
             height: 70px;
             display: block;
+        }
+
+        .el-dialog {
+            min-width: 600px;
+            max-width: 800px;
+        }
+
+        th > .cell {
+            text-align: center;
         }
     </style>
 </head>
@@ -90,7 +100,7 @@
                             width="180">
                         <template slot-scope="scope">
                             <el-tooltip class="item" effect="dark" content="修改品牌" placement="top">
-                                <el-button type="waring" icon="el-icon-edit" @click="editBrand(scope.row.id)" circle></el-button>
+                                <el-button type="warning" icon="el-icon-edit" @click="editBrand(scope.row.id)" circle></el-button>
                             </el-tooltip>
                             <el-tooltip class="item" effect="dark" content="删除品牌" placement="top">
                                 <el-button type="danger" icon="el-icon-delete" @click="deleteBrand(scope.row.id)" circle></el-button>
@@ -121,6 +131,8 @@
                         <el-form-item label="品牌图片" :label-width="formLabelWidth">
                             <el-upload
                                     class="avatar-uploader"
+                                    name="file"
+                                    accept="image/png, image/jpeg, image/jpg"
                                     action="/upload/native"
                                     :show-file-list="false"
                                     :on-success="handleAvatarSuccess"
@@ -144,6 +156,7 @@
     </div>
 </body>
 <script src="/static/js/vue.js"></script>
+<script src="/static/js/vue-router.js"></script>
 <script src="/static/js/elementui.js"></script>
 <script src="/static/js/axios.js"></script>
 <script>
@@ -244,22 +257,24 @@
                 this.pojo = {}
                 this.dialogFormVisible = !this.dialogFormVisible
             },
-            /* 上传图片 */
             handleAvatarSuccess (res, file) {
-                this.imageUrl = file.response
+                this.imageUrl = URL.createObjectURL(file.raw)
             },
             beforeAvatarUpload (file) {
-                const isJPG = file.type === 'img/jpeg'
+                let isImage = true
+                if(!(file.type === 'image/png' || file.type === 'image/jpg' || file.type === 'image/jpeg')) {
+                    isImage = false
+                }
                 const isLt2M = file.size / 1024 /1024 <= 2;
-                if (!isJPG) this.$message({
-                    message: '上传头像图片只能是 JPG 格式！',
+                if (!isImage) this.$message({
+                    message: '请上传格式为 PNG、 JPG、JPEG 的图片！',
                     type: 'error'
                 })
                 if (!isLt2M) this.$message({
-                    message: '上传头像图片大小不能超过 2MB ！',
+                    message: '上传封面图片大小不能超过 2MB ！',
                     type: 'error'
                 })
-                return isJPG && isLt2M;
+                return isImage && isLt2M;
             }
         }
     }
