@@ -75,6 +75,7 @@
             margin: 20px auto;
             border: 1px solid #EBEEF5;
             padding: 20px 15px 0 15px;
+            min-width: 425px;
         }
 
         .el-col {
@@ -185,11 +186,7 @@
                 pojo: {},
                 imageUrl: '',
                 index: -1,
-                transferImageItem: {},
-                addImageItem: {
-                    status: 'success',
-                    url: ''
-                }
+                albumImageItem: {}
             }
         },
         created () {
@@ -221,34 +218,37 @@
              */
             updateAlbumImage () {
                 let albumImageItems = this.albumImageList
-                // 获取目的相册
                 if (this.pojo.id && this.id !== this.pojo.id) {
+                    // 获取目的相册
                     let albumItem = this.albumList.find(album => {
                         return album.id === this.pojo.id
                     })
                     albumImageItems = JSON.parse(albumItem.imageItems)
                     // 将图片对象 插入目的相册
-                    albumImageItems.push(this.transferImageItem)
+                    albumImageItems.push(this.albumImageItem)
+                    this.pojo.imageItems = JSON.stringify(albumImageItems)
+
+                    // 转移图片至目的相册
+                    axios.post('/album/update', this.pojo).then(res => {
+                        console.log(res);
+                        // 转移成功后，删除当前相册中被转移的图片
+                        this.deleteCurrent(this.index)
+                        // 必须要先删除，才能调用 myMessage 进行刷新
+                        this.myMessage(res, true, this.dialogFormVisible)
+                        this.albumImageItem = {}
+                        this.addImageItem = {}
+                    }).catch(err => {
+                        console.log(err)
+                    })
+                } else {
+                    // 上传图片
+                    this.$refs.upload.submit()
                 }
-                if (this.index === -1) {
-                    albumImageItems.push(this.addImageItem);
-                }
-                this.pojo.imageItems = JSON.stringify(albumImageItems)
-                this.$refs.upload.submit()
-                axios.post('/album/update', this.pojo).then(res => {
-                    console.log(res);
-                    // 转移成功后，删除当前相册中被转移的图片
-                    if (this.index !== -1) this.deleteCurrent(this.index)
-                    // 必须要先删除，才能调用 myMessage 进行刷新
-                    this.myMessage(res, true, this.dialogFormVisible)
-                    this.transferImageItem = {}
-                    this.addImageItem = {}
-                })
             },
             moveToAnother (index) {
                 // 获取要转移图片的对象
-                this.transferImageItem = this.albumImageList[index]
-                this.imageUrl = this.transferImageItem.url
+                this.albumImageItem = this.albumImageList[index]
+                this.imageUrl = this.albumImageItem.url
                 this.index = index
                 this.showAlbumListDialogForm()
             },
@@ -271,12 +271,16 @@
                     let imageName = str[str.length - 1];
                     axios.post(`/upload/delete?fileName=${imageName}`).then(res => {
                         console.log(res)
-                        if (res.code !== 200 || res.data.code !== 200) return
+                        if (res.code !== 200) {
+                            this.$message({
+                                type: 'error',
+                                message: res.message
+                            })
+                        }
                         this.deleteCurrent(index)
                     }).catch(err => {
                         console.log(err)
                     })
-
                 })
             },
             imgSaveToUrl (event) {
@@ -294,7 +298,8 @@
                 this.imageUrl = URL
             },
             myMessage(res, needRefresh, needClose) {
-                if (res.code !== 200 || res.data.code !== 200) {
+                console.log(res)
+                if (res.data.code !== 200) {
                     this.$message({
                         message: res.data.message,
                         type: 'error'
@@ -315,9 +320,21 @@
 
             /* 上传图片 */
             handleAvatarSuccess (res, file) {
-                this.addImageItem.status = 'success'
-                this.addImageItem.url = res.message
-                this.imageUrl = res.message
+                // 更新 addImageItem 状态
+                this.albumImageItem.status = 'success'
+                this.albumImageItem.url = res.message
+                this.albumImageItem.uid = file.uid
+                // this.imageUrl = res.message
+
+                let albumImageItems = this.albumImageList
+                albumImageItems.push(this.albumImageItem);
+                this.pojo.imageItems = JSON.stringify(albumImageItems)
+
+                axios.post('/album/update', this.pojo).then(res => {
+                    // 必须要先删除，才能调用 myMessage 进行刷新
+                    this.myMessage(res, true, this.dialogFormVisible)
+                    this.addImageItem = {}
+                })
             },
             handleAvatarError(err, file, fileList) {
                 this.myMessage(err, false, false);

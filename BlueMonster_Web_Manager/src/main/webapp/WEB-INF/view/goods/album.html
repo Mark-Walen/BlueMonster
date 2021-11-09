@@ -26,15 +26,15 @@
         .avatar-uploader-icon {
             font-size: 28px;
             color: #8c939d;
-            width: 150px;
-            height: 100%;
+            max-width: 100%;
+            max-height: 100%;
             line-height: 150px;
             text-align: center;
         }
 
         .avatar {
-            width: 150px;
-            height: 70px;
+            max-width: 100%;
+            max-height: 100%;
             display: block;
         }
         .el-dialog {
@@ -73,7 +73,7 @@
                         <el-input v-model="searchMap.title" placeholder="相册名称" class="filter-item" ></el-input>
                     </el-form-item>
                     <el-button @click="_getSearchAlbumList()">查询</el-button>
-                    <el-button type="primary" @click="showAlbumDialogForm">新建相册</el-button>
+                    <el-button type="primary" @click="addAlbumForm">新建相册</el-button>
                 </el-form>
             </div>
             <el-table
@@ -124,12 +124,15 @@
                     <el-form-item label="相册名称" :label-width="formLabelWidth">
                         <el-input v-model="pojo.title" autocomplete="off" placeholder="模板名称"></el-input>
                     </el-form-item>
-                    <el-form-item label="相册封面" :label-width="formLabelWidth">
+                    <el-form-item label="相册封面" :label-width="formLabelWidth" v-model="pojo.image">
                         <el-upload
                                 class="avatar-uploader"
                                 action="/upload/native"
                                 accept="image/png, image/jpeg, image/jpg"
+                                ref="upload"
+                                :auto-upload="false"
                                 :show-file-list="false"
+                                :on-change="imgSaveToUrl"
                                 :on-success="handleAvatarSuccess"
                                 :before-upload="beforeAvatarUpload">
                             <img v-if="imageUrl" :src="imageUrl" class="avatar">
@@ -161,7 +164,7 @@
                 dialogFormVisible: false,
                 formLabelWidth: '120px',
                 pojo: {},
-                imageUrl: '',
+                imageUrl: ''
             }
         },
         created () {
@@ -175,9 +178,19 @@
                 })
             },
             addAndUpdateAlbum () {
-                this.pojo.image = this.imageUrl;
-                let url = this.pojo.id ? 'update' : 'add'
+                if (this.pojo.id) {
+                    this.addAlbum('update')
+                } else {
+                    this.$refs.upload.submit()
+                }
+            },
+            addAlbumForm() {
+                this.imageUrl = ''
+                this.showAlbumDialogForm();
+            },
+            addAlbum (url) {
                 axios.post(`/album/${url}`, this.pojo).then(res => {
+                    console.log(res)
                     this.myMessage(res, true, this.dialogFormVisible)
                 })
             },
@@ -200,11 +213,31 @@
                     confirmButtonText: '确认',
                     type: 'warning'
                 }).then(() => {
+
+                    // 获取当前要删除的相册对象
+                    axios.get(`/album/findById?id=${id}`).then(res => {
+                        this.pojo = res.data;
+                    })
                     axios.get('/album/delete', {
                         params: {
                             id
                         }
                     }).then(res => {
+                        let str = this.pojo.image.split('/');
+                        let imageName = str[str.length - 1];
+                        // 对于所有有照片上传的，应在删除成功后进行图片的删除，
+                        // 但在真正的开发环境中不要直接提供删除文件的接口，
+                        // TODO 直接在后端删除进行处理即可
+                        // TODO 还要删除该相册下的所有图片
+                        axios.post(`/upload/delete?fileName=${imageName}`).then(res => {
+                            console.log(res);
+                            if (typeof res.code !== 'undefined' && res.code !== 200) {
+                                this.$message({
+                                    type: 'error',
+                                    message: res.message
+                                })
+                            }
+                        })
                         this.myMessage(res, true, this.dialogFormVisible)
                     }).catch(error => {
                         this.myMessage(error, false, this.dialogFormVisible)
@@ -212,19 +245,19 @@
                 })
             },
             myMessage(res, needRefresh, needClose) {
-                if (res.code !== 200) {
+                if (res.data.code === 200) {
+                    this.$message({
+                        message: res.data.message,
+                        type: 'success'
+                    })
+                    if (needRefresh) this._getSearchAlbumList()
+                    if (needClose) this.showAlbumDialogForm();
+                } else {
                     this.$message({
                         message: res.data.message,
                         type: 'error'
                     })
-                    return
                 }
-                this.$message({
-                    message: res.data.message,
-                    type: 'success'
-                })
-                if (needRefresh) this._getSearchAlbumList()
-                if (needClose) this.showAlbumDialogForm();
             },
             showAlbumDialogForm() {
                 this.pojo = {}
@@ -243,7 +276,23 @@
             },
             /* 上传图片 */
             handleAvatarSuccess (res, file) {
-                this.imageUrl = file.response
+                this.pojo.imageItems = '[]'
+                this.pojo.image = res.message
+                this.addAlbum('add')
+            },
+            imgSaveToUrl (event) {
+                let URL = null
+                if (window.createObjectURL !== undefined) {
+                    // basic
+                    URL = window.createObjectURL(event.raw);
+                } else if (window.URL !== undefined) {
+                    // mozilla(firefox)
+                    URL = window.URL.createObjectURL(event.raw);
+                } else if (window.webkitURL !== undefined) {
+                    // webkit or chrome
+                    URL = window.webkitURL.createObjectURL(event.raw);
+                }
+                this.imageUrl = URL
             },
             beforeAvatarUpload (file) {
                 let isImage = true

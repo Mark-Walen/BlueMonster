@@ -147,6 +147,21 @@
                     }
                 })
             },
+            myMessage(res, needRefresh, needClose) {
+                if (res.data.code !== 200) {
+                    this.$message({
+                        message: res.data.message,
+                        type: 'error'
+                    })
+                    return
+                }
+                this.$message({
+                    message: res.data.message,
+                    type: 'success'
+                })
+                if (needRefresh) this._getSearchBrandList()
+                if (needClose) this.showDialogForm();
+            },
             deleteParam(id) {
                 this.$confirm('确定要删除此记录吗？', '提示', {
                     cancelButtonText: '取消',

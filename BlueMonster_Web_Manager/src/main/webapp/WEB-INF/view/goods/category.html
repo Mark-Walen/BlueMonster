@@ -199,7 +199,7 @@
                 })
             },
             myMessage(res, needRefresh, needClose) {
-                if (res.code !== 200) {
+                if (res.data.code !== 200) {
                     this.$message({
                         message: res.data.message,
                         type: 'error'

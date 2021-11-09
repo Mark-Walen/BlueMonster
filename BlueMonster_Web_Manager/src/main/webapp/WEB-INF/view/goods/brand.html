@@ -67,7 +67,7 @@
                             <el-input v-model="searchMap.letter" placeholder="品牌的首字母" class="filter-item"></el-input>
                         </el-form-item>
                         <el-button type="primary" @click="_getSearchBrandList">查询</el-button>
-                        <el-button type="primary" @click="showDialogForm">添加品牌</el-button>
+                        <el-button type="primary" @click="addBrandForm">添加品牌</el-button>
                     </el-form>
                 </div>
                 <el-table
@@ -131,10 +131,12 @@
                         <el-form-item label="品牌图片" :label-width="formLabelWidth">
                             <el-upload
                                     class="avatar-uploader"
-                                    name="file"
-                                    accept="image/png, image/jpeg, image/jpg"
                                     action="/upload/native"
+                                    accept="image/png, image/jpeg, image/jpg"
+                                    ref="upload"
+                                    :auto-upload="false"
                                     :show-file-list="false"
+                                    :on-change="imgSaveToUrl"
                                     :on-success="handleAvatarSuccess"
                                     :before-upload="beforeAvatarUpload">
                                 <img v-if="imageUrl" :src="imageUrl" class="avatar">
@@ -197,7 +199,17 @@
             },
             addAndUpdateBrand () {
                 this.pojo.image = this.imageUrl;
-                let url = this.pojo.id ? 'update' : 'add'
+                if (this.pojo.id) {
+                    this.updateBrand('update')
+                } else {
+                    this.$refs.upload.submit()
+                }
+            },
+            addBrandForm () {
+                this.imageUrl = ''
+                this.showDialogForm()
+            },
+            updateBrand (url) {
                 axios.post(`/brand/${url}`, this.pojo).then(res => {
                     this.myMessage(res, true, this.dialogFormVisible)
                 })
@@ -221,11 +233,32 @@
                     confirmButtonText: '确认',
                     type: 'warning'
                 }).then(() => {
+                    // 获取当前要删除的相册对象
+                    axios.get(`/brand/findById?id=${id}`).then(res => {
+                        this.pojo = res.data;
+                    })
                     axios.get('/brand/delete', {
                         params: {
                             id
                         }
                     }).then(res => {
+                        // 由于在 brand 表中有很多的图片初始数据为空所以要做一些判断
+                        if (this.pojo.image) {
+                            let str = this.pojo.image.split('/');
+                            let imageName = str[str.length - 1];
+                            // 对于所有有照片上传的，应在删除成功后进行图片的删除，
+                            // 但在真正的开发环境中不要直接提供删除文件的接口，
+                            // TODO 直接在后端删除进行处理即可
+                            axios.post(`/upload/delete?fileName=${imageName}`).then(res => {
+                                console.log(res);
+                                if (typeof res.code !== 'undefined' && res.code !== 200) {
+                                    this.$message({
+                                        type: 'error',
+                                        message: res.message
+                                    })
+                                }
+                            })
+                        }
                         this.myMessage(res, true, this.dialogFormVisible)
                     })
                 })
@@ -257,8 +290,23 @@
                 this.pojo = {}
                 this.dialogFormVisible = !this.dialogFormVisible
             },
+            imgSaveToUrl (event) {
+                let URL = null
+                if (window.createObjectURL !== undefined) {
+                    // basic
+                    URL = window.createObjectURL(event.raw);
+                } else if (window.URL !== undefined) {
+                    // mozilla(firefox)
+                    URL = window.URL.createObjectURL(event.raw);
+                } else if (window.webkitURL !== undefined) {
+                    // webkit or chrome
+                    URL = window.webkitURL.createObjectURL(event.raw);
+                }
+                this.imageUrl = URL
+            },
             handleAvatarSuccess (res, file) {
-                this.imageUrl = URL.createObjectURL(file.raw)
+                this.pojo.image = res.message
+                this.updateBrand('add')
             },
             beforeAvatarUpload (file) {
                 let isImage = true
