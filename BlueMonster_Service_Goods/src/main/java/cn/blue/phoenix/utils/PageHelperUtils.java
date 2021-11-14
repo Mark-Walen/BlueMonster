@@ -13,7 +13,7 @@ import java.util.stream.Stream;
 
 public class PageHelperUtils<T> {
 
-    private final HashSet<String> likeSet;
+    private HashSet<String> likeSet;
 
     /**
      * 默认初始化 likeSet 包含一个 "name", 进行模糊查询
@@ -84,4 +84,12 @@ public class PageHelperUtils<T> {
         }
         return example;
     }
+
+    /*public HashSet<String> getLikeSet() {
+        return likeSet;
+    }
+
+    public void setLikeSet(String... values) {
+        this.likeSet = Stream.of(values).collect(Collectors.toCollection(HashSet::new));
+    }*/
 }

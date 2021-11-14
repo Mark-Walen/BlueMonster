@@ -24,7 +24,6 @@ CREATE TABLE `tb_album` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
   `title` varchar(100) DEFAULT NULL COMMENT '相册名称',
   `image` varchar(100) DEFAULT NULL COMMENT '相册封面',
-  `desc` varchar(100) DEFAULT NULL COMMENT '相册描述',
   `image_items` text COMMENT '图片列表',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;

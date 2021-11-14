@@ -17,9 +17,9 @@ public interface AlbumService {
 
     Album findById(Integer id);
 
-    void add(Album brand);
+    void add(Album album);
 
-    void update(Album brand);
+    void update(Album album);
 
     void delete(Integer id);
 }
