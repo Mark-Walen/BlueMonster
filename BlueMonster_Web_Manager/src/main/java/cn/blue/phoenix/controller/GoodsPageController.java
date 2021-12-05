@@ -11,6 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/goods")
 public class GoodsPageController {
 
+    @GetMapping("/")
+    public String getGoodsList() {
+        return "goods/goods";
+    }
+
     @GetMapping("/brand")
     public String getBrand() {
         return "goods/brand";

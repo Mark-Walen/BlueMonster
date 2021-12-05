@@ -46,6 +46,8 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public PageResult<Category> findPage(Map<String, Object> searchMap, Integer page, Integer size) {
         Example example = pageUtils.createExample(searchMap, Category.class);
+
+        PageHelper.startPage(page, size);
         List<Category> list = categoryMapper.selectByExample(example);
 
         return pageUtils.pageHelperUtils(list, page, size);

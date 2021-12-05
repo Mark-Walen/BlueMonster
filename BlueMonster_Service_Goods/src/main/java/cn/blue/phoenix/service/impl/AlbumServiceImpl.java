@@ -43,6 +43,7 @@ public class AlbumServiceImpl implements AlbumService {
     @Override
     public PageResult<Album> findPage(Map<String, Object> searchMap, Integer page, Integer size) {
         Example example = pageUtils.createExample(searchMap, Album.class);
+        PageHelper.startPage(page, size);
         List<Album> list = albumMapper.selectByExample(example);
 
         return pageUtils.pageHelperUtils(list, page, size);

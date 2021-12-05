@@ -45,6 +45,7 @@ public class SkuServiceImpl implements SkuService {
     @Override
     public PageResult<Sku> findPage(Map<String, Object> searchMap, Integer page, Integer size) {
         Example example = pageUtils.createExample(searchMap, Sku.class);
+        PageHelper.startPage(page, size);
         List<Sku> list = skuMapper.selectByExample(example);
 
         return pageUtils.pageHelperUtils(list, page, size);

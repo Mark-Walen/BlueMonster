@@ -1,8 +1,10 @@
 package cn.blue.phoenix.utils;
 
+import cn.blue.phoenix.dao.SpuMapper;
 import cn.blue.phoenix.entity.PageResult;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import tk.mybatis.mapper.common.Mapper;
 import tk.mybatis.mapper.entity.Example;
 
 import java.util.HashSet;
@@ -13,7 +15,7 @@ import java.util.stream.Stream;
 
 public class PageHelperUtils<T> {
 
-    private HashSet<String> likeSet;
+    private final HashSet<String> likeSet;
 
     /**
      * 默认初始化 likeSet 包含一个 "name", 进行模糊查询
@@ -37,6 +39,11 @@ public class PageHelperUtils<T> {
         // this.likeSet.remove("");
     }
 
+    // TODO 实现查询优化
+    public PageResult<T> pageHelperSelectAllUtils(Mapper<T> mapper, Integer page, Integer size) {
+        return null;
+    }
+
     /**
      *
      * @param list 从数据库中查询到的数据列表
@@ -45,9 +52,6 @@ public class PageHelperUtils<T> {
      * @return 查询结果 PageResult<T>
      */
     public PageResult<T> pageHelperUtils(List<T> list, Integer page, Integer size) {
-
-        PageHelper.startPage(page, size);
-
         // 封装查询结果
         PageInfo<T> pageInfo = new PageInfo<>(list);
 
@@ -55,6 +59,7 @@ public class PageHelperUtils<T> {
         long total = pageInfo.getTotal();
         // 获取当前页数列表
         List<T> tList = pageInfo.getList();
+        System.out.println(tList.size());
         return new PageResult<>(total, tList);
     }
 
@@ -67,6 +72,7 @@ public class PageHelperUtils<T> {
     public Example createExample(Map<String, Object> searchMap, java.lang.Class<?> entityClass) {
         Example example = new Example(entityClass);
         Example.Criteria criteria = example.createCriteria();
+        System.out.println(searchMap);
 
         // 遍历搜索列表
         for (Map.Entry<String, Object> entry: searchMap.entrySet()) {
@@ -84,12 +90,4 @@ public class PageHelperUtils<T> {
         }
         return example;
     }
-
-    /*public HashSet<String> getLikeSet() {
-        return likeSet;
-    }
-
-    public void setLikeSet(String... values) {
-        this.likeSet = Stream.of(values).collect(Collectors.toCollection(HashSet::new));
-    }*/
 }

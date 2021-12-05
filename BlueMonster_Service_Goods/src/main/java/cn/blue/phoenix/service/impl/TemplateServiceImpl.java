@@ -5,6 +5,7 @@ import cn.blue.phoenix.entity.PageResult;
 import cn.blue.phoenix.pojo.goods.Template;
 import cn.blue.phoenix.service.goods.TemplateService;
 import cn.blue.phoenix.utils.PageHelperUtils;
+import com.github.pagehelper.PageHelper;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,6 +32,7 @@ public class TemplateServiceImpl implements TemplateService {
 
     @Override
     public PageResult<Template> findPage(Integer page, Integer size) {
+        PageHelper.startPage(page, size);
         List<Template> list = templateMapper.selectAll();
         return pageUtils.pageHelperUtils(list, page, size);
     }
@@ -44,6 +46,7 @@ public class TemplateServiceImpl implements TemplateService {
     @Override
     public PageResult<Template> findPage(Map<String, Object> searchMap, Integer page, Integer size) {
         Example example = pageUtils.createExample(searchMap, Template.class);
+        PageHelper.startPage(page, size);
         List<Template> list = templateMapper.selectByExample(example);
         return pageUtils.pageHelperUtils(list, page, size);
     }

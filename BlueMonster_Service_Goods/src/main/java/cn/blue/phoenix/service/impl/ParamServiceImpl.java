@@ -7,6 +7,7 @@ import cn.blue.phoenix.pojo.goods.Param;
 import cn.blue.phoenix.pojo.goods.Template;
 import cn.blue.phoenix.service.goods.ParamService;
 import cn.blue.phoenix.utils.PageHelperUtils;
+import com.github.pagehelper.PageHelper;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,6 +34,7 @@ public class ParamServiceImpl implements ParamService {
 
     @Override
     public PageResult<Param> findPage(Integer page, Integer size) {
+        PageHelper.startPage(page, size);
         List<Param> list = paramMapper.selectAll();
         return pageUtils.pageHelperUtils(list, page, size);
     }
@@ -46,6 +48,7 @@ public class ParamServiceImpl implements ParamService {
     @Override
     public PageResult<Param> findPage(Map<String, Object> searchMap, Integer page, Integer size) {
         Example example = pageUtils.createExample(searchMap, Param.class);
+        PageHelper.startPage(page, size);
         List<Param> list = paramMapper.selectByExample(example);
         return pageUtils.pageHelperUtils(list, page, size);
     }

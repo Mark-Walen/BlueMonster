@@ -50,7 +50,6 @@ public class SpuServiceImpl implements SpuService {
     public PageResult<Spu> findPage(Integer page, Integer size) {
         PageHelper.startPage(page, size);
         List<Spu> list = spuMapper.selectAll();
-
         return pageUtils.pageHelperUtils(list, page, size);
     }
 
@@ -63,6 +62,7 @@ public class SpuServiceImpl implements SpuService {
     @Override
     public PageResult<Spu> findPage(Map<String, Object> searchMap, Integer page, Integer size) {
         Example example = pageUtils.createExample(searchMap, Spu.class);
+        PageHelper.startPage(page, size);
         List<Spu> list = spuMapper.selectByExample(example);
 
         return pageUtils.pageHelperUtils(list, page, size);

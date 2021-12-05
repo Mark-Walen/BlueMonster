@@ -5,27 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="51a32e33-f434-475e-9303-03ce2a65a4d5" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlueMonster_Common_Service/src/main/java/cn/blue/phoenix/utils/IdWorker.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlueMonster_Interface/src/main/java/cn/blue/phoenix/service/goods/SkuService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlueMonster_Interface/src/main/java/cn/blue/phoenix/service/goods/SpuService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlueMonster_Pojo/src/main/java/cn/blue/phoenix/pojo/goods/CategoryBrand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlueMonster_Pojo/src/main/java/cn/blue/phoenix/pojo/goods/Goods.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlueMonster_Pojo/src/main/java/cn/blue/phoenix/pojo/goods/Sku.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlueMonster_Pojo/src/main/java/cn/blue/phoenix/pojo/goods/Spu.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlueMonster_Service_Goods/src/main/java/cn/blue/phoenix/dao/CategoryBrandMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlueMonster_Service_Goods/src/main/java/cn/blue/phoenix/dao/SkuMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlueMonster_Service_Goods/src/main/java/cn/blue/phoenix/dao/SpuMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlueMonster_Service_Goods/src/main/java/cn/blue/phoenix/service/impl/SkuServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlueMonster_Service_Goods/src/main/java/cn/blue/phoenix/service/impl/SpuServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlueMonster_Service_Goods/src/main/resources/applicationContext-service.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlueMonster_Web_Manager/src/main/java/cn/blue/phoenix/controller/SkuController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlueMonster_Web_Manager/src/main/java/cn/blue/phoenix/controller/SpuController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BlueMonster_Web_Manager/src/main/webapp/WEB-INF/view/goods/goods.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlueMonster_Interface/src/main/java/cn/blue/phoenix/service/goods/AlbumService.java" beforeDir="false" afterPath="$PROJECT_DIR$/BlueMonster_Interface/src/main/java/cn/blue/phoenix/service/goods/AlbumService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlueMonster_Common/src/main/resources/zk.properties" beforeDir="false" afterPath="$PROJECT_DIR$/BlueMonster_Common/src/main/resources/zk.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlueMonster_Service_Goods/src/main/java/cn/blue/phoenix/service/impl/AlbumServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/BlueMonster_Service_Goods/src/main/java/cn/blue/phoenix/service/impl/AlbumServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlueMonster_Service_Goods/src/main/java/cn/blue/phoenix/service/impl/CategoryServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/BlueMonster_Service_Goods/src/main/java/cn/blue/phoenix/service/impl/CategoryServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlueMonster_Service_Goods/src/main/java/cn/blue/phoenix/service/impl/ParamServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/BlueMonster_Service_Goods/src/main/java/cn/blue/phoenix/service/impl/ParamServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlueMonster_Service_Goods/src/main/java/cn/blue/phoenix/service/impl/SkuServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/BlueMonster_Service_Goods/src/main/java/cn/blue/phoenix/service/impl/SkuServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlueMonster_Service_Goods/src/main/java/cn/blue/phoenix/service/impl/SpecServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/BlueMonster_Service_Goods/src/main/java/cn/blue/phoenix/service/impl/SpecServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlueMonster_Service_Goods/src/main/java/cn/blue/phoenix/service/impl/SpuServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/BlueMonster_Service_Goods/src/main/java/cn/blue/phoenix/service/impl/SpuServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlueMonster_Service_Goods/src/main/java/cn/blue/phoenix/service/impl/TemplateServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/BlueMonster_Service_Goods/src/main/java/cn/blue/phoenix/service/impl/TemplateServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BlueMonster_Service_Goods/src/main/java/cn/blue/phoenix/utils/PageHelperUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/BlueMonster_Service_Goods/src/main/java/cn/blue/phoenix/utils/PageHelperUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sql/goods.sql" beforeDir="false" afterPath="$PROJECT_DIR$/sql/goods.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlueMonster_Web_Manager/src/main/java/cn/blue/phoenix/controller/GoodsPageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/BlueMonster_Web_Manager/src/main/java/cn/blue/phoenix/controller/GoodsPageController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlueMonster_Web_Manager/src/main/resources/applicationContext-web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/BlueMonster_Web_Manager/src/main/resources/applicationContext-web.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,10 +29,10 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="JavaScript File" />
-        <option value="HTML File" />
         <option value="spring-beans.schema" />
-        <option value="Class" />
+        <option value="HTML File" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -82,21 +75,21 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/BlueMonster_Common_Service/src/main/java/cn/blue/phoenix/utils" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/BlueMonster_Web_Manager/src/main/resources" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.3873563" />
-    <property name="settings.editor.selected.configurable" value="MavenSettings" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\MarkWalen\BlueMonster\BlueMonster_Web_Manager\src\main\resources" />
       <recent name="D:\MarkWalen\BlueMonster\BlueMonster_Common_Service\src\main\java\cn\blue\phoenix\utils" />
       <recent name="D:\MarkWalen\BlueMonster\BlueMonster_Web_Manager\src\main\webapp\static\img" />
       <recent name="D:\MarkWalen\BlueMonster\BlueMonster_Web_Manager\src\main\webapp\static\css" />
       <recent name="D:\MarkWalen\BlueMonster\BlueMonster_Web_Manager\src\main\webapp\static\js" />
-      <recent name="D:\MarkWalen\BlueMonster\BlueMonster_Web_Manager\src\main\webapp\static\ico" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\MarkWalen\BlueMonster\BlueMonster_Web_Manager\src\main\resources" />
@@ -106,7 +99,7 @@
       <recent name="D:\MarkWalen\BlueMonster" />
     </key>
   </component>
-  <component name="RunManager" selected="HTTP Request.generated-requests#10">
+  <component name="RunManager" selected="JUnit.MapperTest.testSave">
     <configuration name="generated-requests#10" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" index="10" runType="Run single request">
       <method v="2" />
     </configuration>
@@ -119,8 +112,25 @@
     <configuration name="generated-requests#9" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" index="9" runType="Run single request">
       <method v="2" />
     </configuration>
+    <configuration name="MapperTest.testSave" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="BlueMonster_Service_Goods" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="cn.blue.phoenix.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="cn.blue.phoenix.test" />
+      <option name="MAIN_CLASS_NAME" value="cn.blue.phoenix.test.MapperTest" />
+      <option name="METHOD_NAME" value="testSave" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.MapperTest.testSave" />
         <item itemvalue="HTTP Request.generated-requests#10" />
         <item itemvalue="HTTP Request.generated-requests#9" />
         <item itemvalue="HTTP Request.generated-requests#8" />
@@ -163,7 +173,16 @@
       <workItem from="1636419319192" duration="11844000" />
       <workItem from="1636468202130" duration="5849000" />
       <workItem from="1636853799597" duration="117000" />
-      <workItem from="1636853939088" duration="10157000" />
+      <workItem from="1636853939088" duration="13646000" />
+      <workItem from="1637139613229" duration="24534000" />
+      <workItem from="1637398033971" duration="167000" />
+      <workItem from="1637398220037" duration="9805000" />
+      <workItem from="1637422340228" duration="5667000" />
+      <workItem from="1637477367248" duration="19288000" />
+      <workItem from="1637726464732" duration="4251000" />
+      <workItem from="1637743855065" duration="11886000" />
+      <workItem from="1637844781727" duration="937000" />
+      <workItem from="1638691117098" duration="11942000" />
     </task>
     <servers />
   </component>
@@ -181,7 +200,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="origin/main" />
+                        <option value="main" />
                       </list>
                     </value>
                   </entry>
