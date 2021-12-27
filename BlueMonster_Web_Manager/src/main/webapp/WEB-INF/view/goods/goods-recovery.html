@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>商品回收站</title>
+    <link rel="stylesheet" href="/static/css/elementui.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="icon" href="/static/ico/favicon.ico">
+    <style>
+        :root {
+            --expandable-height: 100px
+        }
+
+        @media (max-width: 630px) {
+            :root {
+                --expandable-height: 180px
+            }
+        }
+
+        .el-icon-edit-outline {
+            font-size: 32px;
+        }
+        .el-radio-group {
+            line-height: .8;
+        }
+        .el-radio-button {
+            margin-right: 20px;
+        }
+
+        .el-radio-button__inner {
+            border: 1px solid #DCDFE6;
+            border-radius: 4px !important;
+        }
+
+        .filter-content #expand-toggle {
+            display: none;
+        }
+
+        .filter-content .header {
+            display: inline-flex;
+            width: 100%;
+            padding: 10px 0;
+            justify-content: space-between;
+            background: #fff;
+            align-items: center;
+            color: #333;
+            border-radius: 3px;
+            border-width: 1px;
+            border-style: solid;
+            border-color: rgb(235, 235, 235);
+            -webkit-transition: background-color 0.3s ease-in-out, box-shadow 0.6s linear;
+            -moz-transition: background-color 0.3s ease-in-out, box-shadow 0.6s linear;
+            -o-transition: background-color 0.3s ease-in-out, box-shadow 0.6s linear;
+            -ms-transition: background-color 0.3s ease-in-out, box-shadow 0.6s linear;
+            transition: background-color 0.3s ease-in-out, box-shadow 0.6s linear;
+        }
+
+        .filter-content .toggle-btn {
+            position: relative;
+            display: inline-flex;
+            justify-content: space-between;
+            cursor: pointer;
+            line-height: 1.75;
+            margin: auto 10px;
+            width: 100%;
+        }
+
+        .filter-content .toggle-btn::after {
+            content: '';
+            display: block;
+            position: absolute;
+            right: -10px;
+            width: 2px;
+            height: 30px;
+            background: #333;
+        }
+
+        .el-icon-search {
+            margin-right: 5px;
+            font-size: 16px;
+        }
+
+        .filter-content .expandable {
+            background: rgba(255, 255, 255, 0.5);
+            margin-top: -1px;
+            overflow: hidden;
+            height: 0;
+            position: relative;
+            z-index: 10;
+            -webkit-transition: height 0.3s ease-in-out, box-shadow 0.6s linear;
+            -moz-transition: height 0.3s ease-in-out, box-shadow 0.6s linear;
+            -o-transition: height 0.3s ease-in-out, box-shadow 0.6s linear;
+            -ms-transition: height 0.3s ease-in-out, box-shadow 0.6s linear;
+            transition: height 0.3s ease-in-out, box-shadow 0.6s linear;
+        }
+
+        .el-icon-arrow-down::before {
+            transition: content linear 0.5s;
+        }
+
+        .el-icon-arrow-down::after {
+            content: '展开筛选';
+            margin-left: 2px;
+            font-size: 14px;
+            animation: revert;
+        }
+
+        #expand-toggle:checked+div {
+            box-shadow: rgba(232, 237,250, .6) 0 0 8px 0, rgba(232, 237,250, .5) 0 2px 4px 0;
+        }
+        #expand-toggle:checked ~ div .header {
+            background: #ebebeb;
+            border: none;
+        }
+
+        /* Show hidden content when the checkbox is checked */
+        #expand-toggle:checked ~ div .expandable {
+            height: var(--expandable-height);
+            padding: 10px 0;
+        }
+
+        #expand-toggle:checked ~ div .header .toggle-btn .right .el-icon-arrow-down::before {
+            content: "\e6e1";
+        }
+
+        #expand-toggle:checked ~ div .header .toggle-btn .right .el-icon-arrow-down::after {
+            content: '收起筛选';
+        }
+
+        .search-dialog .el-form {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            flex-flow: row wrap;
+        }
+
+        .search-dialog .el-form .el-form-item {
+            flex: 0 0 50%;
+        }
+
+        .operation {
+            margin: auto 10px;
+            display: inline-flex;
+        }
+
+        .sku-search-box, .sku-search-box .left, .sku-search-box .right {
+            display: inline-flex;
+        }
+
+        .sku-search-box {
+            align-items: center;
+            width: 100%;
+        }
+
+        .sku-search-box .left {
+            margin-right: 50px;
+        }
+
+        .goods-info {
+            font-size: 14px;
+        }
+
+        .goods-info .num {
+            font-weight: 700;
+        }
+
+        .sku-search-box .el-input__inner {
+            border-radius: 4px 0 0 4px;
+            height: 100%;
+        }
+
+        .sku-search-box .el-button {
+            border-radius: 0 4px 4px 0;
+            height: 100%;
+        }
+
+        .goods-info {
+            min-width: 375px;
+        }
+
+        .sku-list .image {
+            vertical-align: middle;
+            max-width: 100%;
+            max-height: 100%;
+            display: block;
+        }
+
+        .sku-list .clearfix:before,
+        .sku-list .clearfix:after {
+            display: table;
+            content: "";
+        }
+
+        .sku-list .clearfix:after {
+            clear: both
+        }
+
+        .sku-list .flex {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .sku-list .el-row {
+            margin: 20px auto;
+            border: 1px solid #EBEEF5;
+            padding: 20px 15px 0 15px;
+            min-width: 425px;
+        }
+
+        .sku-list .el-col {
+            border-radius: 4px;
+            align-items: stretch;
+            margin-bottom: 40px;
+            min-width: 183px;
+        }
+        .mr-5 {
+            margin-right: 5px;
+        }
+
+        /* SKU 信息卡片*/
+        .container {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font: 12px/1.5 tahoma, arial, 'Hiragino Sans GB', '\5b8b\4f53', sans-serif;
+        }
+
+        .page-title {
+            width: 90%;
+            margin: 0 auto;
+            text-align: center;
+            border-bottom: 1px dashed #3d3d3d;
+        }
+
+        .card-list {
+            min-width: 320px;
+            margin: 0 auto;
+        }
+
+        .flex {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .card-list .card-item {
+            border: 1px solid #ededed;
+            position: relative;
+            float: left;
+            max-width: 250px;
+            padding-top: 2px;
+            padding-bottom: 5px;
+        }
+
+        .card-item img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        .card-item .title {
+            overflow: hidden;
+            color: #3d3d3d;
+            font-weight: 400;
+            height: 36px;
+            font-family: Arial, Helvetica, 'Hiragino Sans GB', sans-serif;
+        }
+
+        .card-item .title {
+            margin-top: 6px;
+        }
+
+        @media screen and (min-width:1440px) {
+            .card-list {
+                padding-left: 8.5%;
+            }
+        }
+
+        @media screen and (max-width: 1024px) {
+            .card-item {
+                margin-right: 15px;
+                margin-top: 12px;
+            }
+
+            .card-item:nth-child(4n + 1) {
+                margin-left: 24px;
+            }
+        }
+
+        @media screen and (min-width: 980px) {
+            .card-list {
+                max-width: 83%;
+            }
+
+            .card-list .card-item {
+                flex: 0 0 23%;
+                margin-right: 10px;
+                margin-top: 10px;
+            }
+        }
+
+        @media screen and (max-width: 980px) {
+            .card-item {
+                flex: 0 0 32%;
+                margin-right: 7px;
+                margin-top: 7px;
+            }
+
+            .card-item:nth-child(4n + 1) {
+                margin-left: 0px;
+            }
+
+            .card-item:nth-child(3n + 1) {
+                margin-left: 7px;
+            }
+        }
+
+        @media screen and (max-width:768px) {
+            .card-item {
+                flex: 0 0 32%;
+                margin-right: 6px;
+                margin-top: 8px;
+            }
+
+            .card-item:nth-child(4n + 1) {
+                margin-left: 0px;
+            }
+
+            .card-item:nth-child(3n + 1) {
+                margin-left: 8px;
+            }
+
+            .page-title {
+                width: 98%;
+            }
+        }
+
+        @media screen and (max-width:640px) {
+            .card-item {
+                flex: 0 0 47.4%;
+                margin-right: 6px;
+                margin-top: 6px;
+            }
+
+            .card-item:nth-child(4n + 1) {
+                margin-left: 0px;
+            }
+
+            .card-item:nth-child(3n + 1) {
+                margin-left: 0px;
+            }
+
+            .card-item:nth-child(2n + 1) {
+                margin-left: 6px;
+            }
+
+            .page-title {
+                width: 97%;
+                padding: 0;
+            }
+        }
+
+        @media screen and (max-width:375px) {
+            .card-item {
+                height: 320px;
+                margin-top: 6px;
+                margin-right: 6px;
+            }
+
+            .card-item:nth-child(4n + 1) {
+                margin-left: 0px;
+            }
+
+            .card-item:nth-child(3n + 1) {
+                margin-left: 0px;
+            }
+
+            .card-item:nth-child(2n + 1) {
+                margin-left: 6px;
+            }
+        }
+
+        @media screen and (max-width:320px) {
+            .card-item {
+                height: 295px;
+            }
+
+            .card-item:nth-child(4n + 1) {
+                margin-left: 0px;
+            }
+
+            .card-item:nth-child(3n + 1) {
+                margin-left: 0px;
+            }
+
+            .card-item:nth-child(2n + 1) {
+                margin-left: 4px;
+            }
+
+            .sku-features svg {
+                display: none;
+            }
+        }
+
+        .feature {
+            padding: 0 10px;
+        }
+
+        .feature:first-child {
+            margin-top: 11px;
+            height: 22px;
+            line-height: 22px;
+            overflow: hidden;
+        }
+
+        .feature:nth-child(3) {
+            margin-top: 5px;
+            height: 22px;
+            line-height: 22px;
+            overflow: hidden;
+        }
+
+        .feature:nth-last-child(2) {
+            color: #666;
+        }
+
+        .feature:last-child {
+            padding: 0 10px 0 6px;
+            margin-top: 10px;
+            height: 20px;
+            overflow: hidden;
+        }
+
+        .clearfix {
+            zoom: 1;
+        }
+
+        .clearfix::before,
+        .clearfix::after {
+            content: "";
+            display: table;
+        }
+
+        .clearfix:after {
+            clear: both;
+        }
+
+        .feature .price {
+            font-size: 18px;
+            zoom: 1;
+            font-family: arial;
+        }
+
+        .g_price span {
+            margin-right: 3px;
+        }
+
+        .g_price strong {
+            font-family: arial;
+            letter-spacing: 0.8px;
+            font-weight: 700;
+        }
+
+        .feature .price strong {
+            font-size: 16px;
+            color: #060616;
+        }
+
+        .feature .deal-cnt {
+            color: #060616;
+        }
+
+        .prb-0-parent {
+            position: relative;
+        }
+
+        .pb0-r5 {
+            position: absolute;
+            right: 5px;
+            bottom: 0;
+        }
+
+        .mr-3 {
+            margin-right: 3px;
+        }
+
+        .fl {
+            float: left;
+        }
+
+        .fr {
+            float: right;
+        }
+
+        .label {
+            font-weight: 500;
+        }
+
+        .bottom {
+            display: none;
+            position: absolute;
+            text-align: center;
+            background-color: rgba(0, 52, 114, 0.5);
+            color: #fff;
+            width: 100%;
+            height: 100%;
+            transition: 0.3s ease-in-out;
+            bottom: 0;
+        }
+
+        .card-item:hover {
+            border: 1px solid rgb(0, 52, 114);
+            cursor: pointer;
+        }
+
+        .card-item:hover > div.bottom {
+            display: block;
+            top: 0;
+        }
+
+        .bottom button {
+            background: transparent;
+            border: none;
+            color: #ddd;
+            height: 100%;
+            font-size: 48px;
+        }
+
+        .bottom button:hover {
+            background: transparent;
+            color: #dedddd;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <div class="content-header">
+        <h1>管理<small>商品管理</small></h1>
+        <el-breadcrumb separator-class="el-icon-arrow-right" class="breadcrumb">
+            <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+            <el-breadcrumb-item>管理</el-breadcrumb-item>
+            <el-breadcrumb-item>商品回收站</el-breadcrumb-item>
+        </el-breadcrumb>
+    </div>
+    <div class="app-container">
+        <div class="box">
+            <div class="filter-container">
+                <section class="filter-content">
+                    <input id="expand-toggle" name="accordion" type="checkbox">
+                    <div>
+                        <div class="header">
+                            <label for="expand-toggle" class="toggle-btn">
+                                <div class="left"><i class="el-icon-search"></i><span>筛选查询</span></div>
+                                <div class="right">
+                                    <i class="el-icon-arrow-down"></i>
+                                </div>
+                            </label>
+                            <div class="operation">
+                                <el-button @click="searchRecoveryBinList">查询结果</el-button>
+                            </div>
+                        </div>
+                        <article class="expandable">
+                            <el-form :inline="true" :model="searchMap">
+                                <el-form-item label="商品名称" :label-width="formLabelWidth">
+                                    <el-input v-model="searchMap.name" placeholder="商品名称" class="filter-item" ></el-input>
+                                </el-form-item>
+                                <el-form-item label="商品分类" :label-width="formLabelWidth">
+                                    <template slot-scope="scope">
+                                        <el-select v-model="searchMap.category1Id" filterable placeholder="请选择商品分类" class="filter-item">
+                                            <el-option
+                                                    v-for="item in categoryList"
+                                                    :key="item.id"
+                                                    :label="item.name"
+                                                    :value="item.id">
+                                            </el-option>
+                                        </el-select>
+                                    </template>
+                                </el-form-item>
+                                <el-form-item label="商品品牌" :label-width="formLabelWidth">
+                                    <template slot-scope="scope">
+                                        <el-select v-model="searchMap.brandId" filterable placeholder="请选择品牌" class="filter-item">
+                                            <el-option
+                                                    v-for="item in brandList"
+                                                    :key="item.id"
+                                                    :label="item.name"
+                                                    :value="item.id">
+                                            </el-option>
+                                        </el-select>
+                                    </template>
+                                </el-form-item>
+                            </el-form>
+                        </article>
+                    </div>
+                </section>
+            </div>
+            <el-table
+                    :data="goodsRecoveryList"
+                    border
+                    style="width: 100%"
+                    ref="multipleTable"
+                    tooltip-effect="dark"
+                    @selection-change="handleSelectionChange">
+                <el-table-column type="expand">
+                    <template slot-scope="scope">
+                        <div class="container">
+                            <div class="page-title">
+                                <h2>SKU信息</h2>
+                            </div>
+                            <div class="flex card-list">
+                                <div class="card-item" v-for="(sku, index) in scope.row.skuList" :key="index">
+                                    <img :src="sku.image" class="image">
+                                    <div>
+                                        <div class="sku-features">
+                                            <div class="feature clearfix prb-0-parent">
+                                                <div class="price fl">
+                                                    <span>￥</span><strong class="text" v-text="sku.price"></strong>
+                                                </div>
+                                                <div class="deal-cnt pb0-r5 fr" v-text="getSaleNumInfo(sku.saleNum)"></div>
+                                            </div>
+                                            <div class="feature text title" v-text="sku.name"></div>
+                                            <div class="feature">
+                                                <span class="label mr-3">
+                                <svg t="1639742445392" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                                     xmlns="http://www.w3.org/2000/svg" p-id="2072" width="20" height="20">
+                                    <path
+                                            d="M512 1003.52a497.92 497.92 0 1 1 497.92-497.92A498.56 498.56 0 0 1 512 1003.52zM512 71.68a433.92 433.92 0 1 0 433.92 433.92A434.56 434.56 0 0 0 512 71.68z"
+                                            fill="#323333" p-id="2073"></path>
+                                    <path
+                                            d="M152.96 369.92a33.92 33.92 0 0 1 35.2-36.48 39.04 39.04 0 0 1 29.44 16l148.48 198.4V369.92a35.2 35.2 0 1 1 69.76 0V640a30.72 30.72 0 0 1-34.56 33.28 36.48 36.48 0 0 1-29.44-12.8l-147.2-198.4V640a30.72 30.72 0 0 1-34.56 33.28 31.36 31.36 0 0 1-37.12-33.28zM463.36 504.32a162.56 162.56 0 1 1 323.84 0 158.08 158.08 0 0 1-161.92 168.96 159.36 159.36 0 0 1-161.92-168.96z m252.16 0c-3.84-69.12-33.92-104.96-90.24-108.8s-84.48 39.68-88.32 108.8 33.28 104.32 88.32 108.16 86.4-36.48 90.24-108.16zM856.96 603.52A37.12 37.12 0 0 1 896 640c0 21.12-13.44 32-36.48 33.28s-35.84-12.16-37.12-33.28a37.76 37.76 0 0 1 34.56-36.48z"
+                                            fill="#323333" p-id="2074"></path>
+                                </svg>
+                                编号
+                            </span>
+                                                <span class="text id" v-text="sku.id"></span>
+                                            </div>
+                                            <div class="feature">
+                                                <div class=" category fl">
+                                                    <span class="label mr-3">分类</span><span class="text category" v-text="setCategoryName(sku.categoryId, sku.categoryName)"></span>
+                                                </div>
+                                                <div class="category fr">
+                                                    <span class="label mr-3">品牌</span><span class="text" v-text="sku.brandName"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="bottom clearfix">
+                                        <el-button icon="el-icon-delete" @click="deleteSku(sku.id, sku.spuId, scope.row.skuList.length)"></el-button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                </el-table-column>
+                <el-table-column
+                        type="selection"
+                        width="55">
+                </el-table-column>
+                <el-table-column prop="spu.id" label="编号" width="80"></el-table-column>
+                <el-table-column prop="spu.name" label="商品名称" show-overflow-tooltip></el-table-column>
+                <el-table-column
+                        label="商品图片"
+                        width="160">
+                    <template slot-scope="scope">
+                        <img width="100" height="100" :src="scope.row.spu.image" alt="">
+                    </template>
+                </el-table-column>
+                </el-table-column>
+                <el-table-column label="操作">
+                    <template slot-scope="scope">
+                        <el-tooltip class="item" effect="dark" content="还原商品" placement="top">
+                            <el-button type="primary" icon="el-icon-edit" @click="recoveryGoods(scope.row.spu.id)" circle></el-button>
+                        </el-tooltip>
+                        <!-- TODO 实现商品的删除接口 不能直接调用 spu 的delete方法，必须先删除所有的 sku 才能删除 -->
+                        <el-tooltip class="item" effect="dark" content="删除商品" placement="top">
+                            <el-button type="danger" icon="el-icon-delete" @click="deleteGoods(scope.row.spu.id)" circle></el-button>
+                        </el-tooltip>
+                    </template>
+                </el-table-column>
+            </el-table>
+
+            <div class="pagination-container">
+                <el-pagination
+                        background
+                        @size-change="_goodsRowsChange"
+                        @current-change="_goodsPageChange"
+                        :current-page.sync="currentPage"
+                        :page-sizes="[10, 20, 30, 40]"
+                        :page-size="size"
+                        layout="total, sizes, prev, pager, next, jumper"
+                        :total="total">
+                </el-pagination>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="/static/js/vue.js"></script>
+<script src="/static/js/elementui.js"></script>
+<script src="/static/js/axios.js"></script>
+<script>
+    let main = {
+        data () {
+            return {
+                total: 10,
+                size: 10,
+                currentPage: 1,
+                isMarketable: '1',
+                formLabelWidth: '80px',
+                goodsRecoveryList: [],
+                searchMap: {'isDelete': '1'},     // 始终查询被删除的商品
+                categoryList: [],
+                categoryId: '0',
+                brandList: [],
+                brandId: '0',
+                searchDialogVisible: false,
+                pojo: {},               // 增，删，改 提交表单 goods 对象
+                skuDialogVisible: false,
+                logDetailDialogVisible: false,
+                specItems: [],       // 规格列表
+                skuId: '',
+                spuId: '',
+                skuDialogTitle: '编辑货品信息'
+            }
+        },
+        created () {
+            this._getSearchGoodsList()
+            this._getBrandList()
+            this._getCategoryList()
+        },
+        methods: {
+            _getSearchGoodsList () {
+                axios.post(`/spu/findRecoveryGoods?page=${this.currentPage}&size=${this.size}`, this.searchMap).then(res => {
+                    this.goodsRecoveryList = res.data.rows
+                    this.total = res.data.total
+                })
+            },
+            _getBrandList () {
+                axios.get('/brand/findAll').then(res => {
+                    this.brandList = res.data
+                })
+            },
+            _getCategoryList () {
+                axios.post('/category/findList', {parentId : 0}).then(res => {
+                    this.categoryList = res.data
+                })
+            },
+            searchRecoveryBinList () {
+                this._getSearchGoodsList()
+                this.searchMap = {'isDelete': '0'}
+            },
+            resetSearchMap () {
+                this.searchMap = {'isDelete': '0'}
+            },
+            showSearchDialogForm () {
+                this.searchDialogVisible = !this.searchDialogVisible
+            },
+            showSkuDialog (id) {
+                this.skuDialogVisible = !this.skuDialogVisible
+                this._getGoods(id)
+            },
+            skuDialogClosed () {
+                this.skuDialogTitle = '编辑货品信息'
+                this.skuID = ''
+            },
+            showLogDetailDialog () {
+                this.logDetailDialogVisible = !this.logDetailDialogVisible
+            },
+            recoveryGoods(id) {
+                this.pojo.id = id
+                this.pojo.isDelete = '0'
+                axios.post('/spu/update', this.pojo).then(res => {
+                    this.myMessage(res, true, false)
+                }).catch(err => {
+                    console.log(err)
+                })
+            },
+            deleteGoods (id) {
+                this.$confirm('确定要删除此商品吗？', '提示', {
+                    cancelButtonText: '取消',
+                    confirmButtonText: '确认',
+                    type: 'warning'
+                }).then(() => {
+                    this.deleteGoodsN(id)
+                })
+            },
+            deleteGoodsN(id) {
+                axios.get(`/spu/deleteGoodsById?id=${id}`).then(res => {
+                    this.myMessage(res, true, false)
+                }).catch(err => {
+                    console.log(err)
+                })
+            },
+            /**
+             * 删除 sku， 如果当前商品仅剩一个，则删除这一个
+             * @param id skuId
+             * @param spuId
+             * @param skuLen
+             */
+            deleteSku(id, spuId, skuLen) {
+                let warning = '确定要删除此记录吗？'
+                if (skuLen === 1) {
+                    warning = "当前商品仅剩 1 条sku信息，删除后当前商品也会被删除，\r\n" + warning
+                }
+                this.$confirm(warning, '提示', {
+                    cancelButtonText: '取消',
+                    confirmButtonText: '确认',
+                    type: 'warning'
+                }).then(() => {
+                    if (skuLen === 1) this.deleteGoodsN(spuId)
+                    else {
+                        axios.get(`/sku/delete?id=${id}`).then(res => {
+                            this.myMessage(res, true, false)
+                        }).catch(err => {
+                            console.log(err)
+                        })
+                    }
+                })
+            },
+            myMessage(res, needRefresh, needClose) {
+                if (res.data.code !== 200) {
+                    this.$message({
+                        message: res.data.message,
+                        type: 'error'
+                    })
+                    return
+                }
+                this.$message({
+                    message: res.data.message,
+                    type: 'success'
+                })
+                if (needRefresh) this._getSearchGoodsList()
+                if (needClose) this.showSearchDialogForm()
+            },
+            _goodsRowsChange(val) {
+                this.size = val
+                this._getSearchGoodsList()
+            },
+            _goodsPageChange(val) {
+                this.currentPage = val
+                this._getSearchGoodsList()
+            },
+            handleSelectionChange (val) {
+                console.log(val)
+            },
+            setCategoryName (id, name) {
+                let c = this.categoryList.forEach(category => {
+                    return parseInt(category.id) === id
+                })
+                if (typeof c === "undefined") {
+                    return name;
+                }
+                return c.name + ' > ' + name;
+            },
+            getSaleNumInfo(num) {
+                let count = String(num)
+                let result = '人付款'
+
+                if (count.length >= 9) {
+                    result = Math.floor(num/Math.pow(10, 8)) + "+亿" + result
+                } else if (count.length >= 8) {
+                    result = Math.floor(num/Math.pow(10, 8)) + "+千万" + result
+                } else if (count.length >= 5) {
+                    result = Math.floor(num/Math.pow(10, 4)) + '+万' + result
+                } else if (count.length > 2) {
+                    result = Math.floor(num/Math.pow(10, count.length - 1)) * Math.pow(10, count.length - 1) + "+" + result
+                } else {
+                    result = num + "人付款"
+                }
+                return result
+            }
+        },
+        watch: {
+            skuId(val, oldVal) {
+                if (val.length === 0) this.skuCopyList = this.skuList
+            }
+        }
+    }
+    let vm = Vue.extend(main)
+    new vm().$mount('#app');
+</script>
+</html>

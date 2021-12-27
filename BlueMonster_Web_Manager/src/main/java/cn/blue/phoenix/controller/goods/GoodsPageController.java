@@ -1,4 +1,4 @@
-package cn.blue.phoenix.controller;
+package cn.blue.phoenix.controller.goods;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +14,16 @@ public class GoodsPageController {
     @GetMapping("/")
     public String getGoodsList() {
         return "goods/goods";
+    }
+
+    @GetMapping("/recovery")
+    public String getGoodsRecoveryBin() {
+        return "goods/goods-recovery";
+    }
+
+    @GetMapping("/save-goods")
+    public String saveGoods() {
+        return "goods/save-goods";
     }
 
     @GetMapping("/brand")

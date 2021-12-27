@@ -16,10 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @DubboService(interfaceClass = SpuService.class)
 public class SpuServiceImpl implements SpuService {
@@ -68,8 +65,44 @@ public class SpuServiceImpl implements SpuService {
         return pageUtils.pageHelperUtils(list, page, size);
     }
 
+    /**
+     *
+     * @return 回收站中的所有商品
+     */
     @Override
-    public Spu findById(Integer id) {
+    public PageResult<Goods> findRecoveryGoods(Integer page, Integer size) {
+        // 获取回收站中商品 spu
+        Example example = new Example(Spu.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("isDelete", '1');
+
+        PageHelper.startPage(page, size);
+        List<Spu> spuList = spuMapper.selectByExample(example);
+
+        // 组装 Goods
+        List<Goods> goodsList = new ArrayList<>();
+        for (Spu spu: spuList) {
+            goodsList.add(this.findGoodsById(spu.getId()));
+        }
+        return new PageHelperUtils<Goods>().pageHelperUtils(goodsList, page, size);
+    }
+
+    @Override
+    public void deleteGoods(String id) {
+        // 删除 sku
+        if (id.equals("")) return;
+        Example skuExample = new Example(Sku.class);
+        Example.Criteria skuExampleCriteria = skuExample.createCriteria();
+        skuExampleCriteria.andEqualTo("spuId", id);
+
+        skuMapper.deleteByExample(skuExample);
+
+        // 删除 spu;
+        spuMapper.deleteByPrimaryKey(id);
+    }
+
+    @Override
+    public Spu findById(String id) {
         return spuMapper.selectByPrimaryKey(id);
     }
 
@@ -86,7 +119,7 @@ public class SpuServiceImpl implements SpuService {
 
     @Transactional
     @Override
-    public void delete(Integer id) {
+    public void delete(String id) {
         spuMapper.deleteByPrimaryKey(id);
     }
 

@@ -1,4 +1,4 @@
-package cn.blue.phoenix.controller;
+package cn.blue.phoenix.controller.goods;
 
 import cn.blue.phoenix.entity.PageResult;
 import cn.blue.phoenix.entity.Result;
@@ -38,7 +38,7 @@ public class SkuController {
     }
 
     @GetMapping("/findById")
-    public Sku findById(Integer id) {
+    public Sku findById(String id) {
         return skuService.findById(id);
     }
 
@@ -55,7 +55,7 @@ public class SkuController {
     }
 
     @GetMapping("/delete")
-    public ResponseEntity<Result> delete(Integer id) {
+    public ResponseEntity<Result> delete(String id) {
         skuService.delete(id);
         return ResponseEntity.ok(new Result(200, "删除成功"));
     }

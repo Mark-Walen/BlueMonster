@@ -15,11 +15,11 @@ public interface SkuService {
 
     PageResult<Sku> findPage(Map<String, Object> searchMap, Integer page, Integer size);
 
-    Sku findById(Integer id);
+    Sku findById(String id);
 
     void add(Sku sku);
 
     void update(Sku sku);
 
-    void delete(Integer id);
+    void delete(String id);
 }

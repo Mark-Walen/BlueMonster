@@ -2,6 +2,7 @@
 <project version="4">
   <component name="FrameworkDetectionExcludesConfiguration">
     <file type="web" url="file://$PROJECT_DIR$/BlueMonster_Service_Goods" />
+    <file type="web" url="file://$PROJECT_DIR$/BlueMonster_Service_System" />
     <file type="web" url="file://$PROJECT_DIR$/BlueMonster_Web_Manager" />
   </component>
   <component name="MavenProjectsManager">

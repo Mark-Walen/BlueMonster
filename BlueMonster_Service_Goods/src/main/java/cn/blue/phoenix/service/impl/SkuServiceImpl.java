@@ -52,7 +52,7 @@ public class SkuServiceImpl implements SkuService {
     }
 
     @Override
-    public Sku findById(Integer id) {
+    public Sku findById(String id) {
         return skuMapper.selectByPrimaryKey(id);
     }
 
@@ -69,7 +69,7 @@ public class SkuServiceImpl implements SkuService {
 
     @Transactional
     @Override
-    public void delete(Integer id) {
+    public void delete(String id) {
         skuMapper.deleteByPrimaryKey(id);
     }
 }

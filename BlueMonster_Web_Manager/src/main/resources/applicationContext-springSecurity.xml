@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans
+        xmlns="http://www.springframework.org/schema/security"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:beans="http://www.springframework.org/schema/beans"
+        xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+    <http pattern="/system/login" security="none"/>
+    <http pattern="/static/img/**" security="none"/>
+    <http>
+        <!-- 所有资源必须有 ROLE_ADMIN 角色才能访问 -->
+        <intercept-url pattern="/**" access="hasRole('ROLE_ADMIN')"/>
+        <form-login login-page="/system/login" default-target-url="/system/main"
+                    authentication-failure-url="/system/main"/>
+        <!-- 退出登录 -->
+        <logout/>
+        <!-- 关闭跨域伪造控制，因为静态页面无法动态生成token -->
+        <csrf disabled="true"/>
+    </http>
+
+    <!-- 认证管理器-->
+    <authentication-manager>
+        <authentication-provider user-service-ref="userDetailService">
+            <password-encoder ref="bcryptEncoder"/>
+        </authentication-provider>
+    </authentication-manager>
+
+    <beans:bean id="userDetailService" class="cn.blue.phoenix.controller.user.UserServiceImpl"/>
+    <beans:bean id="bcryptEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+</beans:beans>

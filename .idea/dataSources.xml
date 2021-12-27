@@ -8,5 +8,12 @@
       <jdbc-url>jdbc:mysql://localhost:3306/green_orange_goods?characterEncoding=UTF8&amp;serverTimezone=UTC</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="green_orange_system@localhost" uuid="cb167643-1ceb-4fa6-b617-d1de88b1e7a2">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306/green_orange_system?characterEncoding=UTF8&amp;serverTimezone=UTC</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>

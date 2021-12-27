@@ -1,4 +1,4 @@
-package cn.blue.phoenix.controller;
+package cn.blue.phoenix.controller.goods;
 
 import cn.blue.phoenix.entity.PageResult;
 import cn.blue.phoenix.entity.Result;
@@ -40,7 +40,7 @@ public class SpuController {
     }
 
     @GetMapping("/findById")
-    public Spu findById(Integer id) {
+    public Spu findById(String id) {
         return spuService.findById(id);
     }
 
@@ -57,7 +57,7 @@ public class SpuController {
     }
 
     @GetMapping("/delete")
-    public ResponseEntity<Result> delete(Integer id) {
+    public ResponseEntity<Result> delete(String id) {
         spuService.delete(id);
         return ResponseEntity.ok(new Result(200, "删除成功"));
     }
@@ -71,6 +71,17 @@ public class SpuController {
     @GetMapping("/findGoodsById")
     public Goods findGoodsById(String id) {
         return spuService.findGoodsById(id);
+    }
+
+    @PostMapping("/findRecoveryGoods")
+    public PageResult<Goods> findRecoveryGoods(Integer page, Integer size) {
+        return spuService.findRecoveryGoods(page, size);
+    }
+
+    @GetMapping("/deleteGoodsById")
+    public ResponseEntity<Result> deleteGoodsById(String id) {
+        spuService.deleteGoods(id);
+        return ResponseEntity.ok(new Result(200, "删除成功"));
     }
 
     @GetMapping("/audit")

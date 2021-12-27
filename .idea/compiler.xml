@@ -10,6 +10,7 @@
         <module name="BlueMonster_Interface" />
         <module name="BlueMonster_Common" />
         <module name="BlueMonster_Pojo" />
+        <module name="BlueMonster_Service_System" />
         <module name="BlueMonster_Service_Goods" />
         <module name="BlueMonster_Common_Service" />
         <module name="BlueMonster_Common_web" />
@@ -23,6 +24,7 @@
       <module name="BlueMonster_Interface" target="11" />
       <module name="BlueMonster_Pojo" target="11" />
       <module name="BlueMonster_Service_Goods" target="11" />
+      <module name="BlueMonster_Service_System" target="11" />
       <module name="BlueMonster_Web_Manager" target="11" />
     </bytecodeTargetLevel>
   </component>

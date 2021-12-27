@@ -9,6 +9,7 @@
       <module fileurl="file://$PROJECT_DIR$/BlueMonster_Interface/BlueMonster_Interface.iml" filepath="$PROJECT_DIR$/BlueMonster_Interface/BlueMonster_Interface.iml" />
       <module fileurl="file://$PROJECT_DIR$/BlueMonster_Pojo/BlueMonster_Pojo.iml" filepath="$PROJECT_DIR$/BlueMonster_Pojo/BlueMonster_Pojo.iml" />
       <module fileurl="file://$PROJECT_DIR$/BlueMonster_Service_Goods/BlueMonster_Service_Goods.iml" filepath="$PROJECT_DIR$/BlueMonster_Service_Goods/BlueMonster_Service_Goods.iml" />
+      <module fileurl="file://$PROJECT_DIR$/BlueMonster_Service_System/BlueMonster_Service_System.iml" filepath="$PROJECT_DIR$/BlueMonster_Service_System/BlueMonster_Service_System.iml" />
       <module fileurl="file://$PROJECT_DIR$/BlueMonster_Web_Manager/BlueMonster_Web_Manager.iml" filepath="$PROJECT_DIR$/BlueMonster_Web_Manager/BlueMonster_Web_Manager.iml" />
     </modules>
   </component>

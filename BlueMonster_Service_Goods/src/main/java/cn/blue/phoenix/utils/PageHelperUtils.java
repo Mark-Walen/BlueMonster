@@ -72,7 +72,6 @@ public class PageHelperUtils<T> {
     public Example createExample(Map<String, Object> searchMap, java.lang.Class<?> entityClass) {
         Example example = new Example(entityClass);
         Example.Criteria criteria = example.createCriteria();
-        System.out.println(searchMap);
 
         // 遍历搜索列表
         for (Map.Entry<String, Object> entry: searchMap.entrySet()) {
