@@ -5,16 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="51a32e33-f434-475e-9303-03ce2a65a4d5" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/BlueMonster_Web_Manager/src/main/webapp/static/css/bm-frame.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlueMonster_Web_Manager/src/main/webapp/static/ico/favicon-32x32.ico" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlueMonster_Web_Manager/src/main/webapp/static/ico/favicon-64x64.ico" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/BlueMonster_Service_System_war.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/BlueMonster_Service_System_war_exploded.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/webContexts.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/webContexts.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlueMonster_Service_System/src/main/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/BlueMonster_Service_System/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlueMonster_Web_Manager/src/main/resources/applicationContext-springSecurity.xml" beforeDir="false" afterPath="$PROJECT_DIR$/BlueMonster_Web_Manager/src/main/resources/applicationContext-springSecurity.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlueMonster_Web_Manager/src/main/webapp/WEB-INF/view/system/main.html" beforeDir="false" afterPath="$PROJECT_DIR$/BlueMonster_Web_Manager/src/main/webapp/WEB-INF/view/system/main.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -208,6 +199,7 @@
       <workItem from="1640527044955" duration="2957000" />
       <workItem from="1640581570163" duration="36923000" />
       <workItem from="1640662532743" duration="24849000" />
+      <workItem from="1640696926872" duration="1638000" />
     </task>
     <servers />
   </component>
