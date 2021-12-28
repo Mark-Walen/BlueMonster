@@ -5,52 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="51a32e33-f434-475e-9303-03ce2a65a4d5" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/artifacts/BlueMonster_Service_System_war.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/artifacts/BlueMonster_Service_System_war_exploded.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlueMonster_Interface/src/main/java/cn/blue/phoenix/service/system/AdminService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlueMonster_Pojo/src/main/java/cn/blue/phoenix/pojo/system/Admin.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlueMonster_Service_System/BlueMonster_Service_System.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlueMonster_Service_System/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlueMonster_Service_System/src/main/java/cn/blue/phoenix/dao/AdminMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlueMonster_Service_System/src/main/java/cn/blue/phoenix/service/impl/AdminServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlueMonster_Service_System/src/main/resources/db.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlueMonster_Service_System/src/main/resources/dubbo.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlueMonster_Service_System/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlueMonster_Web_Manager/src/main/java/cn/blue/phoenix/controller/system/SystemPageController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlueMonster_Web_Manager/src/main/java/cn/blue/phoenix/controller/user/UserServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlueMonster_Web_Manager/src/main/resources/applicationContext-springSecurity.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlueMonster_Web_Manager/src/main/webapp/WEB-INF/view/goods/goods-recovery.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlueMonster_Web_Manager/src/main/webapp/WEB-INF/view/goods/save-goods.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlueMonster_Web_Manager/src/main/webapp/WEB-INF/view/system/login.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlueMonster_Web_Manager/src/main/webapp/WEB-INF/view/system/main.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlueMonster_Web_Manager/src/main/webapp/static/img/BlueMonster2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/BlueMonster_Web_Manager/src/main/webapp/static/img/BlueMonster3.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/httpRequests/http-requests-log.http" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/httpRequests/http-requests-log.http" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BlueMonster_Web_Manager/src/main/webapp/static/css/bm-frame.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BlueMonster_Web_Manager/src/main/webapp/static/ico/favicon-32x32.ico" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BlueMonster_Web_Manager/src/main/webapp/static/ico/favicon-64x64.ico" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/BlueMonster_Service_System_war.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/BlueMonster_Service_System_war_exploded.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/webContexts.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/webContexts.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlueMonster_Interface/src/main/java/cn/blue/phoenix/service/goods/SkuService.java" beforeDir="false" afterPath="$PROJECT_DIR$/BlueMonster_Interface/src/main/java/cn/blue/phoenix/service/goods/SkuService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlueMonster_Interface/src/main/java/cn/blue/phoenix/service/goods/SpuService.java" beforeDir="false" afterPath="$PROJECT_DIR$/BlueMonster_Interface/src/main/java/cn/blue/phoenix/service/goods/SpuService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlueMonster_Service_Goods/src/main/java/cn/blue/phoenix/service/impl/SkuServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/BlueMonster_Service_Goods/src/main/java/cn/blue/phoenix/service/impl/SkuServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlueMonster_Service_Goods/src/main/java/cn/blue/phoenix/service/impl/SpuServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/BlueMonster_Service_Goods/src/main/java/cn/blue/phoenix/service/impl/SpuServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlueMonster_Service_Goods/src/main/java/cn/blue/phoenix/utils/PageHelperUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/BlueMonster_Service_Goods/src/main/java/cn/blue/phoenix/utils/PageHelperUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlueMonster_Web_Manager/BlueMonster_Web_Manager.iml" beforeDir="false" afterPath="$PROJECT_DIR$/BlueMonster_Web_Manager/BlueMonster_Web_Manager.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlueMonster_Web_Manager/src/main/java/cn/blue/phoenix/controller/AlbumController.java" beforeDir="false" afterPath="$PROJECT_DIR$/BlueMonster_Web_Manager/src/main/java/cn/blue/phoenix/controller/goods/AlbumController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlueMonster_Web_Manager/src/main/java/cn/blue/phoenix/controller/BrandController.java" beforeDir="false" afterPath="$PROJECT_DIR$/BlueMonster_Web_Manager/src/main/java/cn/blue/phoenix/controller/goods/BrandController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlueMonster_Web_Manager/src/main/java/cn/blue/phoenix/controller/CategoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/BlueMonster_Web_Manager/src/main/java/cn/blue/phoenix/controller/goods/CategoryController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlueMonster_Web_Manager/src/main/java/cn/blue/phoenix/controller/GoodsPageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/BlueMonster_Web_Manager/src/main/java/cn/blue/phoenix/controller/goods/GoodsPageController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlueMonster_Web_Manager/src/main/java/cn/blue/phoenix/controller/ParamController.java" beforeDir="false" afterPath="$PROJECT_DIR$/BlueMonster_Web_Manager/src/main/java/cn/blue/phoenix/controller/goods/ParamController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlueMonster_Web_Manager/src/main/java/cn/blue/phoenix/controller/SkuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/BlueMonster_Web_Manager/src/main/java/cn/blue/phoenix/controller/goods/SkuController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlueMonster_Web_Manager/src/main/java/cn/blue/phoenix/controller/SpecController.java" beforeDir="false" afterPath="$PROJECT_DIR$/BlueMonster_Web_Manager/src/main/java/cn/blue/phoenix/controller/goods/SpecController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlueMonster_Web_Manager/src/main/java/cn/blue/phoenix/controller/SpuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/BlueMonster_Web_Manager/src/main/java/cn/blue/phoenix/controller/goods/SpuController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlueMonster_Web_Manager/src/main/java/cn/blue/phoenix/controller/TemplateController.java" beforeDir="false" afterPath="$PROJECT_DIR$/BlueMonster_Web_Manager/src/main/java/cn/blue/phoenix/controller/goods/TemplateController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlueMonster_Web_Manager/src/main/java/cn/blue/phoenix/controller/UploadController.java" beforeDir="false" afterPath="$PROJECT_DIR$/BlueMonster_Web_Manager/src/main/java/cn/blue/phoenix/controller/goods/UploadController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BlueMonster_Web_Manager/src/main/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/BlueMonster_Web_Manager/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlueMonster_Service_System/src/main/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/BlueMonster_Service_System/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlueMonster_Web_Manager/src/main/resources/applicationContext-springSecurity.xml" beforeDir="false" afterPath="$PROJECT_DIR$/BlueMonster_Web_Manager/src/main/resources/applicationContext-springSecurity.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlueMonster_Web_Manager/src/main/webapp/WEB-INF/view/system/main.html" beforeDir="false" afterPath="$PROJECT_DIR$/BlueMonster_Web_Manager/src/main/webapp/WEB-INF/view/system/main.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,6 +29,7 @@
         <option value="Interface" />
         <option value="Class" />
         <option value="HTML File" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -111,7 +76,8 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="jdk.selected.JAVA_MODULE" value="11" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/BlueMonster_Service_System/src/main" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/BlueMonster_Web_Manager/src/main/webapp/static/js" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
@@ -121,11 +87,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\MarkWalen\BlueMonster\BlueMonster_Web_Manager\src\main\webapp\static\js" />
+      <recent name="D:\MarkWalen\BlueMonster\BlueMonster_Web_Manager\src\main\webapp\static\ico" />
       <recent name="D:\MarkWalen\BlueMonster\BlueMonster_Service_System\src\main" />
       <recent name="D:\MarkWalen\BlueMonster\BlueMonster_Pojo\src\main\resources" />
       <recent name="D:\MarkWalen\BlueMonster\BlueMonster_Web_Manager\src\main\webapp\static\img" />
-      <recent name="D:\MarkWalen\BlueMonster\BlueMonster_Web_Manager\src\main\resources" />
-      <recent name="D:\MarkWalen\BlueMonster\BlueMonster_Common_Service\src\main\java\cn\blue\phoenix\utils" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\MarkWalen\BlueMonster\BlueMonster_Service_System\src\main\resources" />
@@ -240,7 +206,8 @@
       <workItem from="1639975862247" duration="1100000" />
       <workItem from="1639986547097" duration="8031000" />
       <workItem from="1640527044955" duration="2957000" />
-      <workItem from="1640581570163" duration="28109000" />
+      <workItem from="1640581570163" duration="36923000" />
+      <workItem from="1640662532743" duration="24849000" />
     </task>
     <servers />
   </component>

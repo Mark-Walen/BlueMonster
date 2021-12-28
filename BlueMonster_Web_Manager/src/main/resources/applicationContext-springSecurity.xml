@@ -17,6 +17,10 @@
         <logout/>
         <!-- 关闭跨域伪造控制，因为静态页面无法动态生成token -->
         <csrf disabled="true"/>
+        <!-- 同源策略 -->
+        <headers>
+            <frame-options policy="SAMEORIGIN"/>
+        </headers>
     </http>
 
     <!-- 认证管理器-->
