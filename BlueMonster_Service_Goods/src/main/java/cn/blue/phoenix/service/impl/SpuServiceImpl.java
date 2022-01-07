@@ -47,7 +47,7 @@ public class SpuServiceImpl implements SpuService {
     public PageResult<Spu> findPage(Integer page, Integer size) {
         PageHelper.startPage(page, size);
         List<Spu> list = spuMapper.selectAll();
-        return pageUtils.pageHelperUtils(list, page, size);
+        return new PageResult<>(pageUtils.getTotal(),pageUtils.pageHelperUtils(list, page, size));
     }
 
     @Override
@@ -62,7 +62,7 @@ public class SpuServiceImpl implements SpuService {
         PageHelper.startPage(page, size);
         List<Spu> list = spuMapper.selectByExample(example);
 
-        return pageUtils.pageHelperUtils(list, page, size);
+        return new PageResult<>(pageUtils.getTotal(),pageUtils.pageHelperUtils(list, page, size));
     }
 
     /**
@@ -84,7 +84,9 @@ public class SpuServiceImpl implements SpuService {
         for (Spu spu: spuList) {
             goodsList.add(this.findGoodsById(spu.getId()));
         }
-        return new PageHelperUtils<Goods>().pageHelperUtils(goodsList, page, size);
+        PageHelperUtils<Goods> goodsPageHelperUtils = new PageHelperUtils<>();
+        goodsList = goodsPageHelperUtils.pageHelperUtils(goodsList, page, size);
+        return new PageResult<>(goodsPageHelperUtils.getTotal(), goodsList);
     }
 
     @Override

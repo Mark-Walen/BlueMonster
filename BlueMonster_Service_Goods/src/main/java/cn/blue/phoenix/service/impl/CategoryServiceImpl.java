@@ -31,10 +31,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public PageResult<Category> findPage(Integer page, Integer size) {
-        PageHelper.startPage(page, size);
-        List<Category> list = categoryMapper.selectAll();
-
-        return pageUtils.pageHelperUtils(list, page, size);
+        return new PageResult<>(pageUtils.getTotal(), pageUtils.pageHelperUtils(page, size, CategoryMapper.class, "selectAll"));
     }
 
     @Override
@@ -50,7 +47,7 @@ public class CategoryServiceImpl implements CategoryService {
         PageHelper.startPage(page, size);
         List<Category> list = categoryMapper.selectByExample(example);
 
-        return pageUtils.pageHelperUtils(list, page, size);
+        return new PageResult<>(pageUtils.getTotal(), pageUtils.pageHelperUtils(list, page, size));
     }
 
     @Override

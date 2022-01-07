@@ -1,3 +1,33 @@
+GET http://localhost:19101/album/findPage?page=1&size=10
+
+<> 2022-01-07T001413.200.html
+
+###
+
+GET http://localhost:19101/menu/findAllMenu
+
+<> 2022-01-01T204635.200.html
+
+###
+
+GET http://localhost:19101/menu/findAllMenu
+
+<> 2021-12-30T223730.200.html
+
+###
+
+GET http://localhost:19101/menu/findAllMenu
+
+<> 2021-12-29T224508.500.html
+
+###
+
+GET http://localhost:19101/menu/findAllMenu
+
+<> 2021-12-29T212117.500.html
+
+###
+
 GET http://localhost:19101/system/login
 
 <> 2021-12-27T200236.200.txt

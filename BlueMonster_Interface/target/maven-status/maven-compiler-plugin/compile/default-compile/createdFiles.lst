@@ -1,0 +1,11 @@
+cn\blue\phoenix\service\goods\AlbumService.class
+cn\blue\phoenix\service\goods\SpecService.class
+cn\blue\phoenix\service\system\AdminService.class
+cn\blue\phoenix\service\system\MenuService.class
+cn\blue\phoenix\service\goods\CategoryService.class
+cn\blue\phoenix\service\goods\SpuService.class
+cn\blue\phoenix\service\goods\BrandService.class
+cn\blue\phoenix\service\goods\TemplateService.class
+cn\blue\phoenix\service\system\LoginLogService.class
+cn\blue\phoenix\service\goods\ParamService.class
+cn\blue\phoenix\service\goods\SkuService.class

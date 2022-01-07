@@ -29,7 +29,7 @@ public class BrandServiceImpl implements BrandService {
 
     @Override
     public PageResult<Brand> findPage(Integer page, Integer size) {
-        PageHelper.startPage(page, size);
+        /*PageHelper.startPage(page, size);
         List<Brand> list = brandMapper.selectAll();
 
         // 封装查询结果
@@ -39,7 +39,8 @@ public class BrandServiceImpl implements BrandService {
         long total = pageInfo.getTotal();
         // 获取当前页数列表
         List<Brand> brandList = pageInfo.getList();
-        return new PageResult<>(total, brandList);
+        return new PageResult<>(total, brandList);*/
+        return new PageResult<>(pageUtils.getTotal(), pageUtils.pageHelperUtils(page, size, BrandMapper.class, "selectAll"));
     }
 
     @Override

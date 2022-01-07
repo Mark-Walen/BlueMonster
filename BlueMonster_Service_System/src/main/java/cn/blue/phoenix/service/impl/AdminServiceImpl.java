@@ -66,7 +66,7 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public void update(Admin admin) {
-
+        adminMapper.updateByPrimaryKeySelective(admin);
     }
 
     @Override

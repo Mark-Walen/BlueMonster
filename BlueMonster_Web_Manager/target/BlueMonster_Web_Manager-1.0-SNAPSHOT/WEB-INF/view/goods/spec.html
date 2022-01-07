@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>规格管理</title>
+    <link rel="stylesheet" href="/static/css/elementui.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="icon" href="/static/ico/favicon.ico">
+    <style>
+        .el-dialog {
+            min-width: 600px;
+            max-width: 800px;
+        }
+
+        th > .cell {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <div class="content-header">
+        <h1>管理<small>规格管理</small></h1>
+        <el-breadcrumb separator-class="el-icon-arrow-right" class="breadcrumb">
+            <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+            <el-breadcrumb-item>管理</el-breadcrumb-item>
+            <el-breadcrumb-item>规格管理</el-breadcrumb-item>
+        </el-breadcrumb>
+    </div>
+    <div class="app-container">
+        <div class="box">
+            <div class="filter-container">
+                <!--查询表单-->
+                <el-form :inline="true">
+                    <el-form-item label="名称">
+                        <el-input v-model="searchMap.name" placeholder="名称" class="filter-item"></el-input>
+                    </el-form-item>
+                    <el-form-item label="规格选项">
+                        <el-input v-model="searchMap.options" placeholder="规格选项" class="filter-item"></el-input>
+                    </el-form-item>
+
+                    <el-button icon="el-icon-search" type="primary" @click="_getSearchSpecList()">查询</el-button>
+                    <el-button type="primary" @click="showSpecDialogForm">添加规格</el-button>
+                    <el-button type="primary" onclick="location.href='/goods/template'">返回</el-button>
+                </el-form>
+            </div>
+            <el-table :data="specList" border style="width: 100%">
+                <el-table-column prop="id" label="ID" width="80"></el-table-column>
+                <el-table-column prop="name" label="名称" width="80"></el-table-column>
+                <el-table-column prop="options" label="规格选项" width="400"></el-table-column>
+                <el-table-column prop="seq" label="排序" width="80"></el-table-column>
+                <el-table-column prop="templateId" label="模板ID" width="80"></el-table-column>
+
+                <el-table-column label="操作">
+                    <template slot-scope="scope">
+                        <el-tooltip class="item" effect="dark" content="修改参数" placement="top">
+                            <el-button type="warning" icon="el-icon-edit" @click="editSpec(scope.row.id)" circle></el-button>
+                        </el-tooltip>
+                        <el-tooltip class="item" effect="dark" content="删除参数" placement="top">
+                            <el-button type="danger" icon="el-icon-delete" @click="deleteSpec(scope.row.id)" circle></el-button>
+                        </el-tooltip>
+                    </template>
+                </el-table-column>
+            </el-table>
+            <div class="pagination-container">
+                <el-pagination
+                        background
+                        @size-change="_specRowsChange"
+                        @current-change="_specPageChange"
+                        :current-page.sync="currentPage"
+                        :page-sizes="[10, 20, 30, 40]"
+                        :page-size="size"
+                        layout="total, sizes, prev, pager, next, jumper"
+                        :total="total">
+                </el-pagination>
+            </div>
+            <el-dialog title="规格信息" :visible.sync="dialogFormVisible">
+                <el-form :model="pojo">
+                    <el-form-item label="规格名称">
+                        <el-input v-model="pojo.name"></el-input>
+                    </el-form-item>
+                    <el-form-item label="规格选项">
+                        <el-input type="textarea" v-model="pojo.options"></el-input>
+                    </el-form-item>
+                </el-form>
+                <el-form-item label="排序">
+                    <el-input v-model="pojo.seq"></el-input>
+                </el-form-item>
+                    <div slot="footer" class="dialog-footer">
+                        <el-button @click="showSpecDialogForm">取 消</el-button>
+                        <el-button type="primary" @click="addAndUpdateSpec">确 定</el-button>
+                    </div>
+            </el-dialog>
+        </div>
+    </div>
+</div>
+</body>
+<script src="/static/js/vue.js"></script>
+<script src="/static/js/elementui.js"></script>
+<script src="/static/js/axios.js"></script>
+<script src="/static/js/util.js"></script>
+<script>
+    let main = {
+        data() {
+            return {
+                specList: [],
+                currentPage: 1,
+                total: 10,
+                size: 10,
+                searchMap: {},
+                dialogFormVisible: false,
+                formLabelWidth: '120px',
+                pojo: {},
+                templateId: 0
+            }
+        },
+        created() {
+            this.templateId = getQueryString('templateId')
+            this.searchMap['templateId'] = this.templateId
+            this._getSearchSpecList();
+        },
+        methods: {
+            _getSearchSpecList() {
+                axios.post(`/spec/findPage?page=${this.currentPage}&size=${this.size}`, this.searchMap).then(res => {
+                    this.specList = res.data.rows
+                    this.total = res.data.total
+                })
+            },
+            addAndUpdateSpec () {
+                let url = this.pojo.id ? 'update': 'add'
+                this.pojo.options = this.pojo.options.replace(/\n/g, ',')
+                axios.post(`/spec/${url}`, this.pojo).then(res => {
+                    this.myMessage(res, true, this.dialogFormVisible)
+                })
+            },
+            editSpec(id) {
+                this.showSpecDialogForm();
+                axios.get(`/spec/findById`, {
+                    params: {
+                        id
+                    }
+                }).then(res => {
+                    if (typeof res.data === "object") {
+                        this.pojo = res.data
+                        this.pojo.options = this.pojo.options.replace(/,/g, '\n')
+                    }
+                })
+            },
+            deleteSpec(id) {
+                this.$confirm('确定要删除此记录吗？', '提示', {
+                    cancelButtonText: '取消',
+                    confirmButtonText: '确认',
+                    type: 'warning'
+                }).then(() => {
+                    axios.get('/spec/delete', {
+                        params: {
+                            id
+                        }
+                    }).then(res => {
+                        this.myMessage(res, true, this.dialogFormVisible)
+                    })
+                })
+            },
+            myMessage(res, needRefresh, needClose) {
+                if (res.data.code !== 200) {
+                    this.$message({
+                        message: res.data.message,
+                        type: 'error'
+                    })
+                    return
+                }
+                this.$message({
+                    message: res.data.message,
+                    type: 'success'
+                })
+                if (needRefresh) this._getSearchBrandList()
+                if (needClose) this.showDialogForm();
+            },
+            _specRowsChange(val) {
+                this.size = val
+                this._getSearchSpecList()
+            },
+            _specPageChange(val) {
+                this.currentPage = val
+                this._getSearchSpecList()
+            },
+            showSpecDialogForm() {
+                this.pojo = { templateId: this.templateId }
+                this.dialogFormVisible = !this.dialogFormVisible
+            }
+        }
+    }
+    let vm = Vue.extend(main)
+    new vm().$mount('#app');
+</script>
+</html>

@@ -1,0 +1,17 @@
+cn\blue\phoenix\controller\goods\SkuController.class
+cn\blue\phoenix\controller\system\LoginLogController.class
+cn\blue\phoenix\controller\goods\SpecController.class
+cn\blue\phoenix\controller\goods\CategoryController.class
+cn\blue\phoenix\controller\goods\SpuController.class
+cn\blue\phoenix\utils\WebUtil.class
+cn\blue\phoenix\utils\FileUtils.class
+cn\blue\phoenix\controller\goods\UploadController.class
+cn\blue\phoenix\controller\system\MenuController.class
+cn\blue\phoenix\controller\system\UserDetailServiceImpl.class
+cn\blue\phoenix\controller\goods\AlbumController.class
+cn\blue\phoenix\controller\system\SystemPageController.class
+cn\blue\phoenix\controller\goods\ParamController.class
+cn\blue\phoenix\controller\goods\BrandController.class
+cn\blue\phoenix\controller\goods\TemplateController.class
+cn\blue\phoenix\controller\system\AuthenticationSuccessHandlerImpl.class
+cn\blue\phoenix\controller\goods\GoodsPageController.class

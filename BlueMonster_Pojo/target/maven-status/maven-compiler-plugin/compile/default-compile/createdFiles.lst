@@ -1,0 +1,15 @@
+cn\blue\phoenix\pojo\goods\Album.class
+cn\blue\phoenix\pojo\goods\Brand.class
+cn\blue\phoenix\pojo\goods\CategoryBrand.class
+cn\blue\phoenix\pojo\goods\Spu.class
+cn\blue\phoenix\pojo\system\Menu.class
+cn\blue\phoenix\pojo\goods\Category.class
+cn\blue\phoenix\pojo\goods\Spec.class
+cn\blue\phoenix\entity\PageResult.class
+cn\blue\phoenix\pojo\goods\Param.class
+cn\blue\phoenix\pojo\system\Admin.class
+cn\blue\phoenix\pojo\goods\Template.class
+cn\blue\phoenix\pojo\system\LoginLog.class
+cn\blue\phoenix\entity\Result.class
+cn\blue\phoenix\pojo\goods\Sku.class
+cn\blue\phoenix\pojo\goods\Goods.class

@@ -5,7 +5,33 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="51a32e33-f434-475e-9303-03ce2a65a4d5" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BlueMonster_Common_Service/src/main/java/cn/blue/phoenix/utils/PageHelperUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BlueMonster_Interface/src/main/java/cn/blue/phoenix/service/system/LoginLogService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BlueMonster_Interface/src/main/java/cn/blue/phoenix/service/system/MenuService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BlueMonster_Pojo/src/main/java/cn/blue/phoenix/pojo/system/LoginLog.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BlueMonster_Pojo/src/main/java/cn/blue/phoenix/pojo/system/Menu.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BlueMonster_Service_System/src/main/java/cn/blue/phoenix/dao/LoginLogMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BlueMonster_Service_System/src/main/java/cn/blue/phoenix/dao/MenuMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BlueMonster_Service_System/src/main/java/cn/blue/phoenix/service/impl/LoginLogServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BlueMonster_Service_System/src/main/java/cn/blue/phoenix/service/impl/MenuServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BlueMonster_Web_Manager/src/main/java/cn/blue/phoenix/controller/system/AuthenticationSuccessHandlerImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BlueMonster_Web_Manager/src/main/java/cn/blue/phoenix/controller/system/MenuController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BlueMonster_Web_Manager/src/main/java/cn/blue/phoenix/controller/system/UserDetailServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BlueMonster_Web_Manager/src/main/java/cn/blue/phoenix/utils/WebUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/cb167643-1ceb-4fa6-b617-d1de88b1e7a2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/cb167643-1ceb-4fa6-b617-d1de88b1e7a2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/httpRequests/http-client.cookies" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/httpRequests/http-client.cookies" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/httpRequests/http-requests-log.http" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/httpRequests/http-requests-log.http" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlueMonster_Common/src/main/resources/zk.properties" beforeDir="false" afterPath="$PROJECT_DIR$/BlueMonster_Common/src/main/resources/zk.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlueMonster_Common_Service/src/main/resources/applicationContext-dubbo.xml" beforeDir="false" afterPath="$PROJECT_DIR$/BlueMonster_Common_Service/src/main/resources/applicationContext-dubbo.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlueMonster_Service_Goods/src/main/java/cn/blue/phoenix/utils/PageHelperUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/BlueMonster_Service_Goods/src/main/java/cn/blue/phoenix/utils/PageHelperUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlueMonster_Service_System/src/main/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/BlueMonster_Service_System/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlueMonster_Web_Manager/src/main/java/cn/blue/phoenix/controller/user/UserServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlueMonster_Web_Manager/src/main/resources/applicationContext-springSecurity.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlueMonster_Web_Manager/src/main/resources/applicationContext-web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/BlueMonster_Web_Manager/src/main/resources/applicationContext-web.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlueMonster_Web_Manager/src/main/webapp/WEB-INF/view/goods/album.html" beforeDir="false" afterPath="$PROJECT_DIR$/BlueMonster_Web_Manager/src/main/webapp/WEB-INF/view/goods/album.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BlueMonster_Web_Manager/src/main/webapp/WEB-INF/view/system/main.html" beforeDir="false" afterPath="$PROJECT_DIR$/BlueMonster_Web_Manager/src/main/webapp/WEB-INF/view/system/main.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,10 +43,10 @@
       <list>
         <option value="JavaScript File" />
         <option value="spring-beans.schema" />
-        <option value="Interface" />
-        <option value="Class" />
         <option value="HTML File" />
         <option value="CSS File" />
+        <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -67,7 +93,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="jdk.selected.JAVA_MODULE" value="11" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/BlueMonster_Web_Manager/src/main/webapp/static/js" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/BlueMonster_Web_Manager/src/main/java/cn/blue/phoenix/utils" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Modules" />
@@ -78,11 +104,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\MarkWalen\BlueMonster\BlueMonster_Web_Manager\src\main\java\cn\blue\phoenix\utils" />
       <recent name="D:\MarkWalen\BlueMonster\BlueMonster_Web_Manager\src\main\webapp\static\js" />
       <recent name="D:\MarkWalen\BlueMonster\BlueMonster_Web_Manager\src\main\webapp\static\ico" />
       <recent name="D:\MarkWalen\BlueMonster\BlueMonster_Service_System\src\main" />
       <recent name="D:\MarkWalen\BlueMonster\BlueMonster_Pojo\src\main\resources" />
-      <recent name="D:\MarkWalen\BlueMonster\BlueMonster_Web_Manager\src\main\webapp\static\img" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\MarkWalen\BlueMonster\BlueMonster_Service_System\src\main\resources" />
@@ -95,17 +121,17 @@
       <recent name="cn.blue.phoenix.utils" />
     </key>
   </component>
-  <component name="RunManager" selected="HTTP Request.generated-requests#12">
+  <component name="RunManager" selected="HTTP Request.generated-requests#14">
     <configuration name="generated-requests#11" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" index="11" runType="Run single request">
       <method v="2" />
     </configuration>
     <configuration name="generated-requests#12" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" index="12" runType="Run single request">
       <method v="2" />
     </configuration>
-    <configuration name="generated-requests#8" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" index="8" runType="Run single request">
+    <configuration name="generated-requests#13" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" index="13" runType="Run single request">
       <method v="2" />
     </configuration>
-    <configuration name="generated-requests#9" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" index="9" runType="Run single request">
+    <configuration name="generated-requests#14" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" index="14" runType="Run single request">
       <method v="2" />
     </configuration>
     <configuration name="MapperTest.testSave" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
@@ -126,11 +152,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="HTTP Request.generated-requests#14" />
+        <item itemvalue="HTTP Request.generated-requests#13" />
         <item itemvalue="HTTP Request.generated-requests#12" />
         <item itemvalue="HTTP Request.generated-requests#11" />
         <item itemvalue="JUnit.MapperTest.testSave" />
-        <item itemvalue="HTTP Request.generated-requests#9" />
-        <item itemvalue="HTTP Request.generated-requests#8" />
       </list>
     </recent_temporary>
   </component>
@@ -200,6 +226,17 @@
       <workItem from="1640581570163" duration="36923000" />
       <workItem from="1640662532743" duration="24849000" />
       <workItem from="1640696926872" duration="1638000" />
+      <workItem from="1640707789654" duration="1086000" />
+      <workItem from="1640764033119" duration="22767000" />
+      <workItem from="1640793847825" duration="19000" />
+      <workItem from="1640861428848" duration="2061000" />
+      <workItem from="1640865951300" duration="9183000" />
+      <workItem from="1640924209184" duration="261000" />
+      <workItem from="1641039342878" duration="3371000" />
+      <workItem from="1641131110895" duration="626000" />
+      <workItem from="1641139003182" duration="286000" />
+      <workItem from="1641305751581" duration="7386000" />
+      <workItem from="1641369283456" duration="105000" />
     </task>
     <servers />
   </component>

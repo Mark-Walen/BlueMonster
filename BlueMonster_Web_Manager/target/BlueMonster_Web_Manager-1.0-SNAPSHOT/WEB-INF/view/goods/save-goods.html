@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>添加 / 更新 商品</title>
+    <link rel="stylesheet" href="/static/css/elementui.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="icon" href="/static/ico/favicon.ico">
+    <style>
+        .step-wrapper {
+            display: flex;
+            flex-direction: row;
+        }
+    </style>
+</head>
+<body>
+<el-steps :active="active" finish-status="success">
+    <el-step title="选择商品分类" class="step-wrapper">
+        <div class="left"></div>
+        <div class="right">
+            <el-cascader-panel :options="options"></el-cascader-panel>
+        </div>
+    </el-step>
+    <el-step title="填写商品信息" class="step-wrapper">
+        <div class="left"></div>
+        <div class="right"></div>
+    </el-step>
+    <el-step title="填写商品属性" class="step-wrapper">
+        <div class="left"></div>
+        <div class="right"></div>
+    </el-step>
+</el-steps>
+
+<el-button style="margin-top: 12px;" @click="next">下一步，填写商品信息</el-button>
+</body>
+<script>
+    let main = {
+        data() {
+            return {
+                active: 0
+            };
+        },
+
+        methods: {
+            next() {
+                if (this.active++ > 2) this.active = 2;
+            }
+        }
+    }
+    let vm = Vue.extend(main)
+    new vm().$mount('#app')
+</script>
+</html>

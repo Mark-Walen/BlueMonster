@@ -31,7 +31,7 @@ public class AlbumServiceImpl implements AlbumService {
         PageHelper.startPage(page, size);
         List<Album> list = albumMapper.selectAll();
 
-        return pageUtils.pageHelperUtils(list, page, size);
+        return new PageResult<>(pageUtils.getTotal(), pageUtils.pageHelperUtils(list, page, size));
     }
 
     @Override
@@ -46,7 +46,7 @@ public class AlbumServiceImpl implements AlbumService {
         PageHelper.startPage(page, size);
         List<Album> list = albumMapper.selectByExample(example);
 
-        return pageUtils.pageHelperUtils(list, page, size);
+        return new PageResult<>(pageUtils.getTotal(), pageUtils.pageHelperUtils(list, page, size));
     }
 
     @Override

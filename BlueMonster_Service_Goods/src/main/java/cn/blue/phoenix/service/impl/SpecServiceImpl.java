@@ -36,7 +36,7 @@ public class SpecServiceImpl implements SpecService {
     public PageResult<Spec> findPage(Integer page, Integer size) {
         PageHelper.startPage(page, size);
         List<Spec> list = specMapper.selectAll();
-        return pageUtils.pageHelperUtils(list, page, size);
+        return new PageResult<>(pageUtils.getTotal(), pageUtils.pageHelperUtils(list, page, size));
     }
 
     @Override
@@ -50,7 +50,7 @@ public class SpecServiceImpl implements SpecService {
         Example example = pageUtils.createExample(searchMap, Spec.class);
         PageHelper.startPage(page, size);
         List<Spec> list = specMapper.selectByExample(example);
-        return pageUtils.pageHelperUtils(list, page, size);
+        return new PageResult<>(pageUtils.getTotal(), pageUtils.pageHelperUtils(list, page, size));
     }
 
     @Override
