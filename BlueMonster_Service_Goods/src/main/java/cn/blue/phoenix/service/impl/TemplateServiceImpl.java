@@ -34,7 +34,7 @@ public class TemplateServiceImpl implements TemplateService {
     public PageResult<Template> findPage(Integer page, Integer size) {
         PageHelper.startPage(page, size);
         List<Template> list = templateMapper.selectAll();
-        return new PageResult<>(pageUtils.getTotal(), pageUtils.pageHelperUtils(list, page, size));
+        return new PageResult<>(pageUtils.getTotal(), pageUtils.pageHelperUtils(TemplateMapper.class, page, size, "selectAll"));
     }
 
     @Override
@@ -48,7 +48,7 @@ public class TemplateServiceImpl implements TemplateService {
         Example example = pageUtils.createExample(searchMap, Template.class);
         PageHelper.startPage(page, size);
         List<Template> list = templateMapper.selectByExample(example);
-        return new PageResult<>(pageUtils.getTotal(), pageUtils.pageHelperUtils(list, page, size));
+        return new PageResult<>(pageUtils.getTotal(), pageUtils.pageHelperUtils(list));
     }
 
     @Override

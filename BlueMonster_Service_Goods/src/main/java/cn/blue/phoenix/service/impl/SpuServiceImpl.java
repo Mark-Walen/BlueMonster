@@ -47,7 +47,7 @@ public class SpuServiceImpl implements SpuService {
     public PageResult<Spu> findPage(Integer page, Integer size) {
         PageHelper.startPage(page, size);
         List<Spu> list = spuMapper.selectAll();
-        return new PageResult<>(pageUtils.getTotal(),pageUtils.pageHelperUtils(list, page, size));
+        return new PageResult<>(pageUtils.getTotal(),pageUtils.pageHelperUtils(SpuMapper.class, page, size, "selectAll"));
     }
 
     @Override
@@ -62,7 +62,7 @@ public class SpuServiceImpl implements SpuService {
         PageHelper.startPage(page, size);
         List<Spu> list = spuMapper.selectByExample(example);
 
-        return new PageResult<>(pageUtils.getTotal(),pageUtils.pageHelperUtils(list, page, size));
+        return new PageResult<>(pageUtils.getTotal(),pageUtils.pageHelperUtils(list));
     }
 
     /**
@@ -85,7 +85,7 @@ public class SpuServiceImpl implements SpuService {
             goodsList.add(this.findGoodsById(spu.getId()));
         }
         PageHelperUtils<Goods> goodsPageHelperUtils = new PageHelperUtils<>();
-        goodsList = goodsPageHelperUtils.pageHelperUtils(goodsList, page, size);
+        goodsList = goodsPageHelperUtils.pageHelperUtils(goodsList);
         return new PageResult<>(goodsPageHelperUtils.getTotal(), goodsList);
     }
 
@@ -129,6 +129,7 @@ public class SpuServiceImpl implements SpuService {
      * 由于添加商品后修改商品的代码有许多重复，因此进行一个整合
      * @param goods 商品信息
      */
+    @SuppressWarnings("unchecked")
     @Transactional
     @Override
     public void saveGoods(Goods goods) {

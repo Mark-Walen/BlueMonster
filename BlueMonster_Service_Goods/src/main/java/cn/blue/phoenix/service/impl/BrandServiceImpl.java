@@ -40,7 +40,7 @@ public class BrandServiceImpl implements BrandService {
         // 获取当前页数列表
         List<Brand> brandList = pageInfo.getList();
         return new PageResult<>(total, brandList);*/
-        return new PageResult<>(pageUtils.getTotal(), pageUtils.pageHelperUtils(page, size, BrandMapper.class, "selectAll"));
+        return new PageResult<>(pageUtils.getTotal(), pageUtils.pageHelperUtils(BrandMapper.class, page, size, "selectAll"));
     }
 
     @Override

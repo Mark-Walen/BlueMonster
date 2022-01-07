@@ -33,8 +33,8 @@ public class PageHelperUtils<T> {
      * 底层会使用 {@code Arrays.stream(values)} 将 数组转化为 {@code Stream} 对象</p>
      * <p>如果实体类不包含 name 这个属性，可以传入空字符串，打开 {@code this.likeSet.remove("");} 注释。</p>
      * <p>当然也可以直接调用无参构造，因为在进行查询会判断 searchMap 是否有 name 这个属性</p>
-     *
      * @param values 模糊查询数据列表
+     * @author Blue Vincent
      */
     public PageHelperUtils(String... values) {
         this.likeSet = Stream.of(values).collect(Collectors.toCollection(HashSet::new));
@@ -43,11 +43,9 @@ public class PageHelperUtils<T> {
 
     /**
      * @param list 从数据库中查询到的数据列表
-     * @param page 请求第 page 页数据
-     * @param size 当前 page 页中数据的数目
      * @return 查询结果 PageResult<T>
      */
-    public List<T> pageHelperUtils(List<T> list, Integer page, Integer size) {
+    public List<T> pageHelperUtils(List<T> list) {
         // 封装查询结果
         PageInfo<T> pageInfo = new PageInfo<>(list);
 
@@ -60,22 +58,22 @@ public class PageHelperUtils<T> {
     }
 
     /**
-     * 通过传递 mapperName 获取对应已实例化的 xxxMapper 对象，然后获取数据
+     * 通过传递 Class, 从Spring容器中获取对应已实例化的 xxxMapper 接口，然后传入调用的方法名并通过反射调用进行数据的查询
      *
      * @param page 请求第 page 页数据
      * @param size 当前 page 页中数据的数目
-     * @param type 继承了 import tk.mybatis.mapper.common.Mapper 的类
-     * @param operationType 操作类型，即 tk.mybatis.mapper.common.Mapper <br>提供的增删改查方法名，目前不支持需要传参的方法
-     * @return 查询结果 PageResult<T>
+     * @param type 继承了 {@link tk.mybatis.mapper.common.Mapper} 的类
+     * @param methodName 方法名，即 {@link tk.mybatis.mapper.common.Mapper} 提供的增删改查方法名，目前不支持需要传参的方法
+     * @return 查询结果 {@link java.util.List<T>}
      */
     @SuppressWarnings("unchecked")
-    public List<T> pageHelperUtils(Integer page, Integer size, Class<? extends Mapper<T>> type, String operationType) {
+    public List<T> pageHelperUtils(Class<? extends Mapper<T>> type, Integer page, Integer size, String methodName) {
         Mapper<T> mapper = SpringContextUtils.getBean(type);
         try {
             PageHelper.startPage(page, size);
-            Method method = type.getMethod(operationType);
+            Method method = type.getMethod(methodName);
             List<T> tlist= (List<T>) method.invoke(mapper);
-            return this.pageHelperUtils(tlist, page, size);
+            return this.pageHelperUtils(tlist);
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
         }
@@ -86,7 +84,7 @@ public class PageHelperUtils<T> {
      * 返回一个 Example 对象
      *
      * @param searchMap   查询列表
-     * @param entityClass 实体类 class
+     * @param entityClass 实体类 {@link Class}
      * @return 根据 searchMap 中的字段，返回带有每个字段需要进行什么样的查询操作的 Example 对象，如等于，模糊查询等。
      */
     public Example createExample(Map<String, Object> searchMap, Class<?> entityClass) {

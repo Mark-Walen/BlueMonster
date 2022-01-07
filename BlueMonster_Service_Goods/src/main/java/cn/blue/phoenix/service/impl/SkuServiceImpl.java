@@ -33,7 +33,7 @@ public class SkuServiceImpl implements SkuService {
         PageHelper.startPage(page, size);
         List<Sku> list = skuMapper.selectAll();
 
-        return new PageResult<>(pageUtils.getTotal(), pageUtils.pageHelperUtils(list, page, size));
+        return new PageResult<>(pageUtils.getTotal(), pageUtils.pageHelperUtils(SkuMapper.class, page, size, "selectAll"));
     }
 
     @Override
@@ -48,7 +48,7 @@ public class SkuServiceImpl implements SkuService {
         PageHelper.startPage(page, size);
         List<Sku> list = skuMapper.selectByExample(example);
 
-        return new PageResult<>(pageUtils.getTotal(), pageUtils.pageHelperUtils(list, page, size));
+        return new PageResult<>(pageUtils.getTotal(), pageUtils.pageHelperUtils(list));
     }
 
     @Override

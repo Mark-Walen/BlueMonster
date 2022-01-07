@@ -6,13 +6,11 @@ import cn.blue.phoenix.pojo.goods.Category;
 import cn.blue.phoenix.service.goods.CategoryService;
 import cn.blue.phoenix.utils.PageHelperUtils;
 import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -31,7 +29,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public PageResult<Category> findPage(Integer page, Integer size) {
-        return new PageResult<>(pageUtils.getTotal(), pageUtils.pageHelperUtils(page, size, CategoryMapper.class, "selectAll"));
+        return new PageResult<>(pageUtils.getTotal(), pageUtils.pageHelperUtils(CategoryMapper.class, page, size, "selectAll"));
     }
 
     @Override
@@ -47,7 +45,7 @@ public class CategoryServiceImpl implements CategoryService {
         PageHelper.startPage(page, size);
         List<Category> list = categoryMapper.selectByExample(example);
 
-        return new PageResult<>(pageUtils.getTotal(), pageUtils.pageHelperUtils(list, page, size));
+        return new PageResult<>(pageUtils.getTotal(), pageUtils.pageHelperUtils(list));
     }
 
     @Override

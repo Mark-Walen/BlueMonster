@@ -57,7 +57,7 @@ public class LoginLogServiceImpl implements LoginLogService {
         PageHelper.startPage(page, size);
         List<LoginLog> list = loginLogMapper.selectByExample(example);
 
-        return new PageResult<>(pageUtils.getTotal(), pageUtils.pageHelperUtils(list, page, size));
+        return new PageResult<>(pageUtils.getTotal(), pageUtils.pageHelperUtils(LoginLogMapper.class, page, size, "selectAll"));
     }
 
     @Override

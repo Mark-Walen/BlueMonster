@@ -1,5 +1,6 @@
 package cn.blue.phoenix.service.impl;
 
+import cn.blue.phoenix.dao.SkuMapper;
 import cn.blue.phoenix.dao.SpecMapper;
 import cn.blue.phoenix.dao.TemplateMapper;
 import cn.blue.phoenix.entity.PageResult;
@@ -36,7 +37,7 @@ public class SpecServiceImpl implements SpecService {
     public PageResult<Spec> findPage(Integer page, Integer size) {
         PageHelper.startPage(page, size);
         List<Spec> list = specMapper.selectAll();
-        return new PageResult<>(pageUtils.getTotal(), pageUtils.pageHelperUtils(list, page, size));
+        return new PageResult<>(pageUtils.getTotal(), pageUtils.pageHelperUtils(SpecMapper.class, page, size, "selectAll"));
     }
 
     @Override
@@ -50,7 +51,7 @@ public class SpecServiceImpl implements SpecService {
         Example example = pageUtils.createExample(searchMap, Spec.class);
         PageHelper.startPage(page, size);
         List<Spec> list = specMapper.selectByExample(example);
-        return new PageResult<>(pageUtils.getTotal(), pageUtils.pageHelperUtils(list, page, size));
+        return new PageResult<>(pageUtils.getTotal(), pageUtils.pageHelperUtils(list));
     }
 
     @Override
