@@ -30,10 +30,8 @@ public class SkuServiceImpl implements SkuService {
 
     @Override
     public PageResult<Sku> findPage(Integer page, Integer size) {
-        PageHelper.startPage(page, size);
-        List<Sku> list = skuMapper.selectAll();
-
-        return new PageResult<>(pageUtils.getTotal(), pageUtils.pageHelperUtils(SkuMapper.class, page, size, "selectAll"));
+        PageHelperUtils.Result<Sku> skuResult = pageUtils.pageHelperUtils(SkuMapper.class, null, page, size, "selectAll");
+        return new PageResult<>(skuResult.getTotal(), skuResult.getList());
     }
 
     @Override
@@ -45,10 +43,8 @@ public class SkuServiceImpl implements SkuService {
     @Override
     public PageResult<Sku> findPage(Map<String, Object> searchMap, Integer page, Integer size) {
         Example example = pageUtils.createExample(searchMap, Sku.class);
-        PageHelper.startPage(page, size);
-        List<Sku> list = skuMapper.selectByExample(example);
-
-        return new PageResult<>(pageUtils.getTotal(), pageUtils.pageHelperUtils(list));
+        PageHelperUtils.Result<Sku> skuResult = pageUtils.pageHelperUtils(SkuMapper.class, example, page, size, "selectByExample");
+        return new PageResult<>(skuResult.getTotal(), skuResult.getList());
     }
 
     @Override

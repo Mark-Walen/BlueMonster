@@ -34,9 +34,8 @@ public class ParamServiceImpl implements ParamService {
 
     @Override
     public PageResult<Param> findPage(Integer page, Integer size) {
-        PageHelper.startPage(page, size);
-        List<Param> list = paramMapper.selectAll();
-        return new PageResult<>(pageUtils.getTotal(), pageUtils.pageHelperUtils(ParamMapper.class, page, size, "selectAll"));
+        PageHelperUtils.Result<Param> paramResult = pageUtils.pageHelperUtils(ParamMapper.class, null, page, size, "selectAll");
+        return new PageResult<>(paramResult.getTotal(), paramResult.getList());
     }
 
     @Override
@@ -48,9 +47,8 @@ public class ParamServiceImpl implements ParamService {
     @Override
     public PageResult<Param> findPage(Map<String, Object> searchMap, Integer page, Integer size) {
         Example example = pageUtils.createExample(searchMap, Param.class);
-        PageHelper.startPage(page, size);
-        List<Param> list = paramMapper.selectByExample(example);
-        return new PageResult<>(pageUtils.getTotal(), pageUtils.pageHelperUtils(list));
+        PageHelperUtils.Result<Param> paramResult = pageUtils.pageHelperUtils(ParamMapper.class, example, page, size, "selectByExample");
+        return new PageResult<>(paramResult.getTotal(), paramResult.getList());
     }
 
     @Override

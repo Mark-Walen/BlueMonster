@@ -43,14 +43,14 @@ public class AlbumController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Result> add(@RequestBody Album template) {
-        albumService.add(template);
+    public ResponseEntity<Result> add(@RequestBody Album album) {
+        albumService.add(album);
         return ResponseEntity.ok(new Result(200, "添加成功"));
     }
 
     @PostMapping("/update")
-    public ResponseEntity<Result> update(@RequestBody Album template) {
-        albumService.update(template);
+    public ResponseEntity<Result> update(@RequestBody Album album) {
+        albumService.update(album);
         return ResponseEntity.ok(new Result(200, "更新成功"));
     }
 

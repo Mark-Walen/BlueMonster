@@ -45,9 +45,8 @@ public class SpuServiceImpl implements SpuService {
 
     @Override
     public PageResult<Spu> findPage(Integer page, Integer size) {
-        PageHelper.startPage(page, size);
-        List<Spu> list = spuMapper.selectAll();
-        return new PageResult<>(pageUtils.getTotal(),pageUtils.pageHelperUtils(SpuMapper.class, page, size, "selectAll"));
+        PageHelperUtils.Result<Spu> spuResult = pageUtils.pageHelperUtils(SpuMapper.class, null, page, size, "selectAll");
+        return new PageResult<>(spuResult.getTotal(), spuResult.getList());
     }
 
     @Override
@@ -59,10 +58,9 @@ public class SpuServiceImpl implements SpuService {
     @Override
     public PageResult<Spu> findPage(Map<String, Object> searchMap, Integer page, Integer size) {
         Example example = pageUtils.createExample(searchMap, Spu.class);
-        PageHelper.startPage(page, size);
-        List<Spu> list = spuMapper.selectByExample(example);
+        PageHelperUtils.Result<Spu> spuResult = pageUtils.pageHelperUtils(SpuMapper.class, example, page, size, "selectByExample");
 
-        return new PageResult<>(pageUtils.getTotal(),pageUtils.pageHelperUtils(list));
+        return new PageResult<>(spuResult.getTotal(), spuResult.getList());
     }
 
     /**
@@ -84,9 +82,11 @@ public class SpuServiceImpl implements SpuService {
         for (Spu spu: spuList) {
             goodsList.add(this.findGoodsById(spu.getId()));
         }
+        // 一下两种皆可，当时没想到用第一种，就直接写了第二种
+        // return new PageResult<>((long) goodsList.size(), goodsList);
         PageHelperUtils<Goods> goodsPageHelperUtils = new PageHelperUtils<>();
-        goodsList = goodsPageHelperUtils.pageHelperUtils(goodsList);
-        return new PageResult<>(goodsPageHelperUtils.getTotal(), goodsList);
+        PageHelperUtils.Result<Goods> goodsResult = goodsPageHelperUtils.pageHelperUtils(goodsList);
+        return new PageResult<>(goodsResult.getTotal(), goodsResult.getList());
     }
 
     @Override

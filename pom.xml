@@ -16,6 +16,7 @@
         <module>BlueMonster_Service_Goods</module>
         <module>BlueMonster_Web_Manager</module>
         <module>BlueMonster_Service_System</module>
+        <module>BlueMonster_Service_Order</module>
     </modules>
 
     <packaging>pom</packaging>

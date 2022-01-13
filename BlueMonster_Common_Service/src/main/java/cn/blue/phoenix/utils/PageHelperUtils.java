@@ -2,11 +2,13 @@ package cn.blue.phoenix.utils;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.springframework.lang.Nullable;
 import tk.mybatis.mapper.common.Mapper;
 import tk.mybatis.mapper.entity.Example;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -16,7 +18,33 @@ import java.util.stream.Stream;
 public class PageHelperUtils<T> {
 
     private final HashSet<String> likeSet;
-    private long total;
+
+    /**
+     * 为了保证 {@link PageHelperUtils<T>} 不依赖于其它同级模块或其子模块，
+     * 所以返回的查询结果用了与 {@code BlueMonster_Pojo.cn.blue.phoenix.entity.PageResult<T>}
+     * 相似的 {@link PageHelperUtils.Result<T>} 结构。
+     * @param <T> 实体类类型
+     */
+    public static class Result<T> {
+        private long total;
+        private List<T> list;
+
+        public long getTotal() {
+            return total;
+        }
+
+        public void setTotal(long total) {
+            this.total = total;
+        }
+
+        public List<T> getList() {
+            return list;
+        }
+
+        public void settList(List<T> list) {
+            this.list = list;
+        }
+    }
 
     /**
      * 默认初始化 likeSet 包含一个 "name", 进行模糊查询
@@ -43,18 +71,16 @@ public class PageHelperUtils<T> {
 
     /**
      * @param list 从数据库中查询到的数据列表
-     * @return 查询结果 PageResult<T>
+     * @return 查询结果 {@link PageHelperUtils.Result<T>}。
      */
-    public List<T> pageHelperUtils(List<T> list) {
+    public Result<T> pageHelperUtils(List<T> list) {
         // 封装查询结果
         PageInfo<T> pageInfo = new PageInfo<>(list);
-
-        // 获取记录总数
-        this.setTotal(pageInfo.getTotal());
+        Result<T> result = new Result<>();
+        result.setTotal(pageInfo.getTotal());
         // 获取当前页数列表
-        List<T> tList = pageInfo.getList();
-        System.out.println(tList.size());
-        return tList;
+        result.settList(pageInfo.getList());
+        return result;
     }
 
     /**
@@ -63,17 +89,30 @@ public class PageHelperUtils<T> {
      * @param page 请求第 page 页数据
      * @param size 当前 page 页中数据的数目
      * @param type 继承了 {@link tk.mybatis.mapper.common.Mapper} 的类
+     * @param argObject 对象 {@link Object} 可以传入实体类、{@link tk.mybatis.mapper.entity.Example} 对象，{@code obj} 为 {@code null}：表示执行空参方法
      * @param methodName 方法名，即 {@link tk.mybatis.mapper.common.Mapper} 提供的增删改查方法名，目前不支持需要传参的方法
-     * @return 查询结果 {@link java.util.List<T>}
+     * @return 查询结果 {@link PageHelperUtils.Result<T>}
      */
     @SuppressWarnings("unchecked")
-    public List<T> pageHelperUtils(Class<? extends Mapper<T>> type, Integer page, Integer size, String methodName) {
+    public Result<T> pageHelperUtils(Class<? extends Mapper<T>> type, @Nullable Object argObject, Integer page, Integer size, String methodName) {
         Mapper<T> mapper = SpringContextUtils.getBean(type);
+
+        // 需要执行的方法对象
+        Method method = null;
+
+        // 结果集合
+        List<T> tList= null;
         try {
             PageHelper.startPage(page, size);
-            Method method = type.getMethod(methodName);
-            List<T> tlist= (List<T>) method.invoke(mapper);
-            return this.pageHelperUtils(tlist);
+            if (argObject == null) {
+                method = type.getMethod(methodName);
+                tList= (List<T>) method.invoke(mapper);
+            }
+            else {
+                method = type.getMethod(methodName, argObject.getClass());      // argObject.getClass() 获取到的是实参的 Class
+                tList= (List<T>) method.invoke(mapper, argObject);
+            }
+            return this.pageHelperUtils(tList);
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
         }
@@ -81,7 +120,8 @@ public class PageHelperUtils<T> {
     }
 
     /**
-     * 返回一个 Example 对象
+     * 返回一个 Example 对象,
+     * TODO 若可以获取 T.Class，就可以在当前类中直接进行筛选
      *
      * @param searchMap   查询列表
      * @param entityClass 实体类 {@link Class}
@@ -106,13 +146,5 @@ public class PageHelperUtils<T> {
             }
         }
         return example;
-    }
-
-    public void setTotal(long total) {
-        this.total = total;
-    }
-
-    public long getTotal() {
-        return total;
     }
 }

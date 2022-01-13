@@ -28,8 +28,8 @@ public class AlbumServiceImpl implements AlbumService {
 
     @Override
     public PageResult<Album> findPage(Integer page, Integer size) {
-
-        return new PageResult<>(pageUtils.getTotal(), pageUtils.pageHelperUtils(AlbumMapper.class, page, size, "selectAll"));
+        PageHelperUtils.Result<Album> albumResult = pageUtils.pageHelperUtils(AlbumMapper.class, null, page, size, "selectAll");
+        return new PageResult<>(albumResult.getTotal(), albumResult.getList());
     }
 
     @Override
@@ -41,10 +41,9 @@ public class AlbumServiceImpl implements AlbumService {
     @Override
     public PageResult<Album> findPage(Map<String, Object> searchMap, Integer page, Integer size) {
         Example example = pageUtils.createExample(searchMap, Album.class);
-        PageHelper.startPage(page, size);
-        List<Album> list = albumMapper.selectByExample(example);
 
-        return new PageResult<>(pageUtils.getTotal(), pageUtils.pageHelperUtils(list));
+        PageHelperUtils.Result<Album> albumResult = pageUtils.pageHelperUtils(AlbumMapper.class, example, page, size, "selectByExample");
+        return new PageResult<>(albumResult.getTotal(), albumResult.getList());
     }
 
     @Override

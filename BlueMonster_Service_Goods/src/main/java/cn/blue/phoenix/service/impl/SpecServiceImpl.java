@@ -35,9 +35,8 @@ public class SpecServiceImpl implements SpecService {
 
     @Override
     public PageResult<Spec> findPage(Integer page, Integer size) {
-        PageHelper.startPage(page, size);
-        List<Spec> list = specMapper.selectAll();
-        return new PageResult<>(pageUtils.getTotal(), pageUtils.pageHelperUtils(SpecMapper.class, page, size, "selectAll"));
+        PageHelperUtils.Result<Spec> specResult = pageUtils.pageHelperUtils(SpecMapper.class, null, page, size, "selectAll");
+        return new PageResult<>(specResult.getTotal(), specResult.getList());
     }
 
     @Override
@@ -49,9 +48,8 @@ public class SpecServiceImpl implements SpecService {
     @Override
     public PageResult<Spec> findPage(Map<String, Object> searchMap, Integer page, Integer size) {
         Example example = pageUtils.createExample(searchMap, Spec.class);
-        PageHelper.startPage(page, size);
-        List<Spec> list = specMapper.selectByExample(example);
-        return new PageResult<>(pageUtils.getTotal(), pageUtils.pageHelperUtils(list));
+        PageHelperUtils.Result<Spec> specResult = pageUtils.pageHelperUtils(SpecMapper.class, example, page, size, "selectByExample");
+        return new PageResult<>(specResult.getTotal(), specResult.getList());
     }
 
     @Override

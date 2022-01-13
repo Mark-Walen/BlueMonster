@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="BlueMonster_Service_Order:war">
+    <output-path>$PROJECT_DIR$/BlueMonster_Service_Order/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>BlueMonster_Service_Order</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="BlueMonster_Service_Order-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="BlueMonster_Service_Order:war exploded" />
+    </root>
+  </artifact>
+</component>
