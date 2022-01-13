@@ -2,9 +2,10 @@ package cn.blue.phoenix.pojo.order;
 
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.io.Serializable;
 
 @Table(name = "tb_order")
-public class Order {
+public class Order implements Serializable {
     @Id
     private String id;//订单id
 

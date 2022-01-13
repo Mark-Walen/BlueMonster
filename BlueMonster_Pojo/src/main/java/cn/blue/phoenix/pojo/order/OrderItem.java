@@ -2,6 +2,7 @@ package cn.blue.phoenix.pojo.order;
 
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.io.Serializable;
 
 /**
  * @author : BlueVincent
@@ -11,7 +12,7 @@ import javax.persistence.Table;
  * @date Date : 2022年01月12日 21:55
  */
 @Table(name = "tb_order_item")
-public class OrderItem {
+public class OrderItem implements Serializable {
     @Id
     private String id;//ID
 

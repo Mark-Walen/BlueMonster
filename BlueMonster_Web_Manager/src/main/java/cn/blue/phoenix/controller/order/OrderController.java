@@ -1,4 +1,4 @@
-package cn.blue.phoenix.controller;
+package cn.blue.phoenix.controller.order;
 
 import cn.blue.phoenix.entity.PageResult;
 import cn.blue.phoenix.entity.Result;

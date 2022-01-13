@@ -3,6 +3,7 @@ package cn.blue.phoenix.utils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.lang.Nullable;
+import org.springframework.util.Assert;
 import tk.mybatis.mapper.common.Mapper;
 import tk.mybatis.mapper.entity.Example;
 
@@ -41,7 +42,7 @@ public class PageHelperUtils<T> {
             return list;
         }
 
-        public void settList(List<T> list) {
+        public void setList(List<T> list) {
             this.list = list;
         }
     }
@@ -74,12 +75,13 @@ public class PageHelperUtils<T> {
      * @return 查询结果 {@link PageHelperUtils.Result<T>}。
      */
     public Result<T> pageHelperUtils(List<T> list) {
+        Assert.notNull(list, "无法执行筛选方法，从数据库中获取数据");
         // 封装查询结果
         PageInfo<T> pageInfo = new PageInfo<>(list);
         Result<T> result = new Result<>();
         result.setTotal(pageInfo.getTotal());
         // 获取当前页数列表
-        result.settList(pageInfo.getList());
+        result.setList(pageInfo.getList());
         return result;
     }
 
@@ -109,9 +111,10 @@ public class PageHelperUtils<T> {
                 tList= (List<T>) method.invoke(mapper);
             }
             else {
-                method = type.getMethod(methodName, argObject.getClass());      // argObject.getClass() 获取到的是实参的 Class
+                method = type.getMethod(methodName, Object.class);      // select类型需要传参的方法都是 Object 类型
                 tList= (List<T>) method.invoke(mapper, argObject);
             }
+            Assert.notNull(method, methodName + "方法无法执行");
             return this.pageHelperUtils(tList);
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();

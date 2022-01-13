@@ -130,7 +130,7 @@
         },
         methods: {
             _getSearchTemplateList () {
-                axios.post(`/template/findPage?page=${this.currentPage}&size=${this.size}`, this.searchMap).then(res => {
+                axios.get(`/template/findPage?page=${this.currentPage}&size=${this.size}`).then(res => {
                     this.templateList = res.data.rows
                     this.total = res.data.total
                 })

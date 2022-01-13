@@ -11,11 +11,9 @@ import cn.blue.phoenix.utils.IdWorker;
 import cn.blue.phoenix.utils.PageHelperUtils;
 import cn.blue.phoenix.utils.SpringContextUtils;
 import org.apache.dubbo.config.annotation.DubboService;
-import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
-import tk.mybatis.mapper.common.Mapper;
 import tk.mybatis.mapper.entity.Example;
 
 import java.util.List;
@@ -70,8 +68,6 @@ public class OrderServiceImpl implements OrderService {
 
         OrderItemMapper orderItemMapper = SpringContextUtils.getBean(OrderItemMapper.class);
         List<OrderItem> orderItems = orderItemMapper.selectByExample(example);
-
-        Assert.notNull(orderItemMapper, "Spring 容器中没有 OrderItemMapper");
 
         OrderItemDetails orderItemDetails = new OrderItemDetails();
         orderItemDetails.setOrder(order);
