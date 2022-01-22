@@ -1,6 +1,7 @@
-package cn.bluemonster.service.order;
-import cn.bluemonster.entity.PageResult;
-import cn.bluemonster.pojo.order.OrderLog;
+package cn.blue.phoenix.service.order;
+
+import cn.blue.phoenix.entity.PageResult;
+import cn.blue.phoenix.pojo.order.OrderLog;
 
 import java.util.*;
 
@@ -9,27 +10,20 @@ import java.util.*;
  */
 public interface OrderLogService {
 
+    List<OrderLog> findAll();
 
-    public List<OrderLog> findAll();
+    PageResult<OrderLog> findPage(Integer page, Integer size);
 
+    List<OrderLog> findList(Map<String, Object> searchMap);
 
-    public PageResult<OrderLog> findPage(int page, int size);
+    PageResult<OrderLog> findPage(Map<String, Object> searchMap, Integer page, Integer size);
 
+    OrderLog findById(String id);
 
-    public List<OrderLog> findList(Map<String,Object> searchMap);
+    void add(OrderLog orderLog);
 
+    void update(OrderLog orderLog);
 
-    public PageResult<OrderLog> findPage(Map<String,Object> searchMap,int page, int size);
-
-
-    public OrderLog findById(String id);
-
-    public void add(OrderLog orderLog);
-
-
-    public void update(OrderLog orderLog);
-
-
-    public void delete(String id);
+    void delete(String id);
 
 }

@@ -75,4 +75,10 @@ public class OrderController {
         orderService.delete(id);
         return ResponseEntity.ok(new Result(200, "删除成功"));
     }
+
+    @PostMapping("/batchSend")
+    public ResponseEntity<Result> batchSend(@RequestBody List<Order> orders) {
+        orderService.batchSend(orders);
+        return ResponseEntity.ok(new Result(200, "批量发货成功"));
+    }
 }

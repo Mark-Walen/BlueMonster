@@ -1,6 +1,6 @@
-package cn.bluemonster.dao;
+package cn.blue.phoenix.dao;
 
-import cn.bluemonster.pojo.order.ReturnOrder;
+import cn.blue.phoenix.pojo.order.ReturnOrder;
 import tk.mybatis.mapper.common.Mapper;
 
 public interface ReturnOrderMapper extends Mapper<ReturnOrder> {

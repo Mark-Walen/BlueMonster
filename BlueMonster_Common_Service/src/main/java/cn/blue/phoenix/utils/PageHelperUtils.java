@@ -9,10 +9,7 @@ import tk.mybatis.mapper.entity.Example;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -124,7 +121,7 @@ public class PageHelperUtils<T> {
 
     /**
      * 返回一个 Example 对象,
-     * TODO 若可以获取 T.Class，就可以在当前类中直接进行筛选
+     * TODO 若可以获取 T.Class，就可以在当前类中直接进行筛选，但是不推荐此法。
      *
      * @param searchMap   查询列表
      * @param entityClass 实体类 {@link Class}
@@ -142,6 +139,9 @@ public class PageHelperUtils<T> {
                 if (val != null && !"".equals(val)) {
                     criteria.andLike(key, "%" + val + "%");
                 }
+            } else if (searchMap.get("ids") != null){
+                // 用于批量操作
+                criteria.andIn("id", Arrays.asList((String[]) searchMap.get("ids")));
             } else {
                 if (val != null) {
                     criteria.andEqualTo(key, val);

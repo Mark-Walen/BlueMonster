@@ -1,19 +1,21 @@
-package cn.bluemonster.controller.order;
+package cn.blue.phoenix.controller.order;
 
-import com.alibaba.dubbo.config.annotation.Reference;
-import cn.bluemonster.entity.PageResult;
-import cn.bluemonster.entity.Result;
-import cn.bluemonster.pojo.order.OrderConfig;
-import cn.bluemonster.service.order.OrderConfigService;
+import cn.blue.phoenix.entity.PageResult;
+import cn.blue.phoenix.entity.Result;
+import cn.blue.phoenix.pojo.order.OrderConfig;
+import cn.blue.phoenix.service.order.OrderConfigService;
+import org.apache.dubbo.config.annotation.DubboReference;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/orderConfig")
 public class OrderConfigController {
 
-    @Reference
+    @DubboReference
     private OrderConfigService orderConfigService;
 
     @GetMapping("/findAll")
@@ -43,21 +45,21 @@ public class OrderConfigController {
 
 
     @PostMapping("/add")
-    public Result add(@RequestBody OrderConfig orderConfig){
+    public ResponseEntity<Result> add(@RequestBody OrderConfig orderConfig){
         orderConfigService.add(orderConfig);
-        return new Result();
+        return ResponseEntity.ok(new Result(200, "添加成功"));
     }
 
     @PostMapping("/update")
-    public Result update(@RequestBody OrderConfig orderConfig){
+    public ResponseEntity<Result> update(@RequestBody OrderConfig orderConfig){
         orderConfigService.update(orderConfig);
-        return new Result();
+        return ResponseEntity.ok(new Result(200, "更新成功"));
     }
 
     @GetMapping("/delete")
-    public Result delete(Integer id){
+    public ResponseEntity<Result> delete(Integer id){
         orderConfigService.delete(id);
-        return new Result();
+        return ResponseEntity.ok(new Result(200, "删除成功"));
     }
 
 }

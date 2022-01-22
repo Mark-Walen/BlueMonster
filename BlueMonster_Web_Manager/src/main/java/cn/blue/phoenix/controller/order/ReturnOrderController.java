@@ -1,19 +1,21 @@
-package cn.bluemonster.controller.order;
+package cn.blue.phoenix.controller.order;
 
-import com.alibaba.dubbo.config.annotation.Reference;
-import cn.bluemonster.entity.PageResult;
-import cn.bluemonster.entity.Result;
-import cn.bluemonster.pojo.order.ReturnOrder;
-import cn.bluemonster.service.order.ReturnOrderService;
+import cn.blue.phoenix.entity.PageResult;
+import cn.blue.phoenix.entity.Result;
+import cn.blue.phoenix.pojo.order.ReturnOrder;
+import cn.blue.phoenix.service.order.ReturnOrderService;
+import org.apache.dubbo.config.annotation.DubboReference;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/returnOrder")
 public class ReturnOrderController {
 
-    @Reference
+    @DubboReference
     private ReturnOrderService returnOrderService;
 
     @GetMapping("/findAll")
@@ -43,21 +45,28 @@ public class ReturnOrderController {
 
 
     @PostMapping("/add")
-    public Result add(@RequestBody ReturnOrder returnOrder){
+    public ResponseEntity<Result> add(@RequestBody ReturnOrder returnOrder){
         returnOrderService.add(returnOrder);
-        return new Result();
+        return ResponseEntity.ok(new Result(200, "添加成功"));
     }
 
     @PostMapping("/update")
-    public Result update(@RequestBody ReturnOrder returnOrder){
+    public ResponseEntity<Result> update(@RequestBody ReturnOrder returnOrder){
         returnOrderService.update(returnOrder);
-        return new Result();
+        return ResponseEntity.ok(new Result(200, "更新成功"));
     }
 
     @GetMapping("/delete")
-    public Result delete(Long id){
+    public ResponseEntity<Result> delete(Long id){
         returnOrderService.delete(id);
-        return new Result();
+        return ResponseEntity.ok(new Result(200, "删除成功"));
     }
 
+    public ResponseEntity<Result> rejectRefund(String id, String remark) {
+        // TODO 由于队 spring security 不熟悉，所以获取 id 这部分不做了。
+        Integer adminId = 0;
+        returnOrderService.rejectRefund(id, remark, adminId);
+
+        return ResponseEntity.ok(new Result(200, "删除成功"));
+    }
 }

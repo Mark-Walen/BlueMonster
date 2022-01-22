@@ -1,6 +1,6 @@
-package cn.bluemonster.dao;
+package cn.blue.phoenix.dao;
 
-import cn.bluemonster.pojo.order.OrderConfig;
+import cn.blue.phoenix.pojo.order.OrderConfig;
 import tk.mybatis.mapper.common.Mapper;
 
 public interface OrderConfigMapper extends Mapper<OrderConfig> {

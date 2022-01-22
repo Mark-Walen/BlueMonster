@@ -1,27 +1,29 @@
-package cn.bluemonster.service.impl;
-import com.alibaba.dubbo.config.annotation.Service;
-import com.github.pagehelper.Page;
-import com.github.pagehelper.PageHelper;
-import cn.bluemonster.dao.ReturnOrderItemMapper;
-import cn.bluemonster.entity.PageResult;
-import cn.bluemonster.pojo.order.ReturnOrderItem;
-import cn.bluemonster.service.order.ReturnOrderItemService;
+package cn.blue.phoenix.service.impl;
+
+import cn.blue.phoenix.dao.ReturnOrderItemMapper;
+import cn.blue.phoenix.entity.PageResult;
+import cn.blue.phoenix.pojo.order.ReturnOrderItem;
+import cn.blue.phoenix.service.order.ReturnOrderItemService;
+import cn.blue.phoenix.utils.PageHelperUtils;
+import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
 import tk.mybatis.mapper.entity.Example;
 
 import java.util.List;
 import java.util.Map;
 
-@Service
+@DubboService(interfaceClass = ReturnOrderItemService.class)
 public class ReturnOrderItemServiceImpl implements ReturnOrderItemService {
 
     @Autowired
     private ReturnOrderItemMapper returnOrderItemMapper;
+    private final PageHelperUtils<ReturnOrderItem> pageHelperUtils = new PageHelperUtils<>("title", "image");
 
     /**
      * 返回全部记录
      * @return
      */
+    @Override
     public List<ReturnOrderItem> findAll() {
         return returnOrderItemMapper.selectAll();
     }
@@ -32,10 +34,10 @@ public class ReturnOrderItemServiceImpl implements ReturnOrderItemService {
      * @param size 每页记录数
      * @return 分页结果
      */
-    public PageResult<ReturnOrderItem> findPage(int page, int size) {
-        PageHelper.startPage(page,size);
-        Page<ReturnOrderItem> returnOrderItems = (Page<ReturnOrderItem>) returnOrderItemMapper.selectAll();
-        return new PageResult<ReturnOrderItem>(returnOrderItems.getTotal(),returnOrderItems.getResult());
+    @Override
+    public PageResult<ReturnOrderItem> findPage(Integer page, Integer size) {
+        PageHelperUtils.Result<ReturnOrderItem> returnOrderItemResult = pageHelperUtils.pageHelperUtils(ReturnOrderItemMapper.class, null, page, size, "selectAll");
+        return new PageResult<>(returnOrderItemResult.getTotal(), returnOrderItemResult.getList());
     }
 
     /**
@@ -43,6 +45,7 @@ public class ReturnOrderItemServiceImpl implements ReturnOrderItemService {
      * @param searchMap 查询条件
      * @return
      */
+    @Override
     public List<ReturnOrderItem> findList(Map<String, Object> searchMap) {
         Example example = createExample(searchMap);
         return returnOrderItemMapper.selectByExample(example);
@@ -55,11 +58,10 @@ public class ReturnOrderItemServiceImpl implements ReturnOrderItemService {
      * @param size
      * @return
      */
-    public PageResult<ReturnOrderItem> findPage(Map<String, Object> searchMap, int page, int size) {
-        PageHelper.startPage(page,size);
-        Example example = createExample(searchMap);
-        Page<ReturnOrderItem> returnOrderItems = (Page<ReturnOrderItem>) returnOrderItemMapper.selectByExample(example);
-        return new PageResult<ReturnOrderItem>(returnOrderItems.getTotal(),returnOrderItems.getResult());
+    public PageResult<ReturnOrderItem> findPage(Map<String, Object> searchMap, Integer page, Integer size) {
+        Example example = pageHelperUtils.createExample(searchMap, ReturnOrderItem.class);
+        PageHelperUtils.Result<ReturnOrderItem> returnOrderItemResult = pageHelperUtils.pageHelperUtils(ReturnOrderItemMapper.class, example, page, size, "selectAll");
+        return new PageResult<>(returnOrderItemResult.getTotal(), returnOrderItemResult.getList());
     }
 
     /**
@@ -67,6 +69,7 @@ public class ReturnOrderItemServiceImpl implements ReturnOrderItemService {
      * @param id
      * @return
      */
+    @Override
     public ReturnOrderItem findById(Long id) {
         return returnOrderItemMapper.selectByPrimaryKey(id);
     }

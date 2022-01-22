@@ -1,22 +1,33 @@
-package cn.bluemonster.service.impl;
+package cn.blue.phoenix.service.impl;
+import cn.blue.phoenix.dao.OrderLogMapper;
+import cn.blue.phoenix.dao.OrderMapper;
+import cn.blue.phoenix.entity.PageResult;
+import cn.blue.phoenix.pojo.order.Order;
+import cn.blue.phoenix.pojo.order.OrderLog;
+import cn.blue.phoenix.service.order.OrderLogService;
+import cn.blue.phoenix.utils.PageHelperUtils;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import cn.bluemonster.dao.OrderLogMapper;
-import cn.bluemonster.entity.PageResult;
-import cn.bluemonster.pojo.order.OrderLog;
-import cn.bluemonster.service.order.OrderLogService;
+import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
 import tk.mybatis.mapper.entity.Example;
 
 import java.util.List;
 import java.util.Map;
 
-@Service
+@DubboService
 public class OrderLogServiceImpl implements OrderLogService {
 
     @Autowired
     private OrderLogMapper orderLogMapper;
+
+    private final PageHelperUtils<OrderLog> pageHelperUtils = new PageHelperUtils<>("id", "operater",
+            "orderId",
+            "orderStatus",
+            "payStatus",
+            "consignStatus",
+            "remarks");
 
     /**
      * 返回全部记录
@@ -32,10 +43,10 @@ public class OrderLogServiceImpl implements OrderLogService {
      * @param size 每页记录数
      * @return 分页结果
      */
-    public PageResult<OrderLog> findPage(int page, int size) {
+    public PageResult<OrderLog> findPage(Integer page, Integer size) {
         PageHelper.startPage(page,size);
-        Page<OrderLog> orderLogs = (Page<OrderLog>) orderLogMapper.selectAll();
-        return new PageResult<OrderLog>(orderLogs.getTotal(),orderLogs.getResult());
+        PageHelperUtils.Result<OrderLog> orderLogResult = pageHelperUtils.pageHelperUtils(OrderLogMapper.class, null, page, size, "selectAll");
+        return new PageResult<>(orderLogResult.getTotal(), orderLogResult.getList());
     }
 
     /**
@@ -44,7 +55,7 @@ public class OrderLogServiceImpl implements OrderLogService {
      * @return
      */
     public List<OrderLog> findList(Map<String, Object> searchMap) {
-        Example example = createExample(searchMap);
+        Example example = pageHelperUtils.createExample(searchMap, Order.class);
         return orderLogMapper.selectByExample(example);
     }
 
@@ -55,11 +66,11 @@ public class OrderLogServiceImpl implements OrderLogService {
      * @param size
      * @return
      */
-    public PageResult<OrderLog> findPage(Map<String, Object> searchMap, int page, int size) {
+    public PageResult<OrderLog> findPage(Map<String, Object> searchMap, Integer page, Integer size) {
         PageHelper.startPage(page,size);
-        Example example = createExample(searchMap);
-        Page<OrderLog> orderLogs = (Page<OrderLog>) orderLogMapper.selectByExample(example);
-        return new PageResult<OrderLog>(orderLogs.getTotal(),orderLogs.getResult());
+        Example example = pageHelperUtils.createExample(searchMap, OrderLog.class);
+        PageHelperUtils.Result<OrderLog> orderLogResult = pageHelperUtils.pageHelperUtils(OrderLogMapper.class, example, page, size, "selectByExample");
+        return new PageResult<>(orderLogResult.getTotal(), orderLogResult.getList());
     }
 
     /**
@@ -93,49 +104,6 @@ public class OrderLogServiceImpl implements OrderLogService {
      */
     public void delete(String id) {
         orderLogMapper.deleteByPrimaryKey(id);
-    }
-
-    /**
-     * 构建查询条件
-     * @param searchMap
-     * @return
-     */
-    private Example createExample(Map<String, Object> searchMap){
-        Example example=new Example(OrderLog.class);
-        Example.Criteria criteria = example.createCriteria();
-        if(searchMap!=null){
-            // ID
-            if(searchMap.get("id")!=null && !"".equals(searchMap.get("id"))){
-                criteria.andLike("id","%"+searchMap.get("id")+"%");
-            }
-            // 操作员
-            if(searchMap.get("operater")!=null && !"".equals(searchMap.get("operater"))){
-                criteria.andLike("operater","%"+searchMap.get("operater")+"%");
-            }
-            // 订单ID
-            if(searchMap.get("orderId")!=null && !"".equals(searchMap.get("orderId"))){
-                criteria.andLike("orderId","%"+searchMap.get("orderId")+"%");
-            }
-            // 订单状态
-            if(searchMap.get("orderStatus")!=null && !"".equals(searchMap.get("orderStatus"))){
-                criteria.andLike("orderStatus","%"+searchMap.get("orderStatus")+"%");
-            }
-            // 付款状态
-            if(searchMap.get("payStatus")!=null && !"".equals(searchMap.get("payStatus"))){
-                criteria.andLike("payStatus","%"+searchMap.get("payStatus")+"%");
-            }
-            // 发货状态
-            if(searchMap.get("consignStatus")!=null && !"".equals(searchMap.get("consignStatus"))){
-                criteria.andLike("consignStatus","%"+searchMap.get("consignStatus")+"%");
-            }
-            // 备注
-            if(searchMap.get("remarks")!=null && !"".equals(searchMap.get("remarks"))){
-                criteria.andLike("remarks","%"+searchMap.get("remarks")+"%");
-            }
-
-
-        }
-        return example;
     }
 
 }

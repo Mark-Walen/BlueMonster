@@ -1,10 +1,11 @@
 package cn.blue.phoenix.controller.order;
 
+import cn.blue.phoenix.entity.PageResult;
+import cn.blue.phoenix.entity.Result;
+import cn.blue.phoenix.pojo.order.ReturnOrderItem;
+import cn.blue.phoenix.service.order.ReturnOrderItemService;
 import com.alibaba.dubbo.config.annotation.Reference;
-import cn.bluemonster.entity.PageResult;
-import cn.bluemonster.entity.Result;
-import cn.bluemonster.pojo.order.ReturnOrderItem;
-import cn.bluemonster.service.order.ReturnOrderItemService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -43,21 +44,21 @@ public class ReturnOrderItemController {
 
 
     @PostMapping("/add")
-    public Result add(@RequestBody ReturnOrderItem returnOrderItem){
+    public ResponseEntity<Result> add(@RequestBody ReturnOrderItem returnOrderItem){
         returnOrderItemService.add(returnOrderItem);
-        return new Result();
+        return ResponseEntity.ok(new Result(200, "添加成功"));
     }
 
     @PostMapping("/update")
-    public Result update(@RequestBody ReturnOrderItem returnOrderItem){
+    public ResponseEntity<Result> update(@RequestBody ReturnOrderItem returnOrderItem){
         returnOrderItemService.update(returnOrderItem);
-        return new Result();
+        return ResponseEntity.ok(new Result(200, "更新成功"));
     }
 
     @GetMapping("/delete")
-    public Result delete(Long id){
+    public ResponseEntity<Result> delete(Long id){
         returnOrderItemService.delete(id);
-        return new Result();
+        return ResponseEntity.ok(new Result(200, "删除成功"));
     }
 
 }

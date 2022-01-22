@@ -1,6 +1,6 @@
-package cn.bluemonster.dao;
+package cn.blue.phoenix.dao;
 
-import cn.bluemonster.pojo.order.ReturnCause;
+import cn.blue.phoenix.pojo.order.ReturnCause;
 import tk.mybatis.mapper.common.Mapper;
 
 public interface ReturnCauseMapper extends Mapper<ReturnCause> {

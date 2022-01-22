@@ -1,6 +1,6 @@
-package cn.bluemonster.dao;
+package cn.blue.phoenix.dao;
 
-import cn.bluemonster.pojo.order.OrderLog;
+import cn.blue.phoenix.pojo.order.OrderLog;
 import tk.mybatis.mapper.common.Mapper;
 
 public interface OrderLogMapper extends Mapper<OrderLog> {

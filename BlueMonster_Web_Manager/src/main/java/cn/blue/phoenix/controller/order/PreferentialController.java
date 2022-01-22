@@ -1,10 +1,11 @@
-package cn.bluemonster.controller.order;
+package cn.blue.phoenix.controller.order;
 
+import cn.blue.phoenix.entity.PageResult;
+import cn.blue.phoenix.entity.Result;
+import cn.blue.phoenix.pojo.order.Preferential;
+import cn.blue.phoenix.service.order.PreferentialService;
 import com.alibaba.dubbo.config.annotation.Reference;
-import cn.bluemonster.entity.PageResult;
-import cn.bluemonster.entity.Result;
-import cn.bluemonster.pojo.order.Preferential;
-import cn.bluemonster.service.order.PreferentialService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -43,21 +44,21 @@ public class PreferentialController {
 
 
     @PostMapping("/add")
-    public Result add(@RequestBody Preferential preferential){
+    public ResponseEntity<Result> add(@RequestBody Preferential preferential){
         preferentialService.add(preferential);
-        return new Result();
+        return ResponseEntity.ok(new Result(200, "添加成功"));
     }
 
     @PostMapping("/update")
-    public Result update(@RequestBody Preferential preferential){
+    public ResponseEntity<Result> update(@RequestBody Preferential preferential){
         preferentialService.update(preferential);
-        return new Result();
+        return ResponseEntity.ok(new Result(200, "更新成功"));
     }
 
     @GetMapping("/delete")
-    public Result delete(Integer id){
+    public ResponseEntity<Result> delete(Integer id){
         preferentialService.delete(id);
-        return new Result();
+        return ResponseEntity.ok(new Result(200, "删除成功"));
     }
 
 }

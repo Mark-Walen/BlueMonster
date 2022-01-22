@@ -1,10 +1,11 @@
-package cn.bluemonster.controller.order;
+package cn.blue.phoenix.controller.order;
 
-import com.alibaba.dubbo.config.annotation.Reference;
-import cn.bluemonster.entity.PageResult;
-import cn.bluemonster.entity.Result;
-import cn.bluemonster.pojo.order.ReturnCause;
-import cn.bluemonster.service.order.ReturnCauseService;
+import cn.blue.phoenix.entity.PageResult;
+import cn.blue.phoenix.entity.Result;
+import cn.blue.phoenix.pojo.order.ReturnCause;
+import cn.blue.phoenix.service.order.ReturnCauseService;
+import org.apache.dubbo.config.annotation.DubboReference;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -13,7 +14,7 @@ import java.util.*;
 @RequestMapping("/returnCause")
 public class ReturnCauseController {
 
-    @Reference
+    @DubboReference
     private ReturnCauseService returnCauseService;
 
     @GetMapping("/findAll")
@@ -43,21 +44,21 @@ public class ReturnCauseController {
 
 
     @PostMapping("/add")
-    public Result add(@RequestBody ReturnCause returnCause){
+    public ResponseEntity<Result> add(@RequestBody ReturnCause returnCause){
         returnCauseService.add(returnCause);
-        return new Result();
+        return ResponseEntity.ok(new Result(200, "添加成功"));
     }
 
     @PostMapping("/update")
-    public Result update(@RequestBody ReturnCause returnCause){
+    public ResponseEntity<Result> update(@RequestBody ReturnCause returnCause){
         returnCauseService.update(returnCause);
-        return new Result();
+        return ResponseEntity.ok(new Result(200, "更新成功"));
     }
 
     @GetMapping("/delete")
-    public Result delete(Integer id){
+    public ResponseEntity<Result> delete(Integer id){
         returnCauseService.delete(id);
-        return new Result();
+        return ResponseEntity.ok(new Result(200, "删除成功"));
     }
 
 }

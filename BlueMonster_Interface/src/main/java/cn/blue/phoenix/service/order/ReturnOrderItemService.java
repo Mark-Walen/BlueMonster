@@ -1,6 +1,6 @@
-package cn.bluemonster.service.order;
-import cn.bluemonster.entity.PageResult;
-import cn.bluemonster.pojo.order.ReturnOrderItem;
+package cn.blue.phoenix.service.order;
+import cn.blue.phoenix.entity.PageResult;
+import cn.blue.phoenix.pojo.order.ReturnOrderItem;
 
 import java.util.*;
 
@@ -10,26 +10,26 @@ import java.util.*;
 public interface ReturnOrderItemService {
 
 
-    public List<ReturnOrderItem> findAll();
+    List<ReturnOrderItem> findAll();
 
 
-    public PageResult<ReturnOrderItem> findPage(int page, int size);
+    PageResult<ReturnOrderItem> findPage(Integer page, Integer size);
 
 
-    public List<ReturnOrderItem> findList(Map<String,Object> searchMap);
+    List<ReturnOrderItem> findList(Map<String,Object> searchMap);
 
 
-    public PageResult<ReturnOrderItem> findPage(Map<String,Object> searchMap,int page, int size);
+    PageResult<ReturnOrderItem> findPage(Map<String, Object> searchMap, Integer page, Integer size);
 
 
-    public ReturnOrderItem findById(Long id);
+    ReturnOrderItem findById(Long id);
 
-    public void add(ReturnOrderItem returnOrderItem);
-
-
-    public void update(ReturnOrderItem returnOrderItem);
+    void add(ReturnOrderItem returnOrderItem);
 
 
-    public void delete(Long id);
+    void update(ReturnOrderItem returnOrderItem);
+
+
+    void delete(Long id);
 
 }

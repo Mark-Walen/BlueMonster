@@ -33,4 +33,8 @@ public interface OrderService {
     void update(Order order);
 
     void delete(String id);
+
+    void batchSend(List<Order> orders);
+
+    void orderTimeoutLogic();
 }

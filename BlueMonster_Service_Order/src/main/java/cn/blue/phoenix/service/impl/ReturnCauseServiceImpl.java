@@ -1,27 +1,30 @@
-package cn.bluemonster.service.impl;
-import com.alibaba.dubbo.config.annotation.Service;
-import com.github.pagehelper.Page;
+package cn.blue.phoenix.service.impl;
+
+import cn.blue.phoenix.dao.ReturnCauseMapper;
+import cn.blue.phoenix.entity.PageResult;
+import cn.blue.phoenix.pojo.order.ReturnCause;
+import cn.blue.phoenix.service.order.ReturnCauseService;
+import cn.blue.phoenix.utils.PageHelperUtils;
 import com.github.pagehelper.PageHelper;
-import cn.bluemonster.dao.ReturnCauseMapper;
-import cn.bluemonster.entity.PageResult;
-import cn.bluemonster.pojo.order.ReturnCause;
-import cn.bluemonster.service.order.ReturnCauseService;
+import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
 import tk.mybatis.mapper.entity.Example;
 
 import java.util.List;
 import java.util.Map;
 
-@Service
+@DubboService(interfaceClass = ReturnCauseService.class)
 public class ReturnCauseServiceImpl implements ReturnCauseService {
 
     @Autowired
     private ReturnCauseMapper returnCauseMapper;
+    PageHelperUtils<ReturnCause> pageHelperUtils = new PageHelperUtils<>("cause", "status");
 
     /**
      * 返回全部记录
      * @return
      */
+    @Override
     public List<ReturnCause> findAll() {
         return returnCauseMapper.selectAll();
     }
@@ -32,10 +35,10 @@ public class ReturnCauseServiceImpl implements ReturnCauseService {
      * @param size 每页记录数
      * @return 分页结果
      */
-    public PageResult<ReturnCause> findPage(int page, int size) {
-        PageHelper.startPage(page,size);
-        Page<ReturnCause> returnCauses = (Page<ReturnCause>) returnCauseMapper.selectAll();
-        return new PageResult<ReturnCause>(returnCauses.getTotal(),returnCauses.getResult());
+    @Override
+    public PageResult<ReturnCause> findPage(Integer page, Integer size) {
+        PageHelperUtils.Result<ReturnCause> returnCauseResult = pageHelperUtils.pageHelperUtils(ReturnCauseMapper.class, null, page, size, "selectAll");
+        return new PageResult<>(returnCauseResult.getTotal(), returnCauseResult.getList());
     }
 
     /**
@@ -43,8 +46,9 @@ public class ReturnCauseServiceImpl implements ReturnCauseService {
      * @param searchMap 查询条件
      * @return
      */
+    @Override
     public List<ReturnCause> findList(Map<String, Object> searchMap) {
-        Example example = createExample(searchMap);
+        Example example = pageHelperUtils.createExample(searchMap, ReturnCause.class);
         return returnCauseMapper.selectByExample(example);
     }
 
@@ -55,11 +59,12 @@ public class ReturnCauseServiceImpl implements ReturnCauseService {
      * @param size
      * @return
      */
-    public PageResult<ReturnCause> findPage(Map<String, Object> searchMap, int page, int size) {
+    @Override
+    public PageResult<ReturnCause> findPage(Map<String, Object> searchMap, Integer page, Integer size) {
         PageHelper.startPage(page,size);
-        Example example = createExample(searchMap);
-        Page<ReturnCause> returnCauses = (Page<ReturnCause>) returnCauseMapper.selectByExample(example);
-        return new PageResult<ReturnCause>(returnCauses.getTotal(),returnCauses.getResult());
+        Example example = pageHelperUtils.createExample(searchMap, ReturnCause.class);
+        PageHelperUtils.Result<ReturnCause> returnCauseResult = pageHelperUtils.pageHelperUtils(ReturnCauseMapper.class, example, page, size, "selectAll");
+        return new PageResult<>(returnCauseResult.getTotal(), returnCauseResult.getList());
     }
 
     /**
@@ -94,36 +99,4 @@ public class ReturnCauseServiceImpl implements ReturnCauseService {
     public void delete(Integer id) {
         returnCauseMapper.deleteByPrimaryKey(id);
     }
-
-    /**
-     * 构建查询条件
-     * @param searchMap
-     * @return
-     */
-    private Example createExample(Map<String, Object> searchMap){
-        Example example=new Example(ReturnCause.class);
-        Example.Criteria criteria = example.createCriteria();
-        if(searchMap!=null){
-            // 原因
-            if(searchMap.get("cause")!=null && !"".equals(searchMap.get("cause"))){
-                criteria.andLike("cause","%"+searchMap.get("cause")+"%");
-            }
-            // 是否启用
-            if(searchMap.get("status")!=null && !"".equals(searchMap.get("status"))){
-                criteria.andLike("status","%"+searchMap.get("status")+"%");
-            }
-
-            // ID
-            if(searchMap.get("id")!=null ){
-                criteria.andEqualTo("id",searchMap.get("id"));
-            }
-            // 排序
-            if(searchMap.get("seq")!=null ){
-                criteria.andEqualTo("seq",searchMap.get("seq"));
-            }
-
-        }
-        return example;
-    }
-
 }

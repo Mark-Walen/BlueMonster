@@ -1,6 +1,6 @@
-package cn.bluemonster.service.order;
-import cn.bluemonster.entity.PageResult;
-import cn.bluemonster.pojo.order.Preferential;
+package cn.blue.phoenix.service.order;
+import cn.blue.phoenix.entity.PageResult;
+import cn.blue.phoenix.pojo.order.Preferential;
 
 import java.util.*;
 
@@ -10,26 +10,26 @@ import java.util.*;
 public interface PreferentialService {
 
 
-    public List<Preferential> findAll();
+    List<Preferential> findAll();
 
 
-    public PageResult<Preferential> findPage(int page, int size);
+    PageResult<Preferential> findPage(Integer page, Integer size);
 
 
-    public List<Preferential> findList(Map<String,Object> searchMap);
+    List<Preferential> findList(Map<String,Object> searchMap);
 
 
-    public PageResult<Preferential> findPage(Map<String,Object> searchMap,int page, int size);
+    PageResult<Preferential> findPage(Map<String,Object> searchMap,Integer page, Integer size);
 
 
-    public Preferential findById(Integer id);
+    Preferential findById(Integer id);
 
-    public void add(Preferential preferential);
-
-
-    public void update(Preferential preferential);
+    void add(Preferential preferential);
 
 
-    public void delete(Integer id);
+    void update(Preferential preferential);
+
+
+    void delete(Integer id);
 
 }

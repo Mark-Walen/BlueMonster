@@ -1,6 +1,7 @@
-package cn.bluemonster.service.order;
-import cn.bluemonster.entity.PageResult;
-import cn.bluemonster.pojo.order.ReturnCause;
+package cn.blue.phoenix.service.order;
+
+import cn.blue.phoenix.entity.PageResult;
+import cn.blue.phoenix.pojo.order.ReturnCause;
 
 import java.util.*;
 
@@ -9,27 +10,19 @@ import java.util.*;
  */
 public interface ReturnCauseService {
 
+    List<ReturnCause> findAll();
 
-    public List<ReturnCause> findAll();
+    PageResult<ReturnCause> findPage(Integer page, Integer size);
 
+    List<ReturnCause> findList(Map<String, Object> searchMap);
 
-    public PageResult<ReturnCause> findPage(int page, int size);
+    PageResult<ReturnCause> findPage(Map<String, Object> searchMap, Integer page, Integer size);
 
+    ReturnCause findById(Integer id);
 
-    public List<ReturnCause> findList(Map<String,Object> searchMap);
+    void add(ReturnCause returnCause);
 
+    void update(ReturnCause returnCause);
 
-    public PageResult<ReturnCause> findPage(Map<String,Object> searchMap,int page, int size);
-
-
-    public ReturnCause findById(Integer id);
-
-    public void add(ReturnCause returnCause);
-
-
-    public void update(ReturnCause returnCause);
-
-
-    public void delete(Integer id);
-
+    void delete(Integer id);
 }

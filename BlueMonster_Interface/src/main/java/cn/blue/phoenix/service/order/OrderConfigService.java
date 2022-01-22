@@ -1,6 +1,7 @@
-package cn.bluemonster.service.order;
-import cn.bluemonster.entity.PageResult;
-import cn.bluemonster.pojo.order.OrderConfig;
+package cn.blue.phoenix.service.order;
+
+import cn.blue.phoenix.entity.PageResult;
+import cn.blue.phoenix.pojo.order.OrderConfig;
 
 import java.util.*;
 
@@ -10,26 +11,26 @@ import java.util.*;
 public interface OrderConfigService {
 
 
-    public List<OrderConfig> findAll();
+    List<OrderConfig> findAll();
 
 
-    public PageResult<OrderConfig> findPage(int page, int size);
+    PageResult<OrderConfig> findPage(Integer page, Integer size);
 
 
-    public List<OrderConfig> findList(Map<String,Object> searchMap);
+    List<OrderConfig> findList(Map<String,Object> searchMap);
 
 
-    public PageResult<OrderConfig> findPage(Map<String,Object> searchMap,int page, int size);
+    PageResult<OrderConfig> findPage(Map<String,Object> searchMap,Integer page, Integer size);
 
 
-    public OrderConfig findById(Integer id);
+    OrderConfig findById(Integer id);
 
-    public void add(OrderConfig orderConfig);
-
-
-    public void update(OrderConfig orderConfig);
+    void add(OrderConfig orderConfig);
 
 
-    public void delete(Integer id);
+    void update(OrderConfig orderConfig);
+
+
+    void delete(Integer id);
 
 }
