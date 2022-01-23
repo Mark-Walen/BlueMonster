@@ -168,9 +168,6 @@
                 imageUrl: ''
             }
         },
-        created () {
-            this._getSearchAlbumList();
-        },
         methods: {
             _getSearchAlbumList() {
                 axios.post(`/album/findPage?page=${this.currentPage}&size=${this.size}`, this.searchMap).then(res => {

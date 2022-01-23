@@ -1,5 +1,6 @@
 package cn.blue.phoenix.controller.order;
 
+import cn.blue.phoenix.service.order.CategoryReportService;
 import cn.blue.phoenix.service.order.OrderService;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -21,9 +22,18 @@ public class OrderTask {
     @DubboReference
     private OrderService orderService;
 
+    @DubboReference
+    private CategoryReportService categoryReportService;
+
     @Scheduled(cron = "0 0/2 * * * ?")
     public void orderTimeOutLogic() {
         System.out.println("每隔两分钟间隔执行一次任务" + new Date());
         orderService.orderTimeoutLogic();
+    }
+
+    @Scheduled(cron = "0 0 1 * * ?")
+    public void createCategoryReportData() {
+        System.out.println("createCategoryReportData");
+
     }
 }
